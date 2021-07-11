@@ -1,9 +1,9 @@
 {
-  "name": "gatsby-starter-blog",
+  "name": "watch-me-code",
   "private": true,
-  "description": "A starter for a blog powered by Gatsby and Markdown",
+  "description": "My person blog",
   "version": "0.1.0",
-  "author": "Kyle Mathews <mathews.kyle@gmail.com>",
+  "author": "Mayvis Chen <mayvis73911@gmail.com>",
   "bugs": {
     "url": "https://github.com/gatsbyjs/gatsby/issues"
   },

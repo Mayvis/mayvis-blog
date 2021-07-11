@@ -146,6 +146,8 @@ h6 {
 h1 > a {
   color: inherit;
   text-decoration: none;
+  font-size: var(--fontSize-6);
+  display: block;
 }
 
 h2 > a,
@@ -252,6 +254,9 @@ a:focus {
 
 .global-header {
   margin-bottom: var(--spacing-12);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .main-heading {
@@ -300,6 +305,10 @@ a:focus {
   margin-bottom: var(--spacing-0);
   min-width: 50px;
   border-radius: 100%;
+}
+
+.bio-intro {
+  font-weight: bold;
 }
 
 .blog-post header h1 {
