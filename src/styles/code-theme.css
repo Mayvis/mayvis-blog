@@ -9,7 +9,7 @@
   background-color: var(--bg);
 }
 
-.global-wrapper.light {
+body.light {
   --bg: #ffffff;
   --bg-secondary: rgb(249, 250, 251);
   --header: var(--pink);
@@ -22,7 +22,7 @@
   --form-shadow: 0 2px 15px 0 rgba(210, 214, 220, 0.5);
 }
 
-.global-wrapper.dark {
+body.dark {
   -webkit-font-smoothing: antialiased;
 
   --bg: #282c35;
@@ -35,61 +35,6 @@
   --inlineCode-bg: rgba(115, 124, 153, 0.2);
   --inlineCode-text: #e6e6e6;
   --form-shadow: 0 2px 15px 0 rgba(26, 26, 27, 0.637);
-}
-
-/*
-  RTL layout
-*/
-.global-wrapper:lang(fa) article,
-.global-wrapper:lang(ar) article,
-.global-wrapper:lang(he) article {
-  direction: rtl;
-}
-
-.global-wrapper:lang(fa) article pre,
-.global-wrapper:lang(ar) article pre,
-.global-wrapper:lang(he) article pre,
-.global-wrapper:lang(fa) article .translations,
-.global-wrapper:lang(ar) article .translations,
-.global-wrapper:lang(he) article .translations,
-.global-wrapper:lang(fa) .language-text,
-.global-wrapper:lang(ar) .language-text,
-.global-wrapper:lang(he) .language-text {
-  direction: ltr;
-}
-
-/* Fixing parentheses issue in text */
-.global-wrapper:lang(fa) .language-text,
-.global-wrapper:lang(ar) .language-text,
-.global-wrapper:lang(he) .language-text {
-  display: inline-block;
-}
-
-.global-wrapper:lang(fa) blockquote,
-.global-wrapper:lang(ar) blockquote,
-.global-wrapper:lang(he) blockquote {
-  border-left: unset;
-  border-right: 0.32813rem solid hsla(0, 0%, 0%, 0.9);
-  padding-right: 1.42188rem;
-  padding-left: unset;
-  margin-left: 0.75rem;
-  margin-right: -1.75rem;
-}
-
-/* styles for Persian language */
-.global-wrapper:lang(fa) article,
-.global-wrapper:lang(fa) header > h1 {
-  font-family: "Vazir";
-}
-/* styles for Arabic language */
-.global-wrapper:lang(ar) article,
-.global-wrapper:lang(ar) header > h1 {
-  font-family: "Cairo", sans-serif;
-}
-
-.global-wrapper:lang(ko) header,
-.global-wrapper:lang(ko) article {
-  word-break: keep-all;
 }
 
 /**
@@ -119,6 +64,7 @@ pre[class*="language-"] {
   hyphens: none;
 
   font-size: 0.85rem;
+  margin-top: 0;
 }
 
 /* Code blocks */
@@ -254,8 +200,4 @@ pre[data-line] {
 .gatsby-highlight pre[class*="language-"] {
   float: left;
   min-width: 100%;
-}
-
-pre {
-  margin-top: 0;
 }

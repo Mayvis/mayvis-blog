@@ -62,6 +62,8 @@
   --color-accent: #d1dce5;
 
   --text-link: #037f32;
+  --inlineCode-text: black;
+  --inlineCode-bg: rgba(79, 192, 141, 0.4);
 }
 
 /* HTML elements */

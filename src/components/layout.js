@@ -29,12 +29,18 @@ const Layout = ({ location, title, children }) => {
       </header>
       <main>{children}</main>
       <footer>
-        <a href="https://github.com/Mayvis">github</a>
+        <a href="https://github.com/Mayvis" target="_blank">
+          github
+        </a>
         {` `}•{` `}
-        <a href="mailto:kevin73911@gmail.com">mail</a>
+        <a href="mailto:kevin73911@gmail.com" target="_blank">
+          mail
+        </a>
         {` `}•{` `}
-        <a href="https://www.cakeresume.com/wen-po-chen">resume</a>
-        {` `}• and a cup of coffee ☕ 
+        <a href="https://www.cakeresume.com/wen-po-chen" target="_blank">
+          resume
+        </a>
+        {` `}• and a cup of coffee ☕
       </footer>
     </div>
   )
