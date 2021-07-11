@@ -5,7 +5,7 @@ module.exports = {
       name: `Mayvis Chen`,
       summary: `住在台北，熱愛分享新知及愛喝咖啡的全端工程師。`,
     },
-    description: `A starter blog demonstrating what Gatsby can do.`,
+    description: `Mayvis Chen's person blog to share my knowledge.`,
     siteUrl: `https://gatsbystarterblogsource.gatsbyjs.io/`,
     social: {
       gmail: `mayvis73911@gmail.com`,
