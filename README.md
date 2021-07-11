@@ -5,7 +5,6 @@ My personal blog. Forked from [Gatsby blog starter](https://github.com/gatsbyjs/
 To run locally, `yarn`, then `yarn dev`, then open https://localhost:8000.
 
 ## 🚀 Blow are the functions that in progress. 
----
 
 1. Dark Mode Toggle Features
 2. Update Favicon Icon
