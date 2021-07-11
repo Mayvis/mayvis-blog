@@ -31,6 +31,8 @@ const Layout = ({ location, title, children }) => {
       <footer>
         <a href="https://github.com/Mayvis">github</a>
         {` `}•{` `}
+        <a href="mailto:kevin73911@gmail.com">mail</a>
+        {` `}•{` `}
         <a href="https://www.cakeresume.com/wen-po-chen">resume</a>
         {` `}• and a cup of coffee ☕ 
       </footer>
