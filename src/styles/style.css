@@ -288,6 +288,39 @@ a:focus {
   margin-bottom: var(--spacing-4);
 }
 
+.tags-block {
+  display: flex;
+  margin: 0;
+}
+
+.tags-block li {
+  list-style: none;
+  margin: 0 4px 0;
+  font-size: 80%;
+  padding: 2px 4px;
+  border-radius: 4px;
+  color: #131313;
+}
+
+.tags-block li:first-child {
+  margin-left: 8px;
+}
+.tags-block li:last-child {
+  margin-right: 0;
+}
+
+.aws-tag {
+  background-color: rgba(252, 186, 3, 0.4);
+}
+
+.server-tag {
+  background-color: rgba(242, 181, 181, 0.4);
+}
+
+.backend-tag {
+  background-color: rgba(89, 197, 182, 0.4);
+}
+
 .header-link-home {
   font-weight: var(--fontWeight-bold);
   font-family: var(--font-heading);

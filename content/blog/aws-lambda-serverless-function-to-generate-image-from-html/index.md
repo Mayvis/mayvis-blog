@@ -2,6 +2,7 @@
 title: AWS lambda serverless function to generate image from HTML
 date: "2021-07-11T12:00:00.000Z"
 description: 手把手解釋及使用 AWS lambda serverless function to generate image from HTML by using nodejs，並簡單介紹原理，讓你可以優雅的在 AWS 伺服器上產出圖片；此篇可能需對 AWS lambda 有初步的認知才能比較好理解。
+tags: ["aws", "server", "backend"]
 ---
 
 在後端使用 nodejs，令其產出 html，最終輸出成圖片，這過程一直是件不容易的事情，如果只是簡單的 html，css，及後端的一些資訊，還好做處理，但是如果客戶要求的是表單，表格，甚至是 canvas ...等，需要引用前端第三方套件，你又該如何處理呢？
