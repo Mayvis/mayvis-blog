@@ -8,5 +8,4 @@ To run locally, `yarn`, then `yarn dev`, then open https://localhost:8000.
 
 1. Dark Mode Toggle Features
 2. Update Favicon Icon
-3. Next Page And Prev Page Features
-4. Sort Articles Features
+3. Sort Articles Features
