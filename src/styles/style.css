@@ -87,6 +87,10 @@ body {
   color: var(--color-text);
 }
 
+::selection {
+  background-color: #cae6c0;
+}
+
 footer {
   padding: var(--spacing-6) var(--spacing-0);
 }
@@ -290,7 +294,6 @@ a:focus {
 
 .tags-block {
   display: flex;
-  margin: 0;
 }
 
 .tags-block li {
