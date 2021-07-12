@@ -27,15 +27,19 @@ const Layout = ({ location, title, children }) => {
       </header>
       <main>{children}</main>
       <footer>
-        <a href="https://github.com/Mayvis" target="_blank">
+        <a href="https://github.com/Mayvis" rel="noreferrer" target="_blank">
           github
         </a>
         {` `}•{` `}
-        <a href="mailto:kevin73911@gmail.com" target="_blank">
+        <a href="mailto:kevin73911@gmail.com" rel="noreferrer" target="_blank">
           mail
         </a>
         {` `}•{` `}
-        <a href="https://www.cakeresume.com/wen-po-chen" target="_blank">
+        <a
+          href="https://www.cakeresume.com/wen-po-chen"
+          rel="noreferrer"
+          target="_blank"
+        >
           resume
         </a>
         {` `}• and a cup of coffee ☕
