@@ -294,6 +294,8 @@ a:focus {
 
 .tags-block {
   display: flex;
+  margin-top: 0;
+  margin-bottom: 0;
 }
 
 .tags-block li {

@@ -24,10 +24,15 @@ const BlogPostTemplate = ({ data, location }) => {
         <header>
           <h1 itemProp="headline">{post.frontmatter.title}</h1>
           <div
-            style={{ display: "flex", alignItems: "center",  marginBottom: "2rem" }}
+            style={{
+              display: "flex",
+              alignItems: "center",
+              marginBottom: "2rem",
+              marginTop: "1.5rem",
+            }}
           >
             <p style={{ margin: "0px" }}>{post.frontmatter.date}</p>
-            <ul class="tags-block">
+            <ul className="tags-block">
               {post.frontmatter.tags.map(tag => (
                 <li key={tag} className={`${tag}-tag`}>
                   {tag}

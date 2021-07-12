@@ -44,9 +44,16 @@ const BlogIndex = ({ data, location }) => {
                       <span itemProp="headline">{title}</span>
                     </Link>
                   </h2>
-                  <div style={{ display: "flex", alignItems: "center", marginTop: "12px" }}>
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      marginTop: "1.5rem",
+                      marginBottom: "2rem",
+                    }}
+                  >
                     <small>{post.frontmatter.date}</small>
-                    <ul class="tags-block">
+                    <ul className="tags-block">
                       {post.frontmatter.tags.map(tag => (
                         <li key={tag} className={`${tag}-tag`}>
                           {tag}
