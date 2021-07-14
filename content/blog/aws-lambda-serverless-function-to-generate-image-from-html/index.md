@@ -17,7 +17,7 @@ tags: ["aws", "server", "backend"]
 
 回到主題，所以 node-html-to-image 之類的套件也是在做相同的事情嗎？
 
-是的，模擬一個瀏覽器 chrome，並用這 chrome 來做渲染，差別只差在，最終我們必須透過程式將頁面打印下來，所以當你將使用 node-html-to-image 類似這種套件的 serverless function 程式碼 deploy 至 aws 時，你會發現你的檔案將近300MB，而這也間接導致 aws 限制檔案大小的防禦機制將你的檔案視為無法上傳，罪魁禍首其實就是因為 chrome 的檔案過大。
+是的，模擬一個瀏覽器 chrome，並用這 chrome 來做渲染，差別只差在，最終我們必須透過程式將頁面打印下來，所以當你將使用 node-html-to-image 類似這種套件透過 aws lambda deploy 至 aws 時，你會發現你的檔案將近300MB，而這也間接導致 aws 限制檔案大小的防禦機制將你的檔案視為無法上傳，罪魁禍首其實就是因為 chrome 的檔案過大。
 
 下方是 aws serverless function 的[文檔](https://docs.aws.amazon.com/lambda/latest/dg/gettingstarted-limits.html)所述的限制條件：
 
