@@ -349,6 +349,10 @@ a:focus {
   border-radius: 100%;
 }
 
+.bio-avatar img {
+  border-radius: 100%;
+}
+
 .bio-intro {
   font-weight: bold;
 }
