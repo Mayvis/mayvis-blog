@@ -5,13 +5,15 @@ import sun from "../assets/sun.png"
 
 function Toggle() {
   const toggleRef = useRef(null)
-  const body = document.getElementsByTagName("body")[0]
 
   useEffect(() => {
+    const body = document.getElementsByTagName("body")[0]
     toggleRef.current.checked = !body.classList.contains("dark-theme")
   }, [])
 
   const handleChange = () => {
+    const body = document.getElementsByTagName("body")[0]
+
     if (!body.classList.contains("dark-theme")) {
       body.classList.add("dark-theme")
     } else {
