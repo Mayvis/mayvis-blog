@@ -6,6 +6,6 @@ To run locally, `yarn`, then `yarn dev`, then open https://localhost:8000.
 
 ## 🚀 Blow are the functions that in progress. 
 
-1. Dark Mode Toggle Features
-2. Update Favicon Icon
-3. Sort Articles Features
+- [x] ~~Dark Mode Toggle Features~~
+- [ ] Update Favicon Icon
+- [ ] Sort Articles Features
