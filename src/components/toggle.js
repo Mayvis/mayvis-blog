@@ -1,11 +1,17 @@
-import React from "react"
+import React, { useEffect, useRef } from "react"
 import "./toggle.css"
 import moon from "../assets/moon.png"
 import sun from "../assets/sun.png"
 
 function Toggle() {
+  const toggleRef = useRef(null)
+  const body = document.getElementsByTagName("body")[0]
+
+  useEffect(() => {
+    toggleRef.current.checked = !body.classList.contains("dark-theme")
+  }, [])
+
   const handleChange = () => {
-    const body = document.getElementsByTagName("body")[0]
     if (!body.classList.contains("dark-theme")) {
       body.classList.add("dark-theme")
     } else {
@@ -29,6 +35,7 @@ function Toggle() {
   return (
     <div className="theme-toggle">
       <input
+        ref={toggleRef}
         type="checkbox"
         id="toggle-checkbox"
         name="toggle-checkbox"
