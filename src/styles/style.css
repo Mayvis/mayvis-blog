@@ -62,8 +62,27 @@
   --color-accent: #d1dce5;
 
   --text-link: #037f32;
-  --inlineCode-text: black;
+  --inlineCode-text: #000000;
   --inlineCode-bg: rgba(79, 192, 141, 0.4);
+  --bg-color: #ffffff;
+  --selection: #cae6c0;
+
+  --aws-tag: rgba(252, 186, 3, 0.4);
+  --server-tag: rgba(242, 181, 181, 0.4);
+  --backend-tag: rgba(89, 197, 182, 0.4);
+}
+
+.dark-theme {
+  --bg-color: #24292e;
+  --color-text: #ffffff;
+  --color-heading: #ffffff;
+  --color-heading-black: #ffffff;
+  --text-link: #f2abc3;
+  --selection: #f2abc3;
+  --inlineCode-bg: #f2abc3;
+  --aws-tag: rgba(252, 186, 3);
+  --server-tag: rgba(242, 181, 181);
+  --backend-tag: rgba(89, 197, 182);
 }
 
 /* HTML elements */
@@ -85,10 +104,11 @@ body {
   font-family: var(--font-body);
   font-size: var(--fontSize-1);
   color: var(--color-text);
+  background-color: var(--bg-color);
 }
 
 ::selection {
-  background-color: #cae6c0;
+  background-color: var(--selection);
 }
 
 footer {
@@ -152,7 +172,7 @@ h6 {
 }
 
 h1 > a {
-  color: inherit;
+  color: var(--color-heading);
   text-decoration: none;
   font-size: var(--fontSize-6);
   display: block;
@@ -315,15 +335,15 @@ a:focus {
 }
 
 .aws-tag {
-  background-color: rgba(252, 186, 3, 0.4);
+  background-color: var(--aws-tag);
 }
 
 .server-tag {
-  background-color: rgba(242, 181, 181, 0.4);
+  background-color: var(--server-tag);
 }
 
 .backend-tag {
-  background-color: rgba(89, 197, 182, 0.4);
+  background-color: var(--backend-tag);
 }
 
 .header-link-home {

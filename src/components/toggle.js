@@ -4,8 +4,13 @@ import moon from "../assets/moon.png"
 import sun from "../assets/sun.png"
 
 function Toggle() {
-  const handleChange = e => {
-    console.log(e.target.checked)
+  const handleChange = () => {
+    const body = document.getElementsByTagName("body")[0]
+    if (!body.classList.contains("dark-theme")) {
+      body.classList.add("dark-theme")
+    } else {
+      body.classList.remove("dark-theme")
+    }
   }
 
   const handleKeyDown = e => {

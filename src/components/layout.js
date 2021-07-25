@@ -1,4 +1,5 @@
 import React from "react"
+import Toggle from "./toggle"
 import { Link } from "gatsby"
 
 const Layout = ({ location, title, children }) => {
@@ -24,6 +25,7 @@ const Layout = ({ location, title, children }) => {
     <div className="global-wrapper" data-is-root-path={isRootPath}>
       <header className="global-header">
         {header}
+        <Toggle />
       </header>
       <main>{children}</main>
       <footer>
