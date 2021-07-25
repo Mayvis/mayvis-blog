@@ -284,7 +284,6 @@ a:focus {
   margin-bottom: var(--spacing-12);
   display: flex;
   justify-content: space-between;
-  align-items: center;
 }
 
 .main-heading {
