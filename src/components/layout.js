@@ -1,4 +1,4 @@
-import React from "react"
+import * as React from "react"
 import Toggle from "./toggle"
 import { Link } from "gatsby"
 

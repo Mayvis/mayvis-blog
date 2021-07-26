@@ -1,12 +1,12 @@
-import React, { useEffect, useRef } from "react"
+import * as React from "react"
 import "./toggle.css"
 import moon from "../assets/moon.png"
 import sun from "../assets/sun.png"
 
 function Toggle() {
-  const toggleRef = useRef(null)
+  const toggleRef = React.useRef(null)
 
-  useEffect(() => {
+  React.useEffect(() => {
     const body = document.getElementsByTagName("body")[0]
     toggleRef.current.checked = !body.classList.contains("dark-theme")
   }, [])
