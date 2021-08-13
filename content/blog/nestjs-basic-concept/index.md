@@ -8,15 +8,21 @@ tags: ["framework", "backend"]
 *本文章，很多範例都是參考此 [Marius Espejo](https://www.youtube.com/channel/UCDpd-qEwAI9wglx4tsEBAtw) 頻道所述及 [官網](https://nestjs.com/)
 的介紹。*
 
-比爾・蓋茲曾說過：「我讓懶人做困難的工作，因為懶人能夠找到最簡單的方法完成任務。」；在工程師的世界裡，不會因為你打的程式瑪特別長，大家就特別佩服你，我認為好的工程師喜歡將事情簡單化，試想當你想 commit git message
-時，每次都必須使用下方這個指令：
+比爾・蓋茲曾說過：「我讓懶人做困難的工作，因為懶人能夠找到最簡單的方法完成任務。」；在工程師的世界裡，不會因為你打的程式碼特別長，大家就特別佩服你，我認為好的工程師喜歡將事情簡單化，就從每個工程師都在用的 git 講起，試想當你想 commit git message 時，每次都必須使用下方這個指令：
 
 ```bash
 git commit -m message
 ``` 
 
-如果你可以打個 gc 就可以將程式碼推上去這不是更快速便捷嗎？<br />
-於是乎我做了個 git 的懶人包：
+如果你可以打個 gc 後面加上你要帶入的資訊就可以將程式碼推上去這不是更快速便捷嗎？有些人或許會說也不過多打幾個字而已，但是如果我將時間拉長為一年呢？事實上，長期下來還是很可觀的，畢竟沒有人喜歡花費太多時間在重複的事情上面。
+
+```bash
+gc "add: simple is the best"
+```
+
+有鑑於此我做了個 git 的懶人包，也是我平常在做使用的：<br />
+(題外話：當我對這次整個修改都很不滿時 `nah`) 😇 😇 😇<br />
+(補充：也可以參考這位 Laracasts 的講師 [ANDRE](https://github.com/drehimself/dotfiles/blob/master/.zshrc) 的.zshrc，簡單就是美。)
 
 ```bash
 alias gs="git status"
@@ -31,9 +37,13 @@ alias nah="git reset --hard && git clean -df"
 
 ### Not making a choice is the best choice
 
-有時候不去做選擇才是最好的選擇，NestJs CLI 就像我上面所撰寫的 alias 範例一樣，它提供許多方便的功能及擴充的套件，方便工程師去使用，在 NodeJs 的世界裡，終於可以不用慢慢一個一個去創建資料夾及檔案，做重複性的事情。
+有時候不去做選擇才是最好的選擇，NestJs CLI 就像我上面所撰寫的 alias 範例一樣，它提供許多方便的功能及擴充的套件，簡化重複的事情，方便工程師去使用，在 NodeJs 的世界裡，終於可以不用慢慢一個一個去創建資料夾及檔案了。
 
 ```bash
+# --------------------------------------------------------------------
+# Install NestJs block
+# --------------------------------------------------------------------
+
 # install nest globally
 npm install -g @nestjs/cli
 
@@ -46,6 +56,8 @@ yarn or npm
 # run project
 yarn start:dev
 
+# --------------------------------------------------------------------
+# CLI Command block
 # --------------------------------------------------------------------
 
 # generate can change to g (shortcut)
@@ -150,6 +162,8 @@ bootstrap();
 ```
 
 ```typescript
+// dto - Data Transfer Object
+// simply think dto is the instance for what data interface should look like 🔥
 // update-user.dto.ts file
 import { IsAlphanumeric, MaxLength } from "class-validator";
 
