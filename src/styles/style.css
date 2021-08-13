@@ -70,6 +70,7 @@
   --aws-tag: rgba(252, 186, 3, 0.4);
   --server-tag: rgba(242, 181, 181, 0.4);
   --backend-tag: rgba(89, 197, 182, 0.4);
+  --framework-tag: rgba(165, 158, 213, 0.4);
 }
 
 .dark-theme {
@@ -343,6 +344,10 @@ a:focus {
 
 .backend-tag {
   background-color: var(--backend-tag);
+}
+
+.framework-tag {
+  background-color: var(--framework-tag);
 }
 
 .header-link-home {
