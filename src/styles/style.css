@@ -82,10 +82,10 @@
   --text-link: #f2abc3;
   --selection: #f2abc3;
   --inlineCode-bg: #f2abc3;
-  --aws-tag: rgba(252, 186, 3);
-  --server-tag: rgba(242, 181, 181);
-  --backend-tag: rgba(89, 197, 182);
-  --tool-tag: rgb(125, 197, 89);
+  --aws-tag: rgba(252, 186, 3, 1);
+  --server-tag: rgba(242, 181, 181, 1);
+  --backend-tag: rgba(89, 197, 182, 1);
+  --tool-tag: rgba(125, 197, 89, 1);
 }
 
 /* HTML elements */
