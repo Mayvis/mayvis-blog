@@ -71,6 +71,7 @@
   --server-tag: rgba(242, 181, 181, 0.4);
   --backend-tag: rgba(89, 197, 182, 0.4);
   --framework-tag: rgba(165, 158, 213, 0.4);
+  --tool-tag: rgba(66, 136, 84, 0.4);
 }
 
 .dark-theme {
@@ -84,6 +85,7 @@
   --aws-tag: rgba(252, 186, 3);
   --server-tag: rgba(242, 181, 181);
   --backend-tag: rgba(89, 197, 182);
+  --tool-tag: rgb(125, 197, 89);
 }
 
 /* HTML elements */
@@ -348,6 +350,10 @@ a:focus {
 
 .framework-tag {
   background-color: var(--framework-tag);
+}
+
+.tool-tag {
+  background-color: var(--tool-tag);
 }
 
 .header-link-home {
