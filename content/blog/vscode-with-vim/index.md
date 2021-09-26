@@ -5,7 +5,7 @@ description: 當網頁工程師也幾年了，後端寫到前端，前端寫到�
 tags: ["tool"]
 ---
 
-馬克斯曾說過："請專注在提高生產效率，而不是忙身上"，我自己認為，這是接案的一種信仰，坦白說，我自己也無法完全做到，我認為這是一件非常非常難的事情，跟處理機台必須要有固定的 SOP 不同，客戶的需求是會變動的，一些工程師可能會說，那就做的"彈性"一點，但是何謂“彈性”，這又是一門有趣的議題了。
+馬克斯曾說過："請專注在提高生產效率，而不是忙身上"，我自己認為，這是接案的一種信仰，坦白說，我自己也無法完全做到，我認為這是一件非常非常難的事情，跟處理機台必須要有固定的 SOP 不同，客戶的需求是會變動的，一些工程師或 PM 可能會說，那就做的"彈性"一點，但是何謂“彈性”，這又是一門有趣的議題了。
 
 所以扣除掉 PM 能跟客戶周旋商討的部分，工程師的實力也沒太大的問題，那要在時限內快速進行交付，可能就需要去使用自己認為最適合自己的工具及熟悉工具的使用，而 vim 我認為是工具界的翹楚，雖然學習曲線一開始偏高，但是熟悉後，就是另一片天空了。
 
@@ -13,11 +13,13 @@ tags: ["tool"]
 
 在推銷一件工具時，我會先希望你知道他的缺點是什麼，以及我自己使用上的經驗。
 
+- 如果是使用原生 terminal (macVim, neoVim) 需要安裝一些套件，要使用 vundle...等之類的套件來做安裝，也有可能要使用 lua 這程式語言，如果不想太繁瑣，可以直接安裝 vscode 或 jetbrains 的 IDE 然後直接安裝 vim 的套件就行。
+- 因為我不是 windows 用戶，所以不太知道 windows 該如何設定。
 - 一開始的學習曲線偏高，可能要練就不看鍵盤也可以流暢打字的能力，會比較好上手。
 - 中英文切換我認為是 vim 的硬傷，但是使用久之後其實也還好。
-- 有所謂的模式切換 Normal mode, Visual mode, Edit mode，需要去適應，這是 vim 的核心，選擇就是 Visual mode， 更新就是 Edit mode，普通情況位移或著需要額外的功能就是在 normal mode 底下做事...等。
-- 有時候需頻繁按某些按鍵尤其 `esc`，畢竟多按按鈕就是麻煩，要移動就是必須切到 normal mode 或 visual mode...etc。
-- 不太適合與 pug (jade) 進行使用，相較於 html，原因是沒有被 tag surround，所以我自己除接案之外都是使用 html 居多，外加現在 IDE 不論是套件的 autocomplete tag 或內建的都很方便，外加我本身除了 vue 也會寫 react 還是比較習慣有 tag。 
+- 有所謂的模式切換 Normal mode, Visual mode, Edit mode，需要去適應，這是 vim 的核心，簡單來說，選擇就是 Visual mode， 更新就是 Edit mode，普通情況位移或著需要額外的功能就是在 Normal mode 底下做事...等。
+- 有時候需頻繁按某些按鍵尤其 `esc`，畢竟要多按按鈕就是麻煩，要移動就是必須切到 Normal mode 或 Visual mode...等。
+- 自己使用下來，不太適合與 pug (jade) 進行使用，相較於 html，原因是沒有被 tag surround，所以我自己除接案之外都是使用 html 居多，外加現在 IDE 不論是套件的 autocomplete tag 或內建的都很方便，外加我本身除了 vue 也會寫 react 的 jsx 還是比較習慣有 tag。 
   ```html
   <div class="hello">Hello</div> <== surrounding by tag
   ```
@@ -25,7 +27,7 @@ tags: ["tool"]
   ```
   .hello Hello <=== not sorrounding by tag
   ```
-- 不太適合與 sass 進行使用，相較於 scss、css，原因也是因為沒有 tag surround，但是可以用 `V` 整行的 visual mode 去做處理，比起 pug 問題小很多，畢竟 css 就是一行一行的，雖然我自己除接案之外還是偏好使用 scss 居多。
+- 自己使用下來，不太適合與 sass 進行使用，相較於 scss、css，原因也是因為沒有 tag surround，但是可以用 `V` 整行的 Visual mode 去做處理，比起 pug 問題小很多，畢竟 css 就是一行一行的，雖然我自己除接案之外還是偏好使用 scss 居多。
   ```scss
   .hello {
     background-color: orange; 
@@ -60,7 +62,7 @@ tags: ["tool"]
 
 左下上右 位移分別是 `h` `j` `k` `l`
 
-教高階使用方式，可以將 line number 調整成 relative line number，接著使用 `20j` 便可以向下跳距離你原先20行，相反向上跳就是 `20k`，但因為 vsocde line number 有些很淡，可以使用像 night owl 之類高對比的主題讓 line number 更清楚一點
+教高階使用方式，可以將 line number 調整成 relative line number，接著使用 `20j` 便可以向下跳距離你原先20行，相反向上跳就是 `20k`，但因為 vsocde line number 主題有些很淡，可以使用像 night owl 之類高對比的主題讓 line number 更清楚一點
 
 如何以單字的方式來進行跳耀，對於 vim 的使用者來說會是 `w` ，如果是做英文網站，**這非常好用！！！**
 
@@ -76,22 +78,32 @@ tags: ["tool"]
 
 ---
 
+**介面**
+
+如何快速的新增視窗(pane)在右邊 `:vsp` (vertical split pane 的縮寫)
+
+如何快速的新增視窗(pane)在下方 `:sp` (split pane 的縮寫)
+
+如何快速的切換視窗(pane) `ctrl+w+w` (ctrl+兩下w)
+
+---
+
 **模式**
 
-如何回歸 normal mode，對於 vim 的使用者來說會是 `esc` (左上角 esc，沒錯就是 esc 那顆按鈕)
+如何回歸 Normal mode，對於 vim 的使用者來說會是 `esc` (左上角 esc，沒錯就是 esc 那顆按鈕)
 
-如何切換至 visual mode，對於 vim 的使用者來說會是 `v`，變可以使用 `h` `j` `k` `l` 來拖拉想選取的位置。
+如何切換至 Visual mode，對於 vim 的使用者來說會是 `v`，變可以使用 `h` `j` `k` `l` 來拖拉想選取的位置。
 
-如何切換至 visual mode 並選擇整行，對於 vim 的使用者來說會是 `V` (shift+v)
+如何切換至 Visual mode 並選擇整行，對於 vim 的使用來說會是 `V` (shift+v)
 
-如何切換至 edit mode，對於 vim 的使用者來說會是 `i`
+如何切換至 Edit mode，對於 vim 的使用者來說會是 `i`
 
 ---
 
 **快捷鍵**
 
-如何快速將 div 內的文字刪除或取代掉呢？ 對於 vim 的使用者來說答案會是 `cit` (change in tag 的縮寫) 會直接進入 edit mode 
-或著 `dit` (delete in tag的縮寫) 會維持在 visual mode
+如何快速將 div 內的文字刪除或取代掉呢？ 對於 vim 的使用者來說答案會是 `cit` (change in tag 的縮寫) 會直接進入 Edit mode 
+或著 `dit` (delete in tag的縮寫) 會維持在 Visual mode
 ```html
 <div>hello world</div>
 ```
@@ -129,6 +141,6 @@ tags: ["tool"]
 
 去學習對自己有易的工具，我認為是每個工程師所要面對的問題。就像有些人會在網路上大戰 vue 還是 react 究竟哪個好，我個人認為沒有對錯，只要符合使用場景，用得好，就是好的框架。
 
-如果有新增或遺忘的部分我之後有空也會補上，有任何問題都歡迎寄信給我。
+如果有新增或遺忘的部分我之後有空也會補上，有任何問題都歡迎寄信給我，網路上也有一些人分享有關 vim 的文章或快捷鍵，如果有興趣我都推薦去閱讀看看，畢竟就是他們使用上的心得。
 
 題外話：像 Apple 這種硬邦邦公司 xcode IDE 在 2021 也為 vim 進行妥協了，在新的 beta 版本，你也同樣可以使用 vim 寫 swift 在 xcode 內，算是對 vim 使用者的福音。
