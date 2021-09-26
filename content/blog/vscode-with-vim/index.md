@@ -27,7 +27,7 @@ tags: ["tool"]
   ```
   .hello Hello <=== not sorrounding by tag
   ```
-- 自己使用下來，不太適合與 sass 進行使用，相較於 scss、css，原因也是因為沒有 tag surround，但是可以用 `V` 整行的 Visual mode 去做處理，比起 pug 問題小很多，畢竟 css 就是一行一行的，雖然我自己除接案之外還是偏好使用 scss 居多。
+- 自己使用下來，不太適合與 sass 進行使用，相較於 scss、css，原因也是因為沒有 tag surround，但是可以用 `V` 整行的 Visual mode 去做處理，比起 pug 問題少很多，畢竟 css 就是一行一行的，雖然我自己除接案之外還是偏好使用 scss 居多。
   ```scss
   .hello {
     background-color: orange; 
@@ -68,7 +68,7 @@ tags: ["tool"]
 
 如何快速跳到第一行，對於 vim 的使用者來說會是 `gg`
 
-如何快速跳到最後一行，對於 vim 的使用者來說會是 `G` (壓著shift+g)
+如何快速跳到最後一行，對於 vim 的使用者來說會是 `G` (shift+g)
 
 當畫面出現滾輪，你想將你程式碼的位置位移到畫面的中央，對於 vim 的使用者來說會是 `zz` ，**這非常好用！！！**
 
@@ -123,7 +123,7 @@ tags: ["tool"]
 
 如何重複上一步驟，對於 vim 的使用者來說會是 `.`
 
-如何回復上一步驟，對於 vim 的使用者來說會是`u` (undo)
+如何回復上一步驟，對於 vim 的使用者來說會是 `u` (undo)
 
 如何搜尋某個單子 `/` 後面接單字，舉例來說我要搜尋 className，那我就會 `/className` 去做搜尋，搜尋到後按 enter，接著便可以按 `n` (next occurance 縮寫) 去找尋你要搜尋的究竟是哪個 className
 
