@@ -103,7 +103,7 @@ tags: ["tool"]
 **快捷鍵**
 
 如何快速將 div 內的文字刪除或取代掉呢？ 對於 vim 的使用者來說答案會是 `cit` (change in tag 的縮寫) 會直接進入 Edit mode 
-或著 `dit` (delete in tag的縮寫) 會維持在 Visual mode
+或著 `dit` (delete in tag 的縮寫) 會維持在 Visual mode
 ```html
 <div>hello world</div>
 ```
@@ -125,7 +125,7 @@ tags: ["tool"]
 
 如何回復上一步驟，對於 vim 的使用者來說會是 `u` (undo)
 
-如何搜尋某個單子 `/` 後面接單字，舉例來說我要搜尋 className，那我就會 `/className` 去做搜尋，搜尋到後按 enter，接著便可以按 `n` (next occurance 縮寫) 去找尋你要搜尋的究竟是哪個 className
+如何搜尋某個單子 `/` 後面接單字，舉例來說我要搜尋 className，那我就會 `/className` 去做搜尋，搜尋到後按 enter，接著便可以按 `n` (next occurance 的縮寫) 去找尋你要搜尋的究竟是哪個 className
 
 ---
 
