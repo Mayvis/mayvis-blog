@@ -16,7 +16,7 @@ tags: ["tool"]
 - 一開始的學習曲線偏高，可能要練就不看鍵盤也可以流暢打字的能力，會比較好上手。
 - 中英文切換我認為是 vim 的硬傷，但是使用久之後其實也還好。
 - 有所謂的模式切換 Normal mode, Visual mode, Edit mode，需要去適應，這是 vim 的核心，選擇就是 Visual mode， 更新就是 Edit mode，普通情況位移或著需要額外的功能就是在 normal mode 底下做事...等。
-- 有時候需頻繁按某些按鍵尤其 `esc`，畢竟多按按鈕就是麻煩ð，要移動就是必須切到 normal mode 或 visual mode...etc。
+- 有時候需頻繁按某些按鍵尤其 `esc`，畢竟多按按鈕就是麻煩，要移動就是必須切到 normal mode 或 visual mode...etc。
 - 不太適合與 pug (jade) 進行使用，相較於 html，原因是沒有被 tag surround，所以我自己除接案之外都是使用 html 居多，外加現在 IDE 不論是套件的 autocomplete tag 或內建的都很方便，外加我本身除了 vue 也會寫 react 還是比較習慣有 tag。 
   ```html
   <div class="hello">Hello</div> <== surrounding by tag
@@ -50,9 +50,11 @@ tags: ["tool"]
 
 在以前線上遊戲 MMORPG 還盛行時，尤其是 PVP (Player vs Player)，你需要快速施放某個法術給某個特定的使用者，所以可能會去設定很多快捷鍵，方便在遊戲遊玩時去做使用，而 vscode 的 vim 套件已經為大部分的使用者設定好了，那你需要做的就是去熟悉這些快捷鍵。
 
-其實學習 vim 的大部分的人的初衷，就是讓工程師盡量地遠離滑鼠的使用，我自己認為，學成之後，打程式碼的速度是以 `logN` 的方式在做變化的，尤其對對接案非常有益。
+其實學習 vim 的大部分的人的初衷，就是讓工程師盡量地遠離滑鼠的使用，我自己認為，學成之後，打程式碼的速度是以 logN 的方式在做變化的，尤其是對接案非常有益。
 
 下面是我常使用的指令，有點類似 cheatsheet，可以參考一下：
+
+---
 
 **位移**
 
@@ -72,6 +74,8 @@ tags: ["tool"]
 
 如何快速跳到該行第一個字，對於 vim 的使用者來說會是 `0` 
 
+---
+
 **模式**
 
 如何回歸 normal mode，對於 vim 的使用者來說會是 `esc` (左上角 esc，沒錯就是 esc 那顆按鈕)
@@ -81,6 +85,8 @@ tags: ["tool"]
 如何切換至 visual mode 並選擇整行，對於 vim 的使用者來說會是 `V` (shift+v)
 
 如何切換至 edit mode，對於 vim 的使用者來說會是 `i`
+
+---
 
 **快捷鍵**
 
@@ -109,9 +115,13 @@ tags: ["tool"]
 
 如何搜尋某個單子 `/` 後面接單字，舉例來說我要搜尋 className，那我就會 `/className` 去做搜尋，搜尋到後按 enter，接著便可以按 `n` (next occurance 縮寫) 去找尋你要搜尋的究竟是哪個 className
 
+---
+
 **Vscode**
 
 `cmd+shift+e` 可切到資料夾的樹狀區，便可以使用 `j` `k` 進行位移，並選擇你要開啟哪個檔案。
+
+---
 
 ### Conclusion
 
