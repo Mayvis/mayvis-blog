@@ -9,7 +9,7 @@ tags: ["tool"]
 
 所以扣除掉 PM 能跟客戶周旋商討的部分，工程師的實力也沒太大的問題，那要在時限內快速進行交付，可能就需要去使用自己認為最適合自己的工具及熟悉工具的使用，而 vim 我認為是工具界的翹楚，雖然學習曲線一開始偏高，但是熟悉後，就是另一片天空了。
 
-### Disadvantage
+### Why VIM? Disadvantage
 
 在推銷一件工具時，我會先希望你知道他的缺點是什麼，以及我自己使用上的經驗。
 
@@ -19,7 +19,7 @@ tags: ["tool"]
 - 中英文切換我認為是 vim 的硬傷，但是使用久之後其實也還好。
 - 有所謂的模式切換 Normal mode, Visual mode, Edit mode，需要去適應，這是 vim 的核心，簡單來說，選擇就是 Visual mode， 更新就是 Edit mode，普通情況位移或著需要額外的功能就是在 Normal mode 底下做事...等。
 - 有時候需頻繁按某些按鍵尤其 `esc`，畢竟要多按按鈕就是麻煩，要移動就是必須切到 Normal mode 或 Visual mode...等。
-- 自己使用下來，不太適合與 pug (jade) 進行使用，相較於 html，原因是沒有被 tag surround，所以我自己除接案之外都是使用 html 居多，外加現在 IDE 不論是套件的 autocomplete tag 或內建的都很方便，外加我本身除了 vue 也會寫 react 的 jsx 還是比較習慣有 tag。 
+- 自己使用下來，不太適合與 pug (jade) 進行使用，相較於 html，原因是沒有被 tag surround，所以我自己除接案之外都是使用 html 居多，外加現在 IDE 不論是套件的 autocomplete tag 或內建的都很方便，此外我本身除了 vue 也會寫 react 的 jsx 所以還是比較習慣有 tag。 
   ```html
   <div class="hello">Hello</div> <== surrounding by tag
   ```
@@ -48,11 +48,11 @@ tags: ["tool"]
       content: ""
   ```
 
-### Advantage
+### Why VIM? Advantage
 
 在以前線上遊戲 MMORPG 還盛行時，尤其是 PVP (Player vs Player)，你需要快速施放某個法術給某個特定的使用者，所以可能會去設定很多快捷鍵，方便在遊戲遊玩時去做使用，而 vscode 的 vim 套件已經為大部分的使用者設定好了，那你需要做的就是去熟悉這些快捷鍵。
 
-其實學習 vim 的大部分的人的初衷，就是讓工程師盡量地遠離滑鼠的使用，我自己認為，學成之後，打程式碼的速度是以 logN 的方式在做變化的，尤其是對接案非常有益。
+其實學習 vim 的大部分的人的初衷，就是讓工程師盡量地遠離滑鼠的使用，我自己認為，學成之後，打程式碼的速度是以 logN 的方式在做變化的，尤其是對"接案"非常有益。
 
 下面是我常使用的指令，有點類似 cheatsheet，可以參考一下：
 
