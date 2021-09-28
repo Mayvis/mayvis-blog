@@ -3,7 +3,7 @@ module.exports = {
     title: `WatchMeCode`,
     author: {
       name: `Mayvis Chen`,
-      summary: `住在台北，熱愛分享新知及愛喝咖啡的全端工程師。`,
+      summary: `住在台北，熱愛分享新知及愛喝奶茶的全端工程師。`,
     },
     description: `Mayvis Chen's person blog to share my knowledge.`,
     siteUrl: `https://gatsbystarterblogsource.gatsbyjs.io/`,
