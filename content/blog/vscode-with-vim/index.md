@@ -62,7 +62,7 @@ tags: ["tool"]
 
 左下上右 位移分別是 `h` `j` `k` `l`
 
-教高階使用方式，可以將 line number 調整成 relative line number，接著使用 `20j` 便可以向下跳距離你原先20行，相反向上跳就是 `20k`，但因為 vsocde line number 主題有些很淡，可以使用像 night owl 之類高對比的主題讓 line number 更清楚一點
+較高階使用方式，可以將 line number 調整成 relative line number，接著使用 `20j` 便可以向下跳距離你原先20行，相反向上跳就是 `20k`，但因為 vsocde line number 主題有些很淡，可以使用像 night owl 之類高對比的主題讓 line number 更清楚一點
 
 如何以單字的方式來進行跳耀，對於 vim 的使用者來說會是 `w` ，如果是做英文網站，**這非常好用！！！**
 
