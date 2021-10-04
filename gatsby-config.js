@@ -113,7 +113,7 @@ module.exports = {
       resolve: `gatsby-plugin-manifest`,
       options: {
         name: `Mayvis Blog`,
-        short_name: `GatsbyJS`,
+        short_name: `MayvisBlog`,
         start_url: `/`,
         background_color: `#ffffff`,
         theme_color: `#037f32`,
