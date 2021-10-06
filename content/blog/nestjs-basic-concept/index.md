@@ -84,12 +84,12 @@ Yes or No
 Swagger 滋潤妳空虛的 API 規格文件，有時候相較於開發後端的功能，其實令人頭疼的是該如何將 API 規格整理的完善，有利於下一個開發者撰寫程式碼，甚至是團隊協同合作，NestJs 也都友善的可以進行支援。
 
 ```bash
-npm i --save @nest/swagger swagger-ui-express
+npm i --save @nestjs/swagger swagger-ui-express
 ```
 
 ```typescript
 // main.ts
-import { NestFactory } from "@nest/core";
+import { NestFactory } from "@nestjs/core";
 import { DocumentBuilder, SwaggerModule } from "@nestjs/swagger";
 import { AppModule } from "./app.module";
 
@@ -145,8 +145,8 @@ npm i --save class-validator class-transformer
 
 ```typescript
 // main.ts
-import { NestFactory } from "@nest/core";
-import { ValidationPipe } from "@nest/common";
+import { NestFactory } from "@nestjs/core";
+import { ValidationPipe } from "@nestjs/common";
 import { AppModule } from "./app.module";
 
 async function bootstrap() {
