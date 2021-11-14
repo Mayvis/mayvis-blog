@@ -12,9 +12,9 @@ tags: ["aws", "server", "backend"]
 
 ### Why I choose this way to achieve the goal
 
-目前就我研究過的現成套件，都無法成功 host swagger 至 aws serverless lambda 上面，大部分不支援 serverless，很大的原因就是 AWS serverless lambda 是透過所謂的 aws api gateway 這服務來 host 你的 API，但是一般來說 swagger 會需要自己 host 一個 port，網路上能查詢到的支援也相當的少。
+目前就我研究過的現成套件，都無法成功 host swagger 至 aws serverless lambda 上面，大部分不支援 serverless，很大的原因就是 AWS serverless lambda 是透過所謂的 aws api gateway 這服務來 host 你的 API，但是一般來說 swagger 會需要自己 host 一個 port，網路上能查詢到解決這問題的資源也相當的少。
 
-我最終在 aws 上找到這[連結](https://serverlessrepo.aws.amazon.com/applications/ap-south-1/324900372515/aws-api-gateway-swagger-ui)，並將其改寫，使其可配合 swagger-jsdoc 並可簡單成功嫁接到 aws gateway 讓他能 host。
+我最終在 aws 上找到這 [連結](https://serverlessrepo.aws.amazon.com/applications/ap-south-1/324900372515/aws-api-gateway-swagger-ui)，並將其改寫，使其可配合 swagger-jsdoc 並可簡單成功嫁接到 aws gateway 讓他能 host。
 
 ### Preparatory work
 
@@ -126,10 +126,12 @@ module.exports = router;
 
 ### Conclusion
 
-🆘這邊要注意，再搭配 serverless-webpack 時，會失效🆘，目前我還為釐清為何不行搭配 webpack 來進行使用，又或著是我寫法上有錯誤，如果有人有解法也歡迎寄信給我來討論。
+🆘這邊要注意，再搭配 serverless-webpack 時，會失效🆘，目前我還未釐清為何不行搭配 webpack 來進行使用，又或著是我寫法上有錯誤，如果有人有解法也歡迎寄信給我來討論。
 
-目前我認為應該是因為 webpack 會移除 @swagger 的 comment 及路徑也會有所不同，但我有嘗試處理過，還是不行😅，之後若知道該如何處理會在更新這篇文章。
+~~目前我認為應該是因為 webpack 會移除 @swagger 的 comment 及路徑也會有所不同，但我有嘗試處理過，還是不行😅，之後若知道該如何處理會在更新這篇文章。~~
 
-github 的連結在這 [連結](https://github.com/Mayvis/monoame-serverless-template)。
+後來確認過是因為 swagger-ui-express 的問題，使用 webpack 之後會產生的問題，官方 [issue](https://github.com/scottie1984/swagger-ui-express/issues/90) 在這。但目前就算用 CopyWebpackPlugin 照著做雖然本地端可以成功，但是 aws 端還是沒辦法正常執行，之後若知道該如何處理會在更新這篇文章。🥲
 
-最後，希望讀者能從這篇文章有所收益。那我也持續增進自己的技術。
+github 連結在這 [連結](https://github.com/Mayvis/monoame-serverless-template)。
+
+最後，希望讀者能從這篇文章有所收益。那我也會持續增進自己的技術。
