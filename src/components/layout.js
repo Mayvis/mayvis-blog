@@ -44,7 +44,7 @@ const Layout = ({ location, title, children }) => {
         >
           resume
         </a>
-        {` `}• and a cup of coffee ☕
+        {` `}• and a cup of mile tea ☕
       </footer>
     </div>
   )
