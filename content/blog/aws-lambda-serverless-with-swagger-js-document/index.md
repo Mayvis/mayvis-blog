@@ -130,7 +130,7 @@ module.exports = router;
 
 ~~目前我認為應該是因為 webpack 會移除 @swagger 的 comment 及路徑也會有所不同，但我有嘗試處理過，還是不行😅，之後若知道該如何處理會在更新這篇文章。~~
 
-後來確認過是因為 swagger-ui-express 的問題，使用 webpack 之後會產生的問題，官方 [issue](https://github.com/scottie1984/swagger-ui-express/issues/90) 在這。最主要的原因就是 "swagger-ui-express uses the filesystem at runtime"，但我目前就算用 CopyWebpackPlugin 雖然本地端可以成功，但推上 aws 後還是沒辦法正常執行，之後若知道該如何處理會在更新這篇文章。🥲
+後來確認過是因為 swagger-ui-express 配合使用 webpack 之後會產生的問題，官方 [issue](https://github.com/scottie1984/swagger-ui-express/issues/90) 在這。最主要的原因就是 "swagger-ui-express uses the filesystem at runtime"，但我目前就算用 CopyWebpackPlugin 雖然本地端可以成功，但推上 aws 後還是沒辦法正常執行，之後若知道該如何處理會在更新這篇文章。🥲
 
 github 連結在這 [連結](https://github.com/Mayvis/monoame-serverless-template)。
 
