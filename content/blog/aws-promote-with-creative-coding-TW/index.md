@@ -12,7 +12,7 @@ Creative Coding TW 推廣文在這，[連結](https://creativecoding.in/2021/12/
 我個人認為不斷地去接觸新的事物，對工程師來說多多少少都是有益的，像我自己近期因為案子跟興趣也有在接觸 3D 這方面的東西，花錢買了 Threejs Journey 的課程來學習，並實際運用進專案，因為案子所以有跟我的同事去學習更艱深一點的 AWS，順帶一提我公司同事 <strong>Clarence</strong> 有出 AWS 相關的書籍，歡迎大家踴躍購買，[連結](https://www.tenlong.com.tw/products/9789864349203)，我認為這些都是能讓前端工程師的你不斷學習的契機。
 
 ### Manager Master IAM
-IAM (Identity and Access Management)，如其名，當你今天開始使用 AWS，你想要控制你的花費，你想要安全一點，登入時不只要輸入密碼也需要 MFA 的認證，甚至你想讓某些人也參與你撰寫許久的 AWS 專案，就可以透過 IAM 開設使用者來達到需求。
+IAM (Identity and Access Management)，如其名，當你今天開始使用 AWS，你可以允許及拒絕使用者存取帳單資訊和工具的許可，你想要安全一點，登入時不只要輸入密碼也需要 MFA 的認證，甚至你想讓某些人也參與你撰寫許久的 AWS 專案，都可以透過 IAM 開設使用者來達到需求。
 
 ### Beautiful Warehouse
 Amacon S3 (Amazon Simple Storage Service)，身為工程師在撰寫程式後，程式碼及檔案總是需要有地方擺放及歸納，S3 就是你的好幫手，你可以創建所謂的桶子(bucket)來歸納不同專案程式碼及檔案所想擺放的位置，並輕鬆透過使用者介面上傳檔案；進階一點你想讓你上傳的資料進行回朔，又或著上傳的圖片想供人觀賞，在 S3 也都可以進行實現。
