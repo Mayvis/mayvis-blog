@@ -72,6 +72,7 @@
   --backend-tag: rgba(89, 197, 182, 0.4);
   --framework-tag: rgba(165, 158, 213, 0.4);
   --tool-tag: rgba(66, 136, 84, 0.4);
+  --promote-tag: rgba(0, 150, 230, 0.4);
 }
 
 .dark-theme {
@@ -82,10 +83,12 @@
   --text-link: #f2abc3;
   --selection: #f2abc3;
   --inlineCode-bg: #f2abc3;
+
   --aws-tag: rgba(252, 186, 3, 1);
   --server-tag: rgba(242, 181, 181, 1);
   --backend-tag: rgba(89, 197, 182, 1);
   --tool-tag: rgba(125, 197, 89, 1);
+  --promote-tag: rgba(0, 150, 230, 1);
 }
 
 /* HTML elements */
@@ -354,6 +357,10 @@ a:focus {
 
 .tool-tag {
   background-color: var(--tool-tag);
+}
+
+.promote-tag {
+  background-color: var(--promote-tag);
 }
 
 .header-link-home {
