@@ -2,7 +2,7 @@
 title: AWS promote with creative coding TW
 date: "2022-01-13T12:00:00.000Z"
 description: "去年墨雨設計的主管請我幫忙寫一個 AWS 合作推廣的文章，於是我就開始撰寫一些我平時時常使用的功能，像是 IAM, S3, Route53, Lambda,CloudFront, lightsail, EC2, RDS...等的功能，那也於近期正式上架到 Creative Coding TW 的站台上面了，雖然因為潤筆的關係及我認為有些內容對於沒接觸過 AWS 的會稍微較難，所以很多內容都刪除了，畢竟是推廣的文章，但能讓自己的東西擺出去給人看到，對於我來說還是感到很開心的一件事，畢竟我也不是什麼 AWS 特別厲害的人，大多數我都必須上網搜尋或詢問較專業的人來獲得解答；那這篇文章我會著重在“前端”工程師如何能踏進 AWS 領域的這部分來進行講述。" 
-tags: ["promote"]
+tags: ["aws", "promote"]
 ---
 
 Creative Coding TW 推廣文在這，[連結](https://creativecoding.in/2021/12/14/%e3%80%90-%e5%90%88%e4%bd%9c%e6%8e%a8%e5%bb%a3%ef%bc%9aaws%e5%b8%b6%e4%bd%a0%e5%9c%a8%e9%9b%b2%e7%ab%af%e9%a3%9b%e3%80%91/)，那我這邊是較沒被刪減及潤飾的版本。
