@@ -22,6 +22,14 @@ Amazon Route 53 (Route 53)，當你今天想要上網搜尋 Google 這個網站�
 
 你也可以透過將前面所提到的 S3 服務，將 S3 所創建 Bucket 的名稱跟 Route 53 註冊的網域名稱設定成<strong>"相同的"</strong>，以利達到將這個桶子的內容歸屬在我這網域底下，設定完成後便可以透過你註冊的網域來瀏覽你倉庫內的資料。
 
+這邊可以學習一下一些必須知道的小知識，是我自己的記法：
+
+- <strong>A</strong> - 沒錯，就是我，前面有說這是一個 DNS 服務，也就是將某串數字對映到我身上
+- <strong>AAAA</strong> - 成熟的我，原先的規格(IPv4)以及容納不下我了，我必須長大(IPv6)
+- <strong>CNAME</strong> - 我的綽號別名
+
+上面這三個功能在 AWS 上面的調適，是我滿常使用到的功能。
+
 ### Lock your door
 AWS Certificate Manager(ACM)，顧名思義，他是一個認證系統，你可以將你註冊的網域，加上憑證或金鑰，即所謂的 `http` 變成 `https` 保護你在 AWS 所部署的網站及應用程式。
 
