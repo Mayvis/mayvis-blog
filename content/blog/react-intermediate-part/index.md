@@ -1,7 +1,7 @@
 ---
 title: React intermediate part 
 date: "2022-01-19T12:00:00.000Z"
-description: 自己紀錄一些關於React的東西，複習及學習用。
+description: 此篇是自己紀錄一些關於React的東西，複習及學習用，大多使用英文。
 tags: ["react", "frontend"]
 ---
 
