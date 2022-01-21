@@ -71,8 +71,11 @@
   --server-tag: rgba(242, 181, 181, 0.4);
   --backend-tag: rgba(89, 197, 182, 0.4);
   --framework-tag: rgba(165, 158, 213, 0.4);
+  --frontend-tag: rgba(230, 132, 186, 0.4);
   --tool-tag: rgba(66, 136, 84, 0.4);
   --promote-tag: rgba(0, 150, 230, 0.4);
+  --react-tag: rgba(83, 206, 242, 0.4);
+  --vue-tag: rgba(57, 175, 120, 0.4);
 }
 
 .dark-theme {
@@ -87,8 +90,11 @@
   --aws-tag: rgba(252, 186, 3, 1);
   --server-tag: rgba(242, 181, 181, 1);
   --backend-tag: rgba(89, 197, 182, 1);
+  --frontend-tag: rgba(230, 132, 186, 1);
   --tool-tag: rgba(125, 197, 89, 1);
   --promote-tag: rgba(0, 150, 230, 1);
+  --react-tag: rgba(83, 206, 242, 1);
+  --vue-tag: rgba(57, 175, 120, 1);
 }
 
 /* HTML elements */
@@ -351,6 +357,10 @@ a:focus {
   background-color: var(--backend-tag);
 }
 
+.frontend-tag {
+  background-color: var(--frontend-tag);
+}
+
 .framework-tag {
   background-color: var(--framework-tag);
 }
@@ -361,6 +371,14 @@ a:focus {
 
 .promote-tag {
   background-color: var(--promote-tag);
+}
+
+.react-tag {
+  background-color: var(--react-tag);
+}
+
+.vue-tag {
+  background-color: var(--vue-tag);
 }
 
 .header-link-home {
