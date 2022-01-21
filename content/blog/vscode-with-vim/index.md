@@ -135,6 +135,8 @@ tags: ["tool"]
 
 `cmd+shift+e` 可切到資料夾的樹狀區，便可以使用 `j` `k` 進行位移，並選擇你要開啟哪個檔案。
 
+先用 `v` 切入 visual mode，接著使用 `S+<` 並輸入想環繞的 tag 名稱，假設我輸入 div，便可以將 `<h1>hello</h1>` 變成 `<div><h1>hello</h1></div>`。
+
 ---
 
 ### Conclusion
