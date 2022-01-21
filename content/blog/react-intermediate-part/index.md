@@ -1,11 +1,11 @@
 ---
-title: React intermediate part 
+title: React Intermediate Part 
 date: "2022-01-19T12:00:00.000Z"
-description: 此篇是自己紀錄一些關於React的東西，複習及學習用，大多使用英文。
+description: 此篇文章是之前自己紀錄並收錄在自己的 Notion 筆記內，一些關於 React 較困難部分的東西，初衷是希望自己能更快速的進入專案狀態，畢竟也有段時間沒使用 React 來開發前端了，所以比較偏向自己複習及學習用，內容大多使用英文撰寫及敘述。
 tags: ["react", "frontend"]
 ---
 
-由於平時自己比較常使用 Vue 來做前端開發，React 現在我也已經比較少在做使用，除非客戶或主管有要求，那這篇內容是我之前在 FrontendMaster 複習及學習 React 時紀錄的。
+由於平時自己比較常使用 Vue 來做前端開發，React 現在我也已經比較少在做使用，除非是在處理自己現在的這個部落格，大多數是客戶或主管有要求，那這篇內容是我之前在 FrontendMaster 複習及學習 React 時紀錄的筆記，定時花錢強迫自己學習😅，我把內容整理並移到自己的部落格內。
 
 ### useState
 
@@ -819,9 +819,10 @@ test("displays a non-default, correct thumbnail", async () => {
 });
 ```
 
-Testing custom hook. **Hooks always exist in components, so you can't test them outside of component**. One way is to render null fake component. The other way is to install an library called `@testing-library/reack-hooks`.
+Testing custom hook. **Hooks always exist in components, so you can't test them outside of component**. So if you want to test react custom hook, One way is to render null fake component. The other way is to install an library called `@testing-library/react-hooks`.
 
 ```Javascript
+// render null component
 import { expect, test } from "@jest/globals";
 import { render } from "@testing-library/react";
 import useBreedList from "../useBreedList";
@@ -849,6 +850,7 @@ test("gives an empty array with no animal", async () => {
 ```
 
 ```Javascript
+// using @testing-library/react-hooks
 import { expect, test } from "@jest/globals";
 import { renderHook } from "@testing-library/reack-hooks";
 import useBreedList from "../useBreedList";
@@ -862,7 +864,7 @@ test("gives an empty array with no animal", async () => {
 });
 ```
 
-Mocking the API for test performance by installing the library called `jest-fetch-mock`.
+Mocking the API for optimizing the test performance by installing the library called `jest-fetch-mock`.
 
 ```json
 // package.json -> jest configuration part
@@ -945,4 +947,4 @@ Istanbul, to see test coverage. [Link](https://istanbul.js.org)
 
 ### Conclusion
 
-這篇的文章的 code 都在這個 [Github 連結](https://github.com/Mayvis/adopt-me-v6)內。
+這篇文章的 code 都在這個 [Github 連結](https://github.com/Mayvis/adopt-me-v6) 的不同 branch 內。
