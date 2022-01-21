@@ -76,6 +76,8 @@
   --promote-tag: rgba(0, 150, 230, 0.4);
   --react-tag: rgba(83, 206, 242, 0.4);
   --vue-tag: rgba(57, 175, 120, 0.4);
+  --development-tag: rgba(238, 169, 65, 0.4);
+  --docker-tag: rgba(241, 59, 120, 0.4);
 }
 
 .dark-theme {
@@ -95,6 +97,8 @@
   --promote-tag: rgba(0, 150, 230, 1);
   --react-tag: rgba(83, 206, 242, 1);
   --vue-tag: rgba(57, 175, 120, 1);
+  --development-tag: rgba(238, 169, 65, 1);
+  --docker-tag: rgba(241, 59, 120, 1);
 }
 
 /* HTML elements */
@@ -379,6 +383,14 @@ a:focus {
 
 .vue-tag {
   background-color: var(--vue-tag);
+}
+
+.development-tag {
+  background-color: var(--development-tag);
+}
+
+.docker-tag {
+  background-color: var(--docker-tag);
 }
 
 .header-link-home {
