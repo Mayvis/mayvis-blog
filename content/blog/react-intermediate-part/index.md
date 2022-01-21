@@ -634,6 +634,7 @@ Below is my personal typescript eslint setup. (Initializing project by using vit
   "extends": [
     "eslint:recommended",
     "plugin:react/recommended",
+    "plugin:import/recommended",
     "plugin:jsx-a11y/recommended",
     "plugin:react-hooks/recommended",
     "plugin:@typescript-eslint/recommended",
