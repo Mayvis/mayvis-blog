@@ -83,7 +83,7 @@ CMD ["node", "index.js"]
 最後便可以使用下方程式碼推上去 Docker Hub 來做存放。
 
 ```bash
-docker build -t project .
+docker build -t project-name .
 docker tag project-name remote-project-name
 docker push remote-project-name
 ```
