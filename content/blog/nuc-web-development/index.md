@@ -50,7 +50,7 @@ project
 .Dockerfile
 ```
 
-我使用 nodejs alpine 的版本的 image 來減少 Docker 檔案的大小，這邊需注意使用 alpine 無法用 apt-get 來安裝相關套件，所以假設你的套件無法在 alpine 上面無法安裝及執行，可能需使用其他套件，或變更程式碼，這部分須你跟主管進行討論來達到最佳解，我就不多加贅述了，畢竟每個人專案的狀況不一樣。
+我使用 nodejs alpine 的版本的 image 來減少 Docker 檔案的大小，這邊需注意使用 alpine 無法用 apt-get 來安裝相關套件，需使用 apk 指令來進行安裝，所以假設你的套件無法在 alpine 上面無法安裝及執行，可能需使用其他套件，或變更程式碼，這部分須你跟主管進行討論來達到最佳解，我就不多加贅述了，畢竟每個人專案的狀況不一樣。
 
 那 Docker 也有一種機制是就算你在 Dockerfile 執行 `RUN rm -rf <some-file>`，你最終產出來的 image 大小也沒有變化的原因是，Docker 是用一層一層 layer 的形式來構築的(union file system)，所以你在 Docker 執行上述的程式碼，其實就是幫你在創建一個 layer ，並在那個 layer 上進行移除，前面的 layer 是未做變更的，所以最終顯示的檔案大小是不會有所變動的。
 
