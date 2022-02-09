@@ -157,6 +157,6 @@ Function.propotype.customBind = function (obj) {
   }
 }
 
-let newFunc = myFunc.customBind(obj); // 1. bind obj to functino prototype
+let newFunc = myFunc.customBind(obj); // 1. bind obj to function prototype
 newFunc() // 'John'
 ```
