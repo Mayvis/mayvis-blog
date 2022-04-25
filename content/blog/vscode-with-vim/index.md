@@ -1,7 +1,7 @@
 ---
-title: Vscode With VIM
+title: VSCode With VIM
 date: "2021-09-26T12:00:00.000Z"
-description: 當網頁工程師也幾年了，後端寫到前端，前端寫到後端，不算菜也不算老的一個階段，除了自己公司網頁例行的維護及新案子，我也用下班時間兼做接案的工作，算是一種斜槓吧，所以我今天想跟大家聊聊如何增加自己的工作效率這議題，這篇會著重在我使用 vim 與 vsocde，雖然我本身是比較常使用 jetbrains 的 IDE 啦😅，畢竟我有時需要寫到後端的 database，這時 vsocde 就顯得比較不方便一點。但是不得不說 vscode 是一個很棒的 IDE，我小案子還是滿喜歡使用它的️🙃。
+description: 當網頁工程師也幾年了，後端寫到前端，前端寫到後端，不算菜也不算老的一個階段，除了自己公司網頁例行的維護及新案子，我也用下班時間兼做接案的工作，算是一種斜槓吧，所以我今天想跟大家聊聊如何增加自己的工作效率這議題，這篇會著重在我使用 vim 與 VSCode，雖然我本身是比較常使用 Jetbrains 的 IDE 啦😅，畢竟我有時需要寫到後端的 database，這時 VSCode 就顯得比較不方便一點。但是不得不說 VSCode 是一個很棒的 editor，我小案子還是滿喜歡使用它的️🙃。
 tags: ["tool"]
 ---
 
@@ -19,31 +19,35 @@ tags: ["tool"]
 - 中英文切換我認為是 vim 的硬傷，但是使用久之後其實也還好。
 - 有所謂的模式切換 Normal mode, Visual mode, Edit mode，需要去適應，這是 vim 的核心，簡單來說，選擇就是 Visual mode， 更新就是 Edit mode，普通情況位移或著需要額外的功能就是在 Normal mode 底下做事...等。
 - 有時候需頻繁按某些按鍵尤其 `esc`，畢竟要多按按鈕就是麻煩，要移動就是必須切到 Normal mode 或 Visual mode...等。
-- 自己使用下來，不太適合與 pug (jade) 進行使用，相較於 html，原因是沒有被 tag surround，所以我自己除接案之外都是使用 html 居多，外加現在 IDE 不論是套件的 autocomplete tag 或內建的都很方便，此外我本身除了 vue 也會寫 react 的 jsx 所以還是比較習慣有 tag。 
+- 自己使用下來，不太適合與 pug (jade) 進行使用，相較於 html，原因是沒有被 tag surround，所以我自己除接案之外都是使用 html 居多，外加現在 IDE 不論是套件的 autocomplete tag 或內建的都很方便，此外我本身除了 vue 也會寫 react 的 jsx 所以還是比較習慣有 tag。
+
   ```html
-  <div class="hello">Hello</div> <== surrounding by tag
+  <!-- surrounding by tag -->
+  <div class="hello">Hello</div>
   ```
-  
+
   ```
-  .hello Hello <=== not sorrounding by tag
+  .hello Hello <=== not surrounding by tag
   ```
+
 - 自己使用下來，不太適合與 sass 進行使用，相較於 scss、css，原因也是因為沒有 tag surround，但是可以用 `V` 整行的 Visual mode 去做處理，比起 pug 問題少很多，畢竟 css 就是一行一行的，雖然我自己除接案之外還是偏好使用 scss 居多。
+
   ```scss
   .hello {
-    background-color: orange; 
+    background-color: orange;
     color: orange;
-    
+
     &::after {
       content: "";
     }
   }
   ```
-  
+
   ```sass
   .hello
     background-color: orange
     color: orange
-  
+
     &::after
       content: ""
   ```
@@ -54,7 +58,7 @@ tags: ["tool"]
 
 其實學習 vim 的大部分的人的初衷，就是讓工程師盡量地遠離滑鼠的使用，我自己認為，學成之後，打程式碼的速度是以 logN 的方式在做變化的，尤其是對"接案"非常有益。
 
-下面是我常使用的指令，有點類似 cheatsheet，可以參考一下：
+下面是我常使用的指令，有點類似 cheat sheet，可以參考一下：
 
 ---
 
@@ -62,7 +66,7 @@ tags: ["tool"]
 
 左下上右 位移分別是 `h` `j` `k` `l`
 
-較高階使用方式，可以將 line number 調整成 relative line number，接著使用 `20j` 便可以向下跳距離你原先20行，相反向上跳就是 `20k`，但因為 vsocde line number 主題有些很淡，可以使用像 night owl 之類高對比的主題讓 line number 更清楚一點
+較高階使用方式，可以將 line number 調整成 relative line number，接著使用 `20j` 便可以向下跳距離你原先 20 行，相反向上跳就是 `20k`，但因為 VSCode line number 主題有些很淡，可以使用像 night owl 之類高對比的主題讓 line number 更清楚一點
 
 如何以單字的方式來進行跳耀，對於 vim 的使用者來說會是 `w` ，如果是做英文網站，**這非常好用！！！**
 
@@ -74,7 +78,7 @@ tags: ["tool"]
 
 如何快速跳到該行最後一個字，對於 vim 的使用者來說會是 `$` (shift+4)
 
-如何快速跳到該行第一個字，對於 vim 的使用者來說會是 `0` 
+如何快速跳到該行第一個字，對於 vim 的使用者來說會是 `0`
 
 ---
 
@@ -84,7 +88,7 @@ tags: ["tool"]
 
 如何快速的新增視窗(pane)在下方 `:sp` (split pane 的縮寫)
 
-如何快速的切換視窗(pane) `ctrl+w+w` (ctrl+兩下w)
+如何快速的切換視窗(pane) `ctrl+w+w` (ctrl+兩下 w)
 
 ---
 
@@ -102,13 +106,15 @@ tags: ["tool"]
 
 **快捷鍵**
 
-如何快速將 div 內的文字刪除或取代掉呢？ 對於 vim 的使用者來說答案會是 `cit` (change in tag 的縮寫) 會直接進入 Edit mode 
+如何快速將 div 內的文字刪除或取代掉呢？ 對於 vim 的使用者來說答案會是 `cit` (change in tag 的縮寫) 會直接進入 Edit mode
 或著 `dit` (delete in tag 的縮寫) 會維持在 Visual mode
+
 ```html
 <div>hello world</div>
 ```
 
 如何快速將 a tag 換成 button 呢？ 對於 vim 的使用者來說會是 `cst<` (change surround tag 的縮寫，vscode 需再額外添加 `<` 符號)
+
 ```html
 <a>Link</a>
 ```

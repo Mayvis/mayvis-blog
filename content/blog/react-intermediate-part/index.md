@@ -1,11 +1,11 @@
 ---
-title: React Intermediate Part 
+title: React Intermediate Part
 date: "2022-01-19T12:00:00.000Z"
 description: 此篇文章是之前自己紀錄並收錄在自己的 Notion 筆記內，一些關於 React 較困難部分的東西，初衷是希望自己能更快速的進入專案狀態，畢竟也有段時間沒使用 React 來開發前端了，所以比較偏向自己複習及學習用，內容大多使用英文撰寫及敘述。
 tags: ["react", "frontend"]
 ---
 
-由於平時自己比較常使用 Vue 來做前端開發，React 現在我也已經比較少在做使用，除非是在處理自己現在的這個部落格，大多數是客戶或主管有要求，那這篇內容是我之前在 FrontendMaster 複習及學習 React 時紀錄的筆記，定時花錢強迫自己學習😅，我把內容整理並移到自己的部落格內。
+由於平時自己比較常使用 Vue 來做前端開發，React 現在我也已經比較少在做使用，除非是在處理自己現在的這個部落格，不然大多數是客戶或主管有要求要使用才會使用，那這篇內容是我之前在 FrontendMaster 複習及學習 React 時紀錄的筆記，有點定時花錢強迫自己學習的概念 😅，最終我把內容整理並移到自己的部落格內。
 
 ### useState
 
@@ -18,10 +18,10 @@ const Component = () => {
   return (
     <div>
       <div>{someState}</div>
-      <button 
+      <button
         onClick={(e) => setSomeState(!someState)}
         style={{ color: isGreen ? 'limegreen' : 'crimson'}}
-      >Click</button> 
+      >Click</button>
     </div>
   )
 }
@@ -67,7 +67,7 @@ const LevelFive = () => {
 
   return (
     <div>
-      <h5>{`${user.firstName} ${user.lastName}`}</h5> 
+      <h5>{`${user.firstName} ${user.lastName}`}</h5>
     </div>
   )
 }
@@ -136,7 +136,7 @@ const RefComponent = () => {
 
   return (
     <div>
-      <h1>useRef Example</h1> 
+      <h1>useRef Example</h1>
       <button onClick={incrementAndDelayLogging}>delay logging</button>
       <h4>state: {stateNumber}</h4>
       <h4>ref: {numRef.current}</h4>
@@ -148,6 +148,7 @@ export default RefComponent;
 ```
 
 ### useReducer
+
 ```JSX
 import { useReducer } from "react";
 
@@ -181,17 +182,17 @@ const ReducerComponent = () => {
     <div>
       <h1 style={{ color: `rgb(${r}, ${g}, ${b})` }}>useReducer Example</h1>
       <div>
-        <span>r</span> 
+        <span>r</span>
         <button onClick={() => dispatch({ type: "INCREMENT_R" })}>+</button>
         <button onClick={() => dispatch({ type: "DECREMENT_R" })}>-</button>
       </div>
       <div>
-        <span>g</span> 
+        <span>g</span>
         <button onClick={() => dispatch({ type: "INCREMENT_G" })}>+</button>
         <button onClick={() => dispatch({ type: "DECREMENT_G" })}>-</button>
       </div>
       <div>
-        <span>b</span> 
+        <span>b</span>
         <button onClick={() => dispatch({ type: "INCREMENT_B" })}>+</button>
         <button onClick={() => dispatch({ type: "DECREMENT_B" })}>-</button>
       </div>
@@ -219,19 +220,19 @@ const MemoComponent = () => {
   const [isGreen, setIsGreen] = useState(true);
   // this will cause rerender problem, if num is very high like 40.
   // when you click h1 to change the color, this will recaculate the fibonacci 40 times again.
-  // const fib = fibonacci(num); 
+  // const fib = fibonacci(num);
   const fib = useMemo(() => fibonacci(num), [num]);
 
   return (
     <div>
-      <h1 
+      <h1
         onClick={() => setIsGreen(!isGreen)}
         style={{ color: isGreen ? "limegreen" : "crimson"}}
       >
         useMemo Example
-      </h1> 
+      </h1>
       <h2>
-        Fibonacci of {num} if {fib} 
+        Fibonacci of {num} if {fib}
       </h2>
       <button onClick={() => setNum(num + 1)}>+</button>
     </div>
@@ -269,7 +270,7 @@ import { useState, useEffect, useCallback, memo } from "react";
 const ExpensiveComputationComponent = memo(({ compute, count}) => {
   return (
     <div>
-      <h1>computed: {computed(count)}</h1> 
+      <h1>computed: {computed(count)}</h1>
       <h4>last re-render {new Date().toLocaleTimeString()}</h4>
     </div>
   )
@@ -291,7 +292,7 @@ const CallbackComponent = () => {
 
   return (
     <div>
-      <h1>useCallback Example {time.toLocaleTimeString()}</h1> 
+      <h1>useCallback Example {time.toLocaleTimeString()}</h1>
       <button onClick={() => setCount(count + 1)}>
         current count {count}
       </button>
@@ -325,14 +326,14 @@ const LayoutEffectComponent = () => {
 
   return (
     <div>
-      <h1>useLayoutEffect Example</h1> 
+      <h1>useLayoutEffect Example</h1>
       <h2>textarea width: {width}</h2>
       <h2>textarea height: {height}</h2>
-      <textarea 
+      <textarea
         onClick={() => {
-          // If using useEffect, effect happened later, and the click event happened sooner in the millisecond. 
+          // If using useEffect, effect happened later, and the click event happened sooner in the millisecond.
           // May cause getting wrong value and will cause above width value change then re-render.
-          setWidth(0); 
+          setWidth(0);
         }}>
         ref={el}
       </textarea>
@@ -363,7 +364,7 @@ const ElaborateInput = forwardRef(
 
     return (
       <input
-        ref={inputRef} 
+        ref={inputRef}
         value={value}
         onChange={(e) => update(e.target.value)}
         placeholder={placeholder}
@@ -413,15 +414,15 @@ const ImperativeHandleComponent = () => {
   return (
     <div>
       <h1>useImperativeHandle Example</h1>
-      <ElaborateInput 
-        hasError={error === "city"} 
+      <ElaborateInput
+        hasError={error === "city"}
         placeholder={"City"}
         value={city}
         update={setCity}
         ref={cityEl}
       />
-      <ElaborateInput 
-        hasError={error === "state"} 
+      <ElaborateInput
+        hasError={error === "state"}
         placeholder={"State"}
         value={state}
         update={setState}
@@ -455,7 +456,7 @@ const DebugValueComponent = () => {
 
   return (
     <div>
-      <h1>useDebugValue Example</h1> 
+      <h1>useDebugValue Example</h1>
       <p>Do you need a coat today? {isRaining ? "yes" : "maybe"}</p>
     </div>
   )
@@ -477,8 +478,8 @@ const SearchaParams = lazy(() => import("./SearchParams"));
 
 const App = () => {
   return (
-    <Suspense 
-      fallback={<h2 style={{ textAlign: "center" }}>Loading routes...</h2>} 
+    <Suspense
+      fallback={<h2 style={{ textAlign: "center" }}>Loading routes...</h2>}
     >
       <Router>
         <Switch>
@@ -507,7 +508,7 @@ import App from "./App"
 
 hydrate(
   <BrowserRouter>
-    <App /> 
+    <App />
   </BrowserRouter>,
   document.getElementById("root");
 )
@@ -538,7 +539,7 @@ export default App;
 ```
 
 ```JSX
-// pacakage.json 
+// pacakage.json
 {
   "script": {
     "build:client": "parcel build --public-url ./dist/ src/index.html",
@@ -643,25 +644,16 @@ Below is my personal typescript eslint setup. (Initializing project by using vit
     "prettier"
   ],
   "rules": {
-    "react/self-closing-comp": [
-      "error"
-    ],
+    "react/self-closing-comp": ["error"],
     "react/jsx-filename-extension": [
       "warn",
       {
-        "extensions": [
-          ".tsx"
-        ]
+        "extensions": [".tsx"]
       }
     ],
     "react/react-in-jsx-scope": 0
   },
-  "plugins": [
-    "react",
-    "import",
-    "jsx-a11y",
-    "@typescript-eslint"
-  ],
+  "plugins": ["react", "import", "jsx-a11y", "@typescript-eslint"],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "ecmaVersion": 2021,
@@ -681,10 +673,7 @@ Below is my personal typescript eslint setup. (Initializing project by using vit
       "version": "detect"
     },
     "import/parsers": {
-      "@typescript-eslint/parser": [
-        ".ts",
-        ".tsx"
-      ]
+      "@typescript-eslint/parser": [".ts", ".tsx"]
     },
     "import/resolvers": {
       "typescript": {
@@ -705,8 +694,8 @@ import { createStore } from "react-redux";
 import reducer from "../reducer";
 
 const store = createStore(
-  reducer, 
-  typeof window === "object" && typeof window.__REDUX_DEVTOOLS_EXTENSION__ !== undefined ? 
+  reducer,
+  typeof window === "object" && typeof window.__REDUX_DEVTOOLS_EXTENSION__ !== undefined ?
     window.__REDUX_DEVTOOLS_EXTENSION__(): (f) => f
 );
 
@@ -768,14 +757,14 @@ const SearchParams = () => {
     <div>
       <form>
         <label htmlFor="location">
-          Location 
+          Location
           <input
-            id="location" 
+            id="location"
             value={location}
             placeholder="Location"
             onChange={(e) => dispatch(changeLocation(e.target.value))}
           />
-        <label> 
+        <label>
         ...
       </form>
     </div>
