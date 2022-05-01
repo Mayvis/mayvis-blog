@@ -84,7 +84,7 @@ const LevelFour = () => {
 const LevelThree = () => {
   return (
     <div>
-      <h4>Thrid level</h4>
+      <h4>Third level</h4>
       <LevelFour />
     </div>
   )
@@ -208,8 +208,9 @@ Performance optimization: handle very expensive computed.
 🔥🔥 Only use this when you actually already have a problem. 🔥🔥
 
 ```JSX
-import { useState, useMomo } from "react";
+import { useState, useMemo } from "react";
 
+// fibonacci -> 1 1 2 3 5 8
 const fibonacci = (n) => {
   if (n <= 1) return 1;
   return fibonacci(n - 1) + fibonacci(n - 2);
@@ -219,7 +220,7 @@ const MemoComponent = () => {
   const [num, setNum] = useState(1);
   const [isGreen, setIsGreen] = useState(true);
   // this will cause rerender problem, if num is very high like 40.
-  // when you click h1 to change the color, this will recaculate the fibonacci 40 times again.
+  // when you click h1 to change the color, this will recalculate the fibonacci 40 times again.
   // const fib = fibonacci(num);
   const fib = useMemo(() => fibonacci(num), [num]);
 
@@ -242,6 +243,16 @@ const MemoComponent = () => {
 
 ### useCallback
 
+The useCallback hook is used when you have a component in which the child is rerendering again and again without need.
+
+Pass an inline callback and an array of dependencies, useCallback will return a **memorized version of the callback** that only changes if one of the dependencies has changed. This is useful when passing callbacks to optimized child components that replay on reference equality to prevent unnecessary renders.
+
+```Javascript
+const memorizedCallback = useCallback(() => {
+  doSomething(a, b)
+}, [a, b])
+```
+
 Think useCallback like this way.
 
 We have two different Fibonacci's that are functionally the same function, but are actually two different instances of the same function.
@@ -250,7 +261,7 @@ We have two different Fibonacci's that are functionally the same function, but a
 function a() {}
 function b() {}
 
-console.log(a === b) // false
+console.log(a === b) // false -> in real world
 ```
 
 `useCallback` is like to make `a === b` to be true.
@@ -262,7 +273,9 @@ function b() {}
 console.log(a === b) // true
 ```
 
-`memo` is like to check the props, if props stayed the same, then it's not going to re-render.
+`memo` is like to check the props, if props stay the same, then it's not going to re-render.
+
+Tip: `useCallback(fn, deps)` equals `useMemo(() => fn, deps)`.
 
 ```JSX
 import { useState, useEffect, useCallback, memo } from "react";
@@ -301,8 +314,8 @@ const CallbackComponent = () => {
         count={count}
       />
     </div>
-  )
-}
+  );
+};
 
 export default CallbackComponent;
 ```
@@ -338,8 +351,8 @@ const LayoutEffectComponent = () => {
         ref={el}
       </textarea>
     </div>
-  )
-}
+  );
+};
 
 export default LayoutEffectComponent;
 ```
@@ -348,8 +361,10 @@ export default LayoutEffectComponent;
 
 Create function on the child component in ElaborateInput by using `useImperativeHandle` and then use this function by calling it on the parent component in ImperativeHandleComponent.
 
+Should use this hook with `forwardRef`.
+
 ```JSX
-import { useState, useRef, useImperativeHandle, forwareRef } from "react";
+import { useState, useRef, useImperativeHandle, forwardRef } from "react";
 
 const ElaborateInput = forwardRef(
   ({ hasError, placeholder, value, update}) => {
@@ -431,7 +446,7 @@ const ImperativeHandleComponent = () => {
       <button onClick={validate}>Validate Form</button>
     </div>
   )
-}
+};
 ```
 
 ### useDebugValue
@@ -449,7 +464,7 @@ const useIsRaining = () => {
   useDebugValue(isRaining ? "Is raining" : "Is not raining");
 
   return isRaining;
-}
+};
 
 const DebugValueComponent = () => {
   const isRaining = useIsRaining();
@@ -459,8 +474,8 @@ const DebugValueComponent = () => {
       <h1>useDebugValue Example</h1>
       <p>Do you need a coat today? {isRaining ? "yes" : "maybe"}</p>
     </div>
-  )
-}
+  );
+};
 
 export default DebugValueComponent;
 ```
@@ -474,7 +489,7 @@ import { lazy, Suspense } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 const Details = lazy(() => import("./Details"));
-const SearchaParams = lazy(() => import("./SearchParams"));
+const SearchParams = lazy(() => import("./SearchParams"));
 
 const App = () => {
   return (
@@ -539,7 +554,7 @@ export default App;
 ```
 
 ```JSX
-// pacakage.json
+// package.json
 {
   "script": {
     "build:client": "parcel build --public-url ./dist/ src/index.html",
@@ -774,7 +789,7 @@ const SearchParams = () => {
 
 ### Unit Test
 
-Microsoft engineer engineer Brian Holt said: I think 100% test coverage is a fable fairy tale that's not worth chasing because a lot of times you write garbage tests. Just to make sure you cover that one last line, right? And I don't believe in that garbage one last test, right? I will not write that one last test.
+Microsoft engineer Brian Holt said: I think 100% test coverage is a fable fairy tale that's not worth chasing because a lot of times you write garbage tests. Just to make sure you cover that one last line, right? And I don't believe in that garbage one last test, right? I will not write that one last test.
 
 Below is the simple react jest test.
 
@@ -785,7 +800,7 @@ import { StaticRouter } from "react-router-dom";
 import { render } from "@testing-library/react";
 import Pet from "../Pet";
 
-test("displayes a default thumbnail", async () => {
+test("display a default thumbnail", async () => {
   const pet = render(
     <StaticRouter>
       <Pet />
@@ -843,7 +858,7 @@ test("gives an empty array with no animal", async () => {
 ```Javascript
 // using @testing-library/react-hooks
 import { expect, test } from "@jest/globals";
-import { renderHook } from "@testing-library/reack-hooks";
+import { renderHook } from "@testing-library/react-hooks";
 import useBreedList from "../useBreedList";
 
 test("gives an empty array with no animal", async () => {
@@ -877,7 +892,7 @@ enableFetchMocks();
 ```Javascript
 // useBreedList.test.js
 import { expect, test } from "@jest/globals";
-import { renderHook } from "@testing-library/reack-hooks";
+import { renderHook } from "@testing-library/react-hooks";
 import useBreedList from "../useBreedList";
 
 test("gives an empty array with no animal", async () => {
