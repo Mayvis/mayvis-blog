@@ -561,6 +561,20 @@ export default App;
     "build:server": "parcel build -d dist-server --target node server/index.js",
     "build": "npm run build:client && npm run build:server",
     "start": "npm -s run build && node dist-server/index.js"
+  },
+  "target : {
+    "frontend": {
+      "source": "src/index.html",
+      "publicUrl": "/frontend"
+    },
+    "backend": {
+      "source": "server/index.js",
+      "optimize": false,
+      "context": "node",
+      "engine": {
+        "node": ">=16"
+      }
+    }
   }
 }
 ```
