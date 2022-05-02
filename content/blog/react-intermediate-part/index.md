@@ -571,7 +571,7 @@ export default App;
       "source": "server/index.js",
       "optimize": false,
       "context": "node",
-      "engine": {
+      "engines": {
         "node": ">=16"
       }
     }
