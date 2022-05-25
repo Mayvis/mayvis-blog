@@ -13,7 +13,7 @@ tags: ["tool"]
 
 在推銷一件工具時，我會先希望你知道他的缺點是什麼，以及我自己使用上的經驗。
 
-- 如果是使用原生 terminal (macVim, neoVim) 需要安裝一些套件，要使用 vundle...等之類的套件來做安裝，也有可能要使用 lua 這程式語言，如果不想太繁瑣，可以直接安裝 vscode 或 jetbrains 的 IDE 然後直接安裝 vim 的套件就行。
+- 如果是使用原生 terminal (MacVim, NeoVim) 需要安裝一些套件，要使用 vundle，vim-plugin...等之類的套件來做安裝，也有可能要使用 lua 這程式語言，如果不想太繁瑣，可以直接安裝 vscode 或 jetbrains 的 IDE 然後直接安裝 vim 的套件就行。
 - 因為我不是 windows 用戶，所以不太知道 windows 該如何設定。
 - 一開始的學習曲線偏高，可能要練就不看鍵盤也可以流暢打字的能力，會比較好上手。
 - 中英文切換我認為是 vim 的硬傷，但是使用久之後其實也還好。
@@ -26,8 +26,8 @@ tags: ["tool"]
   <div class="hello">Hello</div>
   ```
 
-  ```
-  .hello Hello <=== not surrounding by tag
+  ```jade
+  .hello Hello // <=== not surrounding by tag
   ```
 
 - 自己使用下來，不太適合與 sass 進行使用，相較於 scss、css，原因也是因為沒有 tag surround，但是可以用 `V` 整行的 Visual mode 去做處理，比起 pug 問題少很多，畢竟 css 就是一行一行的，雖然我自己除接案之外還是偏好使用 scss 居多。
@@ -43,7 +43,7 @@ tags: ["tool"]
   }
   ```
 
-  ```sass
+  ```scss
   .hello
     background-color: orange
     color: orange
@@ -66,15 +66,17 @@ tags: ["tool"]
 
 左下上右 位移分別是 `h` `j` `k` `l`
 
-較高階使用方式，可以將 line number 調整成 relative line number，接著使用 `20j` 便可以向下跳距離你原先 20 行，相反向上跳就是 `20k`，但因為 VSCode line number 主題有些很淡，可以使用像 night owl 之類高對比的主題讓 line number 更清楚一點
+較高階使用方式，可以將 line number 調整成 relative line number，接著使用 `20j` 便可以向下跳距離你原先 20 行，相反向上跳就是 `20k`，
 
 如何以單字的方式來進行跳耀，對於 vim 的使用者來說會是 `w` ，如果是做英文網站，**這非常好用！！！**
+
+如何以單字的方式**向後**來進行跳耀，對於 vim 的使用者來說會是 `b`
 
 如何快速跳到第一行，對於 vim 的使用者來說會是 `gg`
 
 如何快速跳到最後一行，對於 vim 的使用者來說會是 `G` (shift+g)
 
-當畫面出現滾輪，你想將你程式碼的位置位移到畫面的中央，對於 vim 的使用者來說會是 `zz` ，**這非常好用！！！**
+當畫面出現滾輪，你想將你程式碼的位置位移到畫面的中央，對於 vim 的使用者來說會是 `zz`
 
 如何快速跳到該行最後一個字，對於 vim 的使用者來說會是 `$` (shift+4)
 
@@ -88,7 +90,7 @@ tags: ["tool"]
 
 如何快速的新增視窗(pane)在下方 `:sp` (split pane 的縮寫)
 
-如何快速的切換視窗(pane) `ctrl+w+w` (ctrl+兩下 w)
+如何在不同的 pane 之間進行跳耀？可以使用 `ctrl+w ctrl+w`，如果是向左可以使用 `ctrl+w ctrl+h`，向右可以使用 `ctrl+w ctrl+l`，依此類推
 
 ---
 
@@ -96,7 +98,7 @@ tags: ["tool"]
 
 如何回歸 Normal mode，對於 vim 的使用者來說會是 `esc` (左上角 esc，沒錯就是 esc 那顆按鈕)
 
-如何切換至 Visual mode，對於 vim 的使用者來說會是 `v`，變可以使用 `h` `j` `k` `l` 來拖拉想選取的位置。
+如何切換至 Visual mode，對於 vim 的使用者來說會是 `v`，變可以使用 `h` `j` `k` `l` 來拖拉想選取的位置
 
 如何切換至 Visual mode 並選擇整行，對於 vim 的使用來說會是 `V` (shift+v)
 
@@ -123,6 +125,8 @@ tags: ["tool"]
 
 如何快速刪掉整行，對於 vim 的使用者來說會是 `dd`
 
+如果想刪除多行，可以使用 `number+dd`，舉例：`2dd`
+
 如何複製文字呢？先按 `v` 切入 visual mode，用 `h` `j` `k` `l` 位移選取想要複製的文字，接著 `y` (yank 的縮寫)，按 `p` 貼上(paste 縮寫)
 
 如何複製"單字"呢？先按 `v` 切入 visual mode，用 `w` 位移選取想要複製的文字，接著 `y` (yank 的縮寫)，按 `p` 貼上(paste 縮寫)
@@ -135,7 +139,7 @@ tags: ["tool"]
 
 如何搜尋某個單子 `/` 後面接單字，舉例來說我要搜尋 className，那我就會 `/className` 去做搜尋，搜尋到後按 enter，接著便可以按 `n` (next occurance 的縮寫) 去找尋你要搜尋的究竟是哪個 className
 
-如何插入字到該行最後的位置？對於 vim 的使用者來說會是 `A`
+如何插入字到該行最後的位置，並轉換到 Insert mode？對於 vim 的使用者來說會是 `A`
 
 ---
 
@@ -143,7 +147,7 @@ tags: ["tool"]
 
 `cmd+shift+e` 可切到資料夾的樹狀區，便可以使用 `j` `k` 進行位移，並選擇你要開啟哪個檔案。
 
-先用 `v` 切入 visual mode，接著使用 `S+<` 並輸入想環繞的 tag 名稱，假設我輸入 div，便可以將 `<h1>hello</h1>` 變成 `<div><h1>hello</h1></div>`。
+先用 `v` 切入 visual mode，接著使用 `S+<` (surrounding tag) 並輸入想環繞的 tag 名稱，假設我輸入 div，便可以將 `<h1>hello</h1>` 變成 `<div><h1>hello</h1></div>`
 
 ---
 
