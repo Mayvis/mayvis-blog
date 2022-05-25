@@ -135,6 +135,8 @@ tags: ["tool"]
 
 如何搜尋某個單子 `/` 後面接單字，舉例來說我要搜尋 className，那我就會 `/className` 去做搜尋，搜尋到後按 enter，接著便可以按 `n` (next occurance 的縮寫) 去找尋你要搜尋的究竟是哪個 className
 
+如何插入字到該行最後的位置？對於 vim 的使用者來說會是 `A`
+
 ---
 
 **Vscode**
