@@ -67,6 +67,7 @@ export function createRouterGuard(router: Router) {
             const { perm: permission, role } =
               (await userStore.getUserInfo()) as IUserInfoResponse
 
+            // 此段落 permissionStore.generateRoutes 會於下面進行描述，如果看不懂可以跳過這行程式碼
             const accessRoutes = (await permissionStore.generateRoutes(
               permission,
               role
@@ -112,6 +113,115 @@ export function createRouterGuard(router: Router) {
   router.onError(error => {
     console.log("路由錯誤", error)
   })
+}
+```
+
+我們可以透過在路由內設置 meta role 屬性，並 filter 該 async router 達到動態路由的效果。
+
+```typescript
+// src/router/module/dashboard.ts
+import { RouteRecordRaw } from "vue-router"
+import Layout from "@/layout/AppMain.vue"
+
+const dashboardRoute: RouteRecordRaw = {
+  path: "/dashboard",
+  name: "dashboard",
+  redirect: "/dashboard/main",
+  component: Layout,
+  children: [
+    {
+      path: "main",
+      name: "dashboard_index",
+      component: () => import("@/pages/dashboard/Dashboard.vue"),
+      meta: { roles: ["administrator"] }, // 這邊可以設定role屬性來判斷是否要渲染該頁面
+    },
+  ],
+}
+
+export default dashboardRoute
+```
+
+下方是個小小範例，主要是在處理路由及角色並判斷是否渲染該頁面的步驟，通常這步驟會撰寫在能集中管理的地方，以此範例來講是使用 Pinia 集中管理，我會於下面的段落介紹 Pinia，程式碼看起來很多，但是其實觀念滿意懂的。
+
+```typescript
+// src/store/module/permission.ts
+import { defineStore } from "pinia"
+import store from "@/store"
+import { RouteRecordRaw } from "vue-router"
+import { constantRoutes, asyncRoutes } from "./../../router/index"
+
+interface IPermissionState {
+  routes: RouteRecordRaw[]
+  addRoutes: RouteRecordRaw[]
+}
+
+// 判斷該路由是否有在該roles
+function hasPermission(roles: string[], route: RouteRecordRaw) {
+  if (route.meta && route.meta.roles) {
+    return roles.some(role => {
+      return (route.meta?.roles as string[]).includes(role)
+    })
+  } else {
+    return true
+  }
+}
+
+// filter 路由
+function filterAsyncRoutes(
+  routes: RouteRecordRaw[],
+  roles: string[]
+): RouteRecordRaw[] {
+  const res: RouteRecordRaw[] = []
+
+  routes.forEach(route => {
+    const tmp = { ...route }
+    if (hasPermission(roles, tmp)) {
+      if (tmp.children) {
+        // recursive 的方式 filter 路由
+        tmp.children = filterAsyncRoutes(tmp.children, roles)
+      }
+      res.push(tmp)
+    }
+  })
+
+  return res
+}
+
+// pinia 集中管理路由的地方
+export const usePermissionStore = defineStore({
+  id: "permission",
+  state: (): IPermissionState => {
+    return {
+      routes: constantRoutes,
+      addRoutes: [],
+    }
+  },
+  actions: {
+    /**
+     * 產出路由
+     */
+    async generateRoutes(permission: string[], role: string) {
+      return new Promise(resolve => {
+        let accessRoutes: RouteRecordRaw[]
+
+        if (role === "administrator") {
+          accessRoutes = asyncRoutes || []
+        } else {
+          accessRoutes = filterAsyncRoutes(asyncRoutes, permission)
+        }
+
+        this.addRoutes = accessRoutes
+        this.routes = constantRoutes.concat(accessRoutes)
+
+        resolve(accessRoutes)
+      })
+    },
+  },
+})
+
+// 如果要在 vue 組件以外做使用，需要使用該方式。
+export function usePermissionStoreHook() {
+  return usePermissionStore(store)
 }
 ```
 
