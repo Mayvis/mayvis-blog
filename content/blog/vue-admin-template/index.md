@@ -29,7 +29,7 @@ tags: ["vue", "frontend"]
 
 ### Dynamic Vue Router
 
-做後台管理頁面其實比較麻煩的就是，動態路由這部分，路由必須是角色登入後，才能進行創建，而 Vue Router 也有支持這項功能，基本上教學可以觀看這幾篇[文章](https://juejin.cn/post/6844903478880370701)，並搭配 element ui admin 的程式碼，下面是路由守衛 Dynamic Vue Router 小小的範例。
+做後台管理頁面其實比較麻煩的就是，動態路由這部分，路由必須是角色登入後，才能進行創建，而 Vue Router 也有支持這項功能，基本上教學可以觀看這幾篇[文章](https://juejin.cn/post/6844903478880370701)，並搭配 element ui admin 的程式碼，下面是動態路由守衛的小小的範例。
 
 Vue Router 這邊有小小的 warning bug，你使用 `next({ ...to, replace: true })`，去處理動態路由，雖然程式仍可以正常運行，但瀏覽器仍會有警示，警示訊息是：
 
@@ -117,7 +117,7 @@ export function createRouterGuard(router: Router) {
 
 ### Pinia is your new friend
 
-目前公司多數 Vue3 專案，有使用集中管理的 Vuex，我都慢慢地移除，並使用 Pinia。它簡化了許多事情，像是 mutation 的步驟可以直接省略，各個 Pinia Store 也可以單獨被提出來做使用...等，下面是小小的範例。
+目前公司多數 Vue3 專案，有使用集中管理的 Vuex，我都慢慢地移除，並使用 Pinia。它簡化了許多事情，像是 mutation 的步驟可以直接省略，各個 Pinia Store 也可以單獨被提出來做使用...等，下面是 Pinia 小小的範例。
 
 ```typescript
 // src/store/index.ts
