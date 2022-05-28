@@ -16,6 +16,7 @@ const BackgroundCanvas = () => {
     ctx.canvas.width = window.innerWidth
     ctx.canvas.height = document.body.clientHeight
     ctx.strokeStyle = "rgba(214, 213, 209, 0.5)"
+    ctx.lineWidth = 0.5
 
     step({
       start: { x: 0, y: 0 },
