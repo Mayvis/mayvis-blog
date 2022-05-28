@@ -10,14 +10,15 @@ const BackgroundCanvas = () => {
   let animationFrame = null
 
   function init() {
+    if (animationFrame) {
+      cancelAnimationFrame(animationFrame)
+    }
+
     let pendingTasks = []
 
     const canvas = canvasRef.current
     const ctx = canvas.getContext("2d")
     ctx.clearRect(0, 0, canvas.width, canvas.height)
-    if (animationFrame) {
-      cancelAnimationFrame(animationFrame)
-    }
     ctx.canvas.width = window.innerWidth
     ctx.canvas.height = document.body.clientHeight
 
@@ -101,11 +102,15 @@ const BackgroundCanvas = () => {
   }
 
   React.useEffect(() => {
-    init()
-  })
+    if (typeof window !== "undefined") {
+      window.addEventListener("resize", () => init())
+    }
 
-  window.addEventListener("resize", () => {
-    init()
+    return () => {
+      if (typeof window !== "undefined") {
+        window.removeEventListener("resize", () => init())
+      }
+    }
   })
 
   return <canvas ref={canvasRef} className="canvas" />
