@@ -25,11 +25,11 @@ tags: ["vue", "frontend"]
 
 ### Extract what you need
 
-我相信工程師就是遇到問題，然後去解決問題，你可以自己思考如何獲得解答，也可以上網尋求解答，這就是為什麼我在前言把我最常使用的管理介面提出來，在撰寫後端模板時上面幾個有很好的參考價值。
+我們公司後台管理的介面是公司有設計師會幫忙設計的，那我相信工程師就是遇到問題，然後去解決問題，你可以自己思考如何獲得解答，也可以上網尋求解答，這就是為什麼我在前言把我最常使用的管理介面提出來，在撰寫全新後端模板時上面幾個有很好的參考價值，下面會講後台管理頁面比較重要的核心功能**動態路由**及**Pinia 集中管理**。
 
 ### Dynamic Vue Router
 
-做後台管理頁面其實比較麻煩的就是，動態路由這部分，路由必須是角色登入後，才能進行創建，而 Vue Router 也有支持這項功能，基本上教學可以觀看這幾篇[文章](https://juejin.cn/post/6844903478880370701)，並搭配 element ui admin 的程式碼，下面是動態路由守衛的小小的範例。
+做後台管理頁面其實比較麻煩的就是，動態路由這部分，路由必須是角色登入後，才能進行創建，而 Vue Router 有支持這項功能 `addRoute(route)`，基本上教學可以觀看這幾篇[文章](https://juejin.cn/post/6844903478880370701)，並搭配 element ui admin 的程式碼，下面是動態路由守衛的小小的範例。
 
 Vue Router 這邊有小小的 warning bug，你使用 `next({ ...to, replace: true })`，去處理動態路由，雖然程式仍可以正常運行，但瀏覽器仍會有警示，警示訊息是：
 
@@ -133,7 +133,7 @@ const dashboardRoute: RouteRecordRaw = {
       path: "main",
       name: "dashboard_index",
       component: () => import("@/pages/dashboard/Dashboard.vue"),
-      meta: { roles: ["administrator"] }, // 這邊可以設定role屬性來判斷是否要渲染該頁面
+      meta: { roles: ["administrator"] }, // 這邊可以設定 role 屬性來判斷是否要渲染該頁面
     },
   ],
 }
@@ -227,7 +227,7 @@ export function usePermissionStoreHook() {
 
 ### Pinia is your new friend
 
-目前公司多數 Vue3 專案，有使用集中管理的 Vuex，我都慢慢地移除，並使用 Pinia。它簡化了許多事情，像是 mutation 的步驟可以直接省略，各個 Pinia Store 也可以單獨被提出來做使用...等，下面是 Pinia 小小的範例。
+目前公司多數 Vue3 專案，有使用集中管理的 Vuex，我都慢慢地移除，並使用 Pinia。它簡化了許多事情，像是 mutation 的步驟可以直接省略，各個 Pinia Store 也可以單獨被提出來做使用...等，下面是 Pinia 小小的範例，此外，它也可以搭配類似 js-cookie 來達到 cache 的功能。
 
 ```typescript
 // src/store/index.ts
@@ -242,10 +242,12 @@ export default store
 // src/store/module/user
 import { getUserInfo } from "@/api/user"
 import { IUserInfoResponse } from "@/api/user/types"
+import { token } from "@/utils/auth"
 import store from "@/store"
 import { defineStore } from "pinia"
 
 interface IUserState {
+  token: string
   role: string
 }
 
@@ -253,6 +255,7 @@ export const useUserStore = defineStore({
   id: "user",
   state: (): IUserState => {
     return {
+      token: getToken() || "", // 從 cookie 中獲取 token
       role: "",
     }
   },
@@ -291,3 +294,5 @@ export function useUserStoreWidthOut() {
 ### Conclusion
 
 其實後端管理介面滿好玩的，你可以處理到一些比較需要規劃性質的東西，熟悉 naive-ui，element-plus 之類方便的組件，比較奇怪需要驗證的路由、複雜的表單、各式各樣的圖表，配合使用 echart.js, chart.js...等。
+
+而在後端管理頁面的架構上，時常許多東西是需要往下傳遞的，以往若您不想一一傳遞到子元件時，你可以使用 Pinia 來達到傳送需要的資料到達你想要的子元件，但我自己其實目前比較喜歡 vue3 提供的 provide、inject 的新功能，此功能其實類似 react 的 provider、consumer，滿方便的新工具，這樣可以讓 Pinia Store 內貯存的東西更輕量化。
