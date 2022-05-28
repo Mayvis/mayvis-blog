@@ -102,6 +102,7 @@ const BackgroundCanvas = () => {
   }
 
   React.useEffect(() => {
+    init()
     if (typeof window !== "undefined") {
       window.addEventListener("resize", () => init())
     }
