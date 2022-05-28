@@ -7,14 +7,20 @@ import "./bg-canvas.css"
 
 const BackgroundCanvas = () => {
   const canvasRef = React.useRef(null)
+  let animationFrame = null
 
   function init() {
     let pendingTasks = []
 
     const canvas = canvasRef.current
     const ctx = canvas.getContext("2d")
+    ctx.clearRect(0, 0, canvas.width, canvas.height)
+    if (animationFrame) {
+      cancelAnimationFrame(animationFrame)
+    }
     ctx.canvas.width = window.innerWidth
     ctx.canvas.height = document.body.clientHeight
+
     ctx.strokeStyle = "rgba(214, 213, 209, 0.5)"
     ctx.lineWidth = 0.5
 
@@ -85,7 +91,7 @@ const BackgroundCanvas = () => {
 
     let framesCount = 0
     function startFrame() {
-      requestAnimationFrame(() => {
+      animationFrame = requestAnimationFrame(() => {
         framesCount += 1
         if (framesCount % 3 === 0) frame()
         startFrame()
@@ -95,6 +101,10 @@ const BackgroundCanvas = () => {
   }
 
   React.useEffect(() => {
+    init()
+  })
+
+  window.addEventListener("resize", () => {
     init()
   })
 
