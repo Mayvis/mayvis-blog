@@ -1,6 +1,6 @@
 ---
 title: Vue Provide Inject Reactivity
-date: "2022-06-17T12:00:00.000Z"
+date: "2022-06-02T12:00:00.000Z"
 description: 當網站越來越龐大，元件之間的耦合也會越來越多，測試也會越來越難複雜及難寫；今天我想來探討一下 Vue3 的 provide、inject 功能，及如何使他們能 reactivity，因為這是前端時常會遇到的問題。
 tags: ["vue", "frontend"]
 ---

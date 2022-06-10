@@ -27,6 +27,7 @@
     "Spacebar",
     "Threejs",
     "vundle",
-    "WORKDIR"
+    "WORKDIR",
+    "worklet"
   ]
 }
