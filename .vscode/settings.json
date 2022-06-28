@@ -26,6 +26,8 @@
     "pixi",
     "Spacebar",
     "Threejs",
+    "timeupdate",
+    "videojs",
     "vundle",
     "WORKDIR",
     "worklet"

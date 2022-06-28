@@ -79,6 +79,8 @@
   --development-tag: rgba(238, 169, 65, 0.4);
   --docker-tag: rgba(241, 59, 120, 0.4);
   --javascript-tag: rgba(249, 234, 67, 0.4);
+  --p5-js-tag: rgba(233, 35, 83, 0.4);
+  --ai-tag: rgba(194, 123, 160, 0.4);
 }
 
 .dark-theme {
@@ -101,6 +103,8 @@
   --development-tag: rgba(238, 169, 65, 1);
   --docker-tag: rgba(241, 59, 120, 1);
   --javascript-tag: rgba(249, 234, 67, 1);
+  --p5-js-tag: rgba(233, 35, 83, 1);
+  --ai-tag: rgba(194, 123, 160, 1);
 }
 
 /* HTML elements */
@@ -397,6 +401,14 @@ a:focus {
 
 .javascript-tag {
   background-color: var(--javascript-tag);
+}
+
+.p5\.js-tag {
+  background-color: var(--p5-js-tag);
+}
+
+.ai-tag {
+  background-color: var(--ai-tag);
 }
 
 .header-link-home {
