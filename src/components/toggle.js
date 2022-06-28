@@ -8,17 +8,16 @@ let TRIGGER = false
 function Toggle() {
   const toggleRef = React.useRef(null)
 
-  if (!TRIGGER) {
-    const body = document.getElementsByTagName("body")[0]
-    const matched = window.matchMedia("(prefers-color-scheme: dark)").matches
-    if (matched) {
-      body.classList.add("dark-theme")
-    }
-    TRIGGER = true
-  }
-
   React.useEffect(() => {
     const body = document.getElementsByTagName("body")[0]
+    if (!TRIGGER) {
+      const matched = window.matchMedia("(prefers-color-scheme: dark)").matches
+      if (matched) {
+        body.classList.add("dark-theme")
+      }
+      TRIGGER = true
+    }
+
     toggleRef.current.checked = !body.classList.contains("dark-theme")
   }, [])
 
