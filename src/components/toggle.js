@@ -3,8 +3,19 @@ import "./toggle.css"
 import moon from "../assets/moon.png"
 import sun from "../assets/sun.png"
 
+let TRIGGER = false
+
 function Toggle() {
   const toggleRef = React.useRef(null)
+
+  if (!TRIGGER) {
+    const body = document.getElementsByTagName("body")[0]
+    const matched = window.matchMedia("(prefers-color-scheme: dark)").matches
+    if (matched) {
+      body.classList.add("dark-theme")
+    }
+    TRIGGER = true
+  }
 
   React.useEffect(() => {
     const body = document.getElementsByTagName("body")[0]
