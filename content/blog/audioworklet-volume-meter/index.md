@@ -9,6 +9,21 @@ tags: ["javascript"]
 
 坦白說這部分的資料在網路上資源比較匱乏一點，不然就是沒有提供比較詳細的解釋，單純只有程式碼而已，所以需要自己去理解為何要這樣做，程式碼的部分我是參考 Google Chrome Lab github 的 [連結](https://github.com/GoogleChromeLabs/web-audio-samples/commit/7c109d7d21c24bfa031f843877837e36ea0028cb)。
 
+_補充: 上方參考連結的程式碼會使用 JavaScript class private syntax, 像是: `#lastUpdate` `#volume`...等，請不要覺得難，加上 # 的值，只是不可被外部讀取而已，順帶一提，TypeScript private syntax 仍可以被外部讀取。_
+
+```javascript
+class Hello {
+  #name
+
+  constructor() {
+    this.#name = "World"
+  }
+}
+
+console.log(new Hello().#name)
+// error: Property '#name' is not accessible outside class 'Hello' because it has a private identifier.
+```
+
 ### Introduce AudioWorklet init
 
 還記得上次的語音辨識專案嗎？這是 AudioWorklet 初始化範例，如下：
