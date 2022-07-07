@@ -33,7 +33,7 @@ class VolumeMeter extends AudioWorkletProcessor {
 
 當 `process` 被觸發時，我們將 inputs 的值帶入 `calculateVolume` 的函數內，接著我們要統計左聲道跟右聲道的值並加總後取平均值，這邊我們使用 _平方平均数(rms)_ 的方式來進行加總(這方式在聲音取值方面是滿常做使用的)，將左右聲道各 128 個 float32array 數組相乘加總並除以 128 再開更號，求得該時間點平均的音量強度。
 
-```javascript
+```javascript{10-21,24}
 class VolumeMeter extends AudioWorkletProcessor {
   static get parameterDescriptors() {
     return []
@@ -70,7 +70,7 @@ class VolumeMeter extends AudioWorkletProcessor {
 
 有些人對這步驟會產生困惑，我這邊解釋一下，假設上次 rms 我們取得的值是 10 好了，下一次取得的值是 0 ，透過 `Math.max(rms, this.volume * SMOOTHING_FACTOR)`，這樣下一次的值就會變成 8 而不是直接變成 0 ，那因為 process 的觸發是毫秒等級的，透過這種方式可以有漸進式的降低音量的感覺。
 
-```javascript
+```javascript{1,10,25}
 const SMOOTHING_FACTOR = 0.8
 
 class VolumeMeter extends AudioWorkletProcessor {
@@ -112,7 +112,7 @@ class VolumeMeter extends AudioWorkletProcessor {
 
 至於為何 `this.volume` 最後要乘以 100 在於 rms 的值大部分在 0.1 以下，而我前端要渲染的格子只有 10 格，所以我將 rms 乘以 100 確保值的落點。
 
-```javascript
+```javascript{11,28-34}
 const SMOOTHING_FACTOR = 0.8
 
 class VolumeMeter extends AudioWorkletProcessor {
