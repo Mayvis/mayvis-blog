@@ -91,7 +91,7 @@ inputs 輸出的會是一組左右聲道的音頻資料，如下所示：
 
 _Tip: 會做這件事情的主要原因是因為 AudioWorklet process 無法將 float32array 整組直接使用 int16array 替代，這邊會顯示該資料是 readonly 。_
 
-```javascript
+```javascript{10-15,18,20-21}
 class ConvertBitsProcessor extends AudioWorkletProcessor {
   static get parameterDescriptors() {
     return []
