@@ -81,6 +81,7 @@
   --javascript-tag: rgba(249, 234, 67, 0.4);
   --p5-js-tag: rgba(233, 35, 83, 0.4);
   --ai-tag: rgba(194, 123, 160, 0.4);
+  --concept-tag: rgba(237, 111, 45, 0.4);
 }
 
 .dark-theme {
@@ -105,6 +106,7 @@
   --javascript-tag: rgba(249, 234, 67, 1);
   --p5-js-tag: rgba(233, 35, 83, 1);
   --ai-tag: rgba(194, 123, 160, 1);
+  --concept-tag: rgba(237, 111, 45, 1);
 }
 
 /* HTML elements */
@@ -409,6 +411,10 @@ a:focus {
 
 .ai-tag {
   background-color: var(--ai-tag);
+}
+
+.concept-tag {
+  background-color: var(--concept-tag);
 }
 
 .header-link-home {
