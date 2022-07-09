@@ -1,7 +1,7 @@
 ---
 title: AudioWorklet 32bits to 16bits
 date: "2022-06-10T12:00:00.000Z"
-description: 因為目前公司主要產品在做 AI 影像辨識及語音辨識部分的應用，那在語音辨識這塊，需要透過使用者操作網站透過麥克風及時將資料轉換成 Sample rate 16000 16bits 或 8bits 的音頻資料，並將其提供給公司的語音辨識系統，這篇文章就來講解如何透過 AudioWorklet 將音頻資料轉換成 16bits 的音頻資料。
+description: 因為目前公司主要產品在做 AI 影像辨識及語音辨識部分的應用，那在語音辨識這塊，需要透過使用者操作網站透過麥克風及時將資料的 Sample rate 轉換成 16000 16bits 或 8000 8bits 的音頻資料，並將其提供給公司的語音辨識系統，這篇文章就來講解如何透過 AudioWorklet 將音頻資料轉換成 16bits 的音頻資料。
 tags: ["javascript"]
 ---
 
