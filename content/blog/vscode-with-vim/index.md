@@ -141,6 +141,8 @@ tags: ["tool"]
 
 如何插入字到該行最後的位置，並轉換到 Insert mode？對於 vim 的使用者來說會是 `A`
 
+如何註解程式碼，如果是使用類似 VSCode 可以進入 visual mode 直接使用 `cmd+/` 去註解，如果是使用 vim 可以進入區塊 visual mode 快捷鍵是 `ctrl+v` 接著使用 `shift+i` 進入輸入模式，最後輸入 `//` 去註解，去註解則是使用 `ctrl+v` 選取好後用 `d` 去刪除註解
+
 ---
 
 **Vscode**
