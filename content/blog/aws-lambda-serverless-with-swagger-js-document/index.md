@@ -69,7 +69,7 @@ const app = express()
 app.use(cors())
 app.use(express.json())
 
-// swgger part
+// swagger part
 const swaggerDefinition = {
   swagger: "2.0",
   info: {

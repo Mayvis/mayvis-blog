@@ -99,7 +99,7 @@ module.exports = async function (options) {
     waitUntil: ["load", "domcontentloaded", "networkidle0"],
   })
 
-  // you can store it into image or just buffer, personally I preffer buffer,
+  // you can store it into image or just buffer, personally I prefer buffer,
   // because I can use s3.putObject directly upload file into my s3 bucket.
   const imageBuffer = await page.screenshot({
     type: "jpeg",

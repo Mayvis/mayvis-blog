@@ -106,7 +106,7 @@ The `bind()` method creates a new function that, when called, has its `this` key
 
 **Important**: When to use `bind` -> Have to correctly assign `this` situation and use it later.
 
-The `bind()` function creates a new **bound function**, which is an _exotic funcion object_ (a term from ECMAScript 2015) that wraps the original function object. Calling the bound function generally results in the execution of its wrapped function.
+The `bind()` function creates a new **bound function**, which is an _exotic function object_ (a term from ECMAScript 2015) that wraps the original function object. Calling the bound function generally results in the execution of its wrapped function.
 
 #### Syntax
 
@@ -150,7 +150,7 @@ let myFunc = function () {
   console.log(this.name) // 3. calling obj's name
 }
 
-Function.propotype.customBind = function (obj) {
+Function.prototype.customBind = function (obj) {
   let _this = this
   return function () {
     _this.apply(obj) // 2. apply obj to current function
