@@ -5,6 +5,8 @@ description: 手把手解釋及使用 AWS lambda serverless with swagger js docu
 tags: ["aws", "server", "backend"]
 ---
 
+### Preface
+
 古人云：「工欲善其事，必先利其器」。我認為不論是任何工程師，都在找尋最適合自己的工具。
 而現在由於專案越來越複雜，彼此之間分工合作大大小小的事情也越趨茁壯，放在網頁工程師的範疇的話，簡單講就是前端做前端的事情，後端做後端的事情，彼此之間不互相干涉，而當雙方要進行溝通時，文件就成了一個良好且必須的媒介。
 
@@ -18,7 +20,7 @@ tags: ["aws", "server", "backend"]
 
 ### Preparatory work
 
-這邊會列出此次demo所使用的所有套件，方便您進行安裝。
+這邊會列出此次 demo 所使用的所有套件，方便您進行安裝。
 
 ```bash
 # serverless part
@@ -35,9 +37,9 @@ npm i -D @types/express @types/swagger-jsdoc @types/swagger-ui/express @types/co
 
 ```javascript
 // 路徑為 src/api/index.js
-const serverless = require("serverless-http");
+const serverless = require("serverless-http")
 
-module.exports.handler = serverless(require("./api"));
+module.exports.handler = serverless(require("./api"))
 ```
 
 ```yml
@@ -55,17 +57,17 @@ functions:
 
 ```javascript
 // 路徑為 src/api/api.js
-const express = require("express");
-const routes = require("./routes");
-const cors = require("cors");
-const swaggerJSDoc = require("swagger-jsdoc");
-const swaggerUI = require("swagger-ui-express");
+const express = require("express")
+const routes = require("./routes")
+const cors = require("cors")
+const swaggerJSDoc = require("swagger-jsdoc")
+const swaggerUI = require("swagger-ui-express")
 
-const app = express();
+const app = express()
 
 // middle
 app.use(cors())
-app.use(express.json());
+app.use(express.json())
 
 // swgger part
 const swaggerDefinition = {
@@ -78,30 +80,31 @@ const swaggerDefinition = {
 }
 const options = {
   swaggerDefinition,
-  apis: ["./src/api/routes/*.js"]
+  apis: ["./src/api/routes/*.js"],
 }
-const swaggerDoc = swaggerJSDoc(options);
+const swaggerDoc = swaggerJSDoc(options)
 
-app.use("/swagger",
+app.use(
+  "/swagger",
   swaggerUI.serve,
   swaggerUI.setup(swaggerDoc, {
     swaggerOptions: {
-      url: 'api-docs'
-    }
+      url: "api-docs",
+    },
   })
-);
+)
 
 // routes
-app.use("/", routes);
+app.use("/", routes)
 
-module.exports = app;
+module.exports = app
 ```
 
 第三步驟，創建 routes folder 並定義 swagger js document 文件相關的設定。
 
 ```javascript
 // 創建 routes folder 路徑為 src/api/routes/index.js
-const router = require('express').Router();
+const router = require("express").Router()
 
 /**
  * @swagger
@@ -118,17 +121,17 @@ const router = require('express').Router();
  *         description: Connection has been established successfully.
  */
 router.get("/api/v1/test", async (req, res) => {
-  res.status(200).json({message: "ok"});
-});
+  res.status(200).json({ message: "ok" })
+})
 
-module.exports = router;
+module.exports = router
 ```
 
 ### Conclusion
 
-🆘這邊要注意，再搭配 serverless-webpack 時，會失效🆘，目前我還未釐清為何不行搭配 webpack 來進行使用，又或著是我寫法上有錯誤，如果有人有解法也歡迎寄信給我來討論。
+🆘 這邊要注意，再搭配 serverless-webpack 時，會失效 🆘，目前我還未釐清為何不行搭配 webpack 來進行使用，又或著是我寫法上有錯誤，如果有人有解法也歡迎寄信給我來討論。
 
-~~目前我認為應該是因為 webpack 會移除 @swagger 的 comment 及路徑也會有所不同，但我有嘗試處理過，還是不行😅，之後若知道該如何處理會在更新這篇文章。~~
+~~目前我認為應該是因為 webpack 會移除 @swagger 的 comment 及路徑也會有所不同，但我有嘗試處理過，還是不行 😅，之後若知道該如何處理會在更新這篇文章。~~
 
 後來確認過是因為 swagger-ui-express 配合使用 webpack 之後會產生的問題，官方 [issue](https://github.com/scottie1984/swagger-ui-express/issues/90) 在這。最主要的原因就是 "swagger-ui-express uses the filesystem at runtime"，但我目前就算用 CopyWebpackPlugin 雖然本地端可以成功，但推上 aws 後還是沒辦法正常執行，之後若知道該如何處理會在更新這篇文章。🥲
 

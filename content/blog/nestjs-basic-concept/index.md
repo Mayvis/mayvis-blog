@@ -1,18 +1,20 @@
 ---
-title: NestJs basic concept and example 
+title: NestJs basic concept and example
 date: "2021-08-13T12:00:00.000Z"
-description: NodeJs 後端套件五花八門，前端有 Vue 及 React 可以做統一，但 NodeJs 的後端呢？如果引入一個統一的架構會不會比較好管理團隊及維護呢？這是前鎮子，墨雨設計的安凱及哲宇所提及的問題，畢竟每個工程師對程式碼也都有各自的想法及理解；而我自己私心的想法是認為，不論在好的框架都要試過了才知道是否能好好地契合整個團隊，於是近期最終宣布使用 NestJs 這個框架來進行專案上的開發，那今天就來介紹我認為這框架的魅力之處。 
+description: NodeJs 後端套件五花八門，前端有 Vue 及 React 可以做統一，但 NodeJs 的後端呢？如果引入一個統一的架構會不會比較好管理團隊及維護呢？這是前鎮子，墨雨設計的安凱及哲宇所提及的問題，畢竟每個工程師對程式碼也都有各自的想法及理解；而我自己私心的想法是認為，不論在好的框架都要試過了才知道是否能好好地契合整個團隊，於是近期最終宣布使用 NestJs 這個框架來進行專案上的開發，那今天就來介紹我認為這框架的魅力之處。
 tags: ["framework", "backend"]
 ---
 
-*本文章，很多範例都是參考此 [Marius Espejo](https://www.youtube.com/channel/UCDpd-qEwAI9wglx4tsEBAtw) 頻道所述及 [官網](https://nestjs.com/)
-的介紹。*
+### Preface
+
+_本文章，很多範例都是參考此 [Marius Espejo](https://www.youtube.com/channel/UCDpd-qEwAI9wglx4tsEBAtw) 頻道所述及 [官網](https://nestjs.com/)
+的介紹。_
 
 比爾・蓋茲曾說過：「我讓懶人做困難的工作，因為懶人能夠找到最簡單的方法完成任務。」；在工程師的世界裡，不會因為你打的程式碼特別長，大家就特別佩服你，我認為好的工程師喜歡將事情簡單化，就從每個工程師都在用的 git 講起，試想當你想 commit git message 時，每次都必須使用下方這個指令：
 
 ```bash
 git commit -m message
-``` 
+```
 
 如果你可以打個 gc 後面加上你要帶入的資訊就可以將程式碼推上去這不是更快速便捷嗎？有些人或許會說也不過多打幾個字而已，但是如果我將時間拉長為一年呢？事實上，長期下來還是很可觀的，畢竟沒有人喜歡花費太多時間在重複的事情上面。
 
@@ -50,7 +52,7 @@ npm install -g @nestjs/cli
 # initialize project
 nest new project-name
 
-# select package manager 
+# select package manager
 yarn or npm
 
 # run project
@@ -89,48 +91,51 @@ npm i --save @nestjs/swagger swagger-ui-express
 
 ```typescript
 // main.ts
-import { NestFactory } from "@nestjs/core";
-import { DocumentBuilder, SwaggerModule } from "@nestjs/swagger";
-import { AppModule } from "./app.module";
+import { NestFactory } from "@nestjs/core"
+import { DocumentBuilder, SwaggerModule } from "@nestjs/swagger"
+import { AppModule } from "./app.module"
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create(AppModule)
 
   // Initialize Swagger 📚📚📚
   const config = new DocumentBuilder()
     .setTitle("Example API")
     .setDecription("Test API description")
     .setVersion("1.0.0")
-    .build();
-  const document = SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup("/dev", app, document);
+    .build()
+  const document = SwaggerModule.createDocument(app, config)
+  SwaggerModule.setup("/dev", app, document)
 
-  await app.listen(3000);
+  await app.listen(3000)
 }
 
-bootstrap();
+bootstrap()
 ```
 
 ```typescript
 // users.controller.ts
-import { Controller, Get } from "nestjs/common";
-import { ApiTags, ApiOkResponse, ApiNotFoundResponse } from "@nestjs/swagger";
-import { UsersService } from "./users.service";
-import { User } from "./entities/user.entity.ts";
+import { Controller, Get } from "nestjs/common"
+import { ApiTags, ApiOkResponse, ApiNotFoundResponse } from "@nestjs/swagger"
+import { UsersService } from "./users.service"
+import { User } from "./entities/user.entity.ts"
 
 // help Swagger to create API document 📚
 @ApiTags("users")
 @Controller("users")
 export class UserController {
-  constructor(private usersService: UsersService) {
-  }
+  constructor(private usersService: UsersService) {}
 
   // help Swagger to create API document 📚
-  @ApiOkResponse({ type: User, isArray: true, description: "Get the user by ID" })
+  @ApiOkResponse({
+    type: User,
+    isArray: true,
+    description: "Get the user by ID",
+  })
   @ApiNotFoundResponse()
   @Get()
   getUsers(): User[] {
-    return this.usersService.findAll();
+    return this.usersService.findAll()
   }
 }
 ```
@@ -145,33 +150,33 @@ npm i --save class-validator class-transformer
 
 ```typescript
 // main.ts
-import { NestFactory } from "@nestjs/core";
-import { ValidationPipe } from "@nestjs/common";
-import { AppModule } from "./app.module";
+import { NestFactory } from "@nestjs/core"
+import { ValidationPipe } from "@nestjs/common"
+import { AppModule } from "./app.module"
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create(AppModule)
 
-  // Initialize validation ✅ ✅ ✅ 
-  app.useGlobalPipes(new ValidationPipe());
+  // Initialize validation ✅ ✅ ✅
+  app.useGlobalPipes(new ValidationPipe())
 
-  await app.listen(3000);
+  await app.listen(3000)
 }
 
-bootstrap();
+bootstrap()
 ```
 
 ```typescript
 // dto - Data Transfer Object
 // simply think dto is the instance for what data interface should look like 🔥
 // update-user.dto.ts file
-import { IsAlphanumeric, MaxLength } from "class-validator";
+import { IsAlphanumeric, MaxLength } from "class-validator"
 
 export class UpdateUserDto {
-  // validate name column, can combine with swagger ✅ 
+  // validate name column, can combine with swagger ✅
   @IsAlphanumeric()
   @MaxLength(64)
-  name: string;
+  name: string
 }
 ```
 
@@ -185,9 +190,9 @@ export class UpdateUserDto {
 
 ```typescript
 // users.service.ts
-import { Injectable } from "nestjs/common";
-import { CreateUserDto } from "./dto/create-user.dto.ts";
-import { User } from "./entities/user.entity";
+import { Injectable } from "nestjs/common"
+import { CreateUserDto } from "./dto/create-user.dto.ts"
+import { User } from "./entities/user.entity"
 
 @Injectable()
 export class UsersService {
@@ -195,25 +200,25 @@ export class UsersService {
     { id: 0, name: "Liang" },
     { id: 1, name: "Mayvis" },
     { id: 2, name: "Dana" },
-  ];
+  ]
 
   findAll(name?: string): User[] {
     if (name) {
-      return this.users.filter(user => user.name === name);
+      return this.users.filter(user => user.name === name)
     }
-    return this.users;
+    return this.users
   }
 
   findById(userId: number): User {
-    return this.users.find(user => user.id === userId);
+    return this.users.find(user => user.id === userId)
   }
 
-  createUser(createUserDto: CreateUserDto):User {
-    const newUser = { id: Date.now(), ...createUserDto };
+  createUser(createUserDto: CreateUserDto): User {
+    const newUser = { id: Date.now(), ...createUserDto }
 
-    this.users.push(newUser);
+    this.users.push(newUser)
 
-    return newUser;
+    return newUser
   }
 }
 ```
@@ -229,30 +234,29 @@ import {
   ParseIntPipe, // useful utility method - parse to int 🔥🔥
   DefaultValuePipe, // useful utility method - default value 🔥🔥
   ParseBoolPipe, // useful utility method - parse to boolean 🔥🔥
-} from "nestjs/common";
+} from "nestjs/common"
 import {
   ApiTags,
   ApiCreateResponse,
   ApiOkResponse,
   ApiNotFoundResponse,
-  ApiBadRequestResponse
-} from "@nestjs/swagger";
-import { UsersService } from "./users.service";
-import { User } from "./entities/user.entity.ts";
+  ApiBadRequestResponse,
+} from "@nestjs/swagger"
+import { UsersService } from "./users.service"
+import { User } from "./entities/user.entity.ts"
 import { CreateUserDto } from "./dto/create-user.dto.ts"
 
 // help Swagger to create API document 📚
 @ApiTags("users")
 @Controller("users")
 export class UserController {
-  constructor(private usersService: UsersService) {
-  }
+  constructor(private usersService: UsersService) {}
 
   // help Swagger to create API document 📚
   @ApiOkResponse({ type: User, isArray: true })
   @Get()
   getUsers(): User[] {
-    return this.usersService.findAll();
+    return this.usersService.findAll()
   }
 
   // nestjs query example 🔥
@@ -261,7 +265,7 @@ export class UserController {
   @ApiQuery({ name: "name", required: false })
   @Get()
   getUserByQueryName(@Query("name") name: string) {
-    return this.usersService.findAll(name);
+    return this.usersService.findAll(name)
   }
 
   // help Swagger to create API document, and handle error 📚
@@ -269,14 +273,14 @@ export class UserController {
   @ApiNotFoundResponse()
   @Get(":id")
   getUserById(@Param("id", ParseIntPipe) id: number): User {
-    const user = this.usersService.findById(id);
+    const user = this.usersService.findById(id)
 
     // nestjs handle error, in this case 404 🔥
     if (!user) {
-      throw new NotFoundException();
+      throw new NotFoundException()
     }
 
-    return user;
+    return user
   }
 
   // help Swagger to create API document 📚
@@ -284,7 +288,7 @@ export class UserController {
   @ApiBadRequestResponse()
   @Post()
   createUser(@Body() body: CreateUserDto): User {
-    return this.usersService.createUser(body);
+    return this.usersService.createUser(body)
   }
 }
 ```
@@ -293,12 +297,12 @@ export class UserController {
 // dto - Data Transfer Object
 // simply think dto is the instance for what data interface should look like 🔥
 // src/users/dto/create-user.dto.ts
-import { ApiProperty } from "@nestjs/swagger";
+import { ApiProperty } from "@nestjs/swagger"
 
 export class CreateUserDto {
   // help Swagger to create API document 📚
   @ApiProperty()
-  name: string;
+  name: string
 
   // swagger doc optional field 📚
   // @ApiProperty({ required: false })
@@ -309,15 +313,15 @@ export class CreateUserDto {
 ```typescript
 // simply think entity is database table 🔥
 // src/users/entities/user.entity.ts
-import { ApiProperty } from "@nestjs/swagger";
+import { ApiProperty } from "@nestjs/swagger"
 
 export class User {
   // help Swagger to create API document 📚
   @ApiProperty()
-  id: number;
+  id: number
 
   @ApiProperty()
-  name: string;
+  name: string
 }
 ```
 
@@ -328,10 +332,11 @@ export class User {
 那我自己在看 NestJs 時，其實特別的親切，儘管功能沒有 Laravel 這 PHP 怪物框架那麼的友善，但是也算是簡潔易懂的，尤其是做像是 TDD (Test Driven Development) 時，有種回到 Laravel 的感覺，算是意外的驚喜吧！
 
 下面幾個重點跟各位分享：
+
 1. 可以多多使用 NestJs 便捷 Pipe method 及 Error exception。
 2. 強烈建議與 Swagger 進行搭配，還是要為下一個接你程式碼的工程師設想一下。
 3. ORM 的部分可以根據專案大小來做使用，個人覺得這點相對 Laravel 是有優勢的，程式碼不會太過臃腫。
 4. TDD 是你的好朋友，可以讓你比較不容易犯錯。
 5. [Marius Espejo](https://www.youtube.com/channel/UCDpd-qEwAI9wglx4tsEBAtw) 英文如果不錯，可以去看看，會有所收穫。
- 
+
 那我們就下一篇再見啦！！

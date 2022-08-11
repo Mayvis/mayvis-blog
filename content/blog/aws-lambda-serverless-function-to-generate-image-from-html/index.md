@@ -5,6 +5,8 @@ description: 手把手解釋及使用 AWS lambda serverless function to generate
 tags: ["aws", "server", "backend"]
 ---
 
+### Preface
+
 在後端使用 nodejs，令其產出 html，最終輸出成圖片，這過程一直是件不容易的事情，如果只是簡單的 html，css，及後端的一些資訊，還好做處理，但是如果客戶要求的是表單，表格，甚至是 canvas ...等，需要引用前端第三方套件，你又該如何處理呢？
 
 基於上面這些問題，後端有許多好用的套件像是 [node-html-to-image](https://github.com/frinyvonnick/node-html-to-image) ...等套件，可以方便讓工程師使用，似乎一切都很完美，但是接下來，你聽到主管的後續需求是，請使用 aws lambda with serverless function，而非簡單的使用 aws ec2 來建制後端。
@@ -13,19 +15,19 @@ tags: ["aws", "server", "backend"]
 
 ## Good time is always short-lived. But why?
 
-不知道各位有沒有寫過爬蟲，現在很多公司會將爬蟲的程式碼扔到雲上面，讓他固定時間去爬取相關的資訊，但是這技術是如何達成的？其實簡單來講，**就是在雲上面建置一個 chrome 瀏覽器**，並用程式定時去跑，讓頁面滾動，載入API，瀏覽頁面的 DOM，模擬人的動作，並抓取你所需要的資料，所以像是 selenium，scrapy 之類的，python 普遍的爬蟲套件，背後的原理其實都是在做相同的事情。
+不知道各位有沒有寫過爬蟲，現在很多公司會將爬蟲的程式碼扔到雲上面，讓他固定時間去爬取相關的資訊，但是這技術是如何達成的？其實簡單來講，**就是在雲上面建置一個 chrome 瀏覽器**，並用程式定時去跑，讓頁面滾動，載入 API，瀏覽頁面的 DOM，模擬人的動作，並抓取你所需要的資料，所以像是 selenium，scrapy 之類的，python 普遍的爬蟲套件，背後的原理其實都是在做相同的事情。
 
 回到主題，所以 node-html-to-image 之類的套件也是在做相同的事情嗎？
 
-是的，模擬一個瀏覽器 chrome，並用這 chrome 來做渲染，差別只差在，最終我們必須透過程式將頁面打印下來，所以當你將使用 node-html-to-image 類似這種套件透過 aws lambda deploy 至 aws 時，你會發現你的檔案將近300MB，而這也間接導致 aws 限制檔案大小的防禦機制將你的檔案視為無法上傳，罪魁禍首其實就是因為 chrome 的檔案過大。
+是的，模擬一個瀏覽器 chrome，並用這 chrome 來做渲染，差別只差在，最終我們必須透過程式將頁面打印下來，所以當你將使用 node-html-to-image 類似這種套件透過 aws lambda deploy 至 aws 時，你會發現你的檔案將近 300MB，而這也間接導致 aws 限制檔案大小的防禦機制將你的檔案視為無法上傳，罪魁禍首其實就是因為 chrome 的檔案過大。
 
 下方是 aws serverless function 的[文檔](https://docs.aws.amazon.com/lambda/latest/dg/gettingstarted-limits.html)所述的限制條件：
 
-| Resource                                    | Quota                               |
-| :------------------------------------------ | :---------------------------------- |
-| Deployment package                          | 50 MB (zipped, for direct upload)   |
-| (.zip file archive) size                    | 250 MB (unzipped, including layers) |
-|                                             | 3 MB (console editor)               |
+| Resource                 | Quota                               |
+| :----------------------- | :---------------------------------- |
+| Deployment package       | 50 MB (zipped, for direct upload)   |
+| (.zip file archive) size | 250 MB (unzipped, including layers) |
+|                          | 3 MB (console editor)               |
 
 ## How to overcome the aws lambda upload size limit?
 
@@ -48,21 +50,24 @@ make chrome_aws_lambda.zip
 上傳的方式可以參考此 [youtube](https://www.youtube.com/watch?v=i12H4cUFudU)，我覺得解釋得滿詳細的，那唯一不一樣的地方如下：
 
 上傳後，路徑不用額外添加 `/opt/`
+
 ```javascript
-const chromiun = require("/opt/chrome-aws-lambda");
+const chromiun = require("/opt/chrome-aws-lambda")
 ```
+
 請改成
+
 ```javascript
-const chromium = require("chrome-aws-lambda");
+const chromium = require("chrome-aws-lambda")
 ```
 
 ### Write utility function to generate image
 
-上傳完成之後，添加該 layer 至你的 serverless function 中，可以使用我下方的程式碼範例，你便可以輸出你想要的圖片了，順帶一提，這邊有使用 [handlebars](https://github.com/handlebars-lang/handlebars.js)，他主要的功能就是支援 html 引入參數的功能 `<div>{{ content }}</div>`，此範例中 content 會被編譯成你帶入的資料，類似簡單版的 vue 或 React，相當方便。
+上傳完成之後，添加該 layer 至你的 serverless function 中， 可以使用我下方的程式碼範例，你便可以輸出你想要的圖片了，順帶一提，這邊有使用 [handlebars](https://github.com/handlebars-lang/handlebars.js)，他主要的功能就是支援 html 引入參數的功能 `<div>{{ content }}</div>`，此範例中 content 會被編譯成你帶入的資料，類似簡單版的 vue 或 React，相當方便。
 
 ```javascript
-const chromium = require("chrome-aws-lambda"); // this currently imported from lambda layer 
-const handlebars = require("handlebars");
+const chromium = require("chrome-aws-lambda") // this currently imported from lambda layer
+const handlebars = require("handlebars")
 
 module.exports = async function (options) {
   const {
@@ -71,10 +76,10 @@ module.exports = async function (options) {
     output,
     selector = "body",
     puppeteerArgs = {},
-  } = options;
+  } = options
 
   if (!html) {
-    throw Error("You must provide an html property.");
+    throw Error("You must provide an html property.")
   }
 
   const browser = await chromium.puppeteer.launch({
@@ -82,29 +87,29 @@ module.exports = async function (options) {
     defaultViewport: chromium.defaultViewport,
     executablePath: await chromium.executablePath,
     headless: chromium.headless,
-  });
+  })
 
-  const page = await browser.newPage();
+  const page = await browser.newPage()
   if (content) {
-    const template = handlebars.compile(html);
-    html = template(content);
+    const template = handlebars.compile(html)
+    html = template(content)
   }
 
   await page.setContent(html, {
     waitUntil: ["load", "domcontentloaded", "networkidle0"],
-  });
+  })
 
   // you can store it into image or just buffer, personally I preffer buffer,
   // because I can use s3.putObject directly upload file into my s3 bucket.
   const imageBuffer = await page.screenshot({
     type: "jpeg",
-  });
+  })
 
-  await page.close();
-  await browser.close();
+  await page.close()
+  await browser.close()
 
-  return imageBuffer;
-};
+  return imageBuffer
+}
 ```
 
 ### Conclusion
@@ -116,7 +121,7 @@ module.exports = async function (options) {
 總之，網站還在持續用 Gatsby 建置新功能，目前先規劃的是下面這些功能。
 
 1. Dark Mode Toggle Features
-2. Markdown Typography 
+2. Markdown Typography
 3. Update Favicon Icon
 
 主要是因為我的審美觀認為原先的主題不是那麼的好看，所以應該到時候都會做修改，那就下篇文章再見啦，如果我孵得出來的話。
