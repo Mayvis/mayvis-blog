@@ -85,7 +85,9 @@ SSR 會在伺服器啟動時運作，也就是我們俗稱的 runtime，當客�
 
 ### SSG
 
-SSG (Static Side Generation)，靜態網頁生成，簡單講就是，SSG 會在伺服器 build time 時產出 static HTML，由於是靜態且預先建立好的，所以可以被類似 CDN 的服務快取住，使用者瀏覽網站的體驗是好的；缺點是，假設行銷人員在後臺上架新的商品，由於網站在 build time 建構時已被寫死，所以上架的新商品並不會顯示在網站內，每次上架或更新資訊都必須 rebuild，不適合時常須更新的網站，像作者我現在寫部落格的網站，就是使用 Gatsby.js 的 SSG 功能進行建構，會產出一堆文章的 index.html 😅。
+SSG (Static Side Generation)，靜態網頁生成，簡單講就是，SSG 會在伺服器 build time 時產出 static HTML 及相對應資料的 json 資料，由於是靜態且是預先建立好的，所以可以被 CDN 的服務快取住，使用者瀏覽網站的體驗是好的；缺點是，假設行銷人員在後臺上架新的商品，由於網站在 build time 建構時已被寫死，所以上架的新商品並不會即時顯示在網站內，每次上架或更新資訊都必須 rebuild，不適合時常須更新的網站，像作者我現在寫部落格的網站，就是使用 Gatsby.js 的 SSG 功能進行建構，會在 public 資料夾內，產出一堆文章的 index.html 😅。
+
+補充：目前 React 相關的框架 Next.js、Gatsby 有提供 SSG 功能，Remix 目前只有 SSR 的功能；而 Vue 可使用 Nuxt.js 提供的 SSG 功能。
 
 ##### 此種方式的優點在於：
 
@@ -96,7 +98,7 @@ SSG (Static Side Generation)，靜態網頁生成，簡單講就是，SSG 會在
 ##### 此種方式的缺點在於：
 
 1. 由於已被寫死，所以後續的更動每次都需要重新 build，不適合時常須更新的網站。
-2. 假設頁面數量很多，網站規模很大，build 網站的時間會相當的長，而這時，可能就需要了解到 ISR (Incremental Static Regeneration)，此方式可以設定快取時間，若有 request 進來，ISR 可以先返回之前 build 好舊有的 HTML，接著伺服器再重新建構該頁，等之後再回傳新的 HTML 以利更新。
+2. 假設頁面數量很多，網站規模很大，build 網站的時間會相當的長，而這時，可能就需要了解到 ISR (Incremental Static Regeneration)，簡單講該方式就是設定一個會重新驗證的 revalidate key 值，如果有 request 進來，就會在所設定的快取時間之後，重新產生新的頁面，在快取時間結束內若有新的 request 進來，ISR 會先返回之前 build 好舊有的 HTML，接著在伺服器再重新建構該頁，等下一次的 request 進來，便會回傳最新的 HTML 以利更新；更詳細的資訊，可以參考 [Next.js Incremental Static Regeneration](https://nextjs.org/docs/basic-features/data-fetching/incremental-static-regeneration)。
 
 ### Conclusion
 
