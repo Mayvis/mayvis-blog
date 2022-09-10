@@ -98,7 +98,7 @@ SSG (Static Side Generation)，靜態網頁生成，簡單講就是，SSG 會在
 ##### 此種方式的缺點在於：
 
 1. 由於已被寫死，所以後續的更動每次都需要重新 build，不適合時常須更新的網站。
-2. 假設頁面數量很多，網站規模很大，build 網站的時間會相當的長，而這時，可能就需要了解到 ISR (Incremental Static Regeneration)，簡單講該方式就是設定一個會重新驗證的 revalidate key 值，如果有 request 進來，就會在所設定的快取時間之後，重新產生新的頁面，在快取時間結束內若有新的 request 進來，ISR 會先返回之前 build 好舊有的 HTML，接著在伺服器再重新建構該頁，等下一次的 request 進來，便會回傳最新的 HTML 以利更新；更詳細的資訊，可以參考 [Next.js Incremental Static Regeneration](https://nextjs.org/docs/basic-features/data-fetching/incremental-static-regeneration)。
+2. 假設頁面數量很多，網站規模很大，build 網站的時間會相當的長，而這時，可能就需要了解到 ISR (Incremental Static Regeneration)，簡單講該方式就是設定一個會重新驗證的 revalidate key 值，如果有 request 進來，就會在所設定的快取時間之後，重新產生新的頁面。請注意：在快取時間結束內若有新的 request 進來，ISR 會先返回之前 build 好舊有的 HTML，接著在伺服器重新建構該頁，等下一次的 request 進來，便會回傳最新的 HTML 以利更新；更詳細的資訊，可以參考 [Next.js Incremental Static Regeneration](https://nextjs.org/docs/basic-features/data-fetching/incremental-static-regeneration)。
 
 ### Conclusion
 
