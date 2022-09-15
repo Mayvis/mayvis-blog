@@ -31,7 +31,7 @@ class ConvertBitsProcessor extends AudioWorkletProcessor {
 
     const data = Int16Array.from(inputChannelData, n => {
       const res = n < 0 ? n * 32768 : n * 32767 // convert in range [-32768, 32767]
-      return Math.max(-32768, Math.min(32768, res)) // clamp
+      return Math.max(-32768, Math.min(32767, res)) // clamp
     })
 
     if (this.audioBuffer.length >= 3200) {
