@@ -34,15 +34,15 @@ class ConvertBitsProcessor extends AudioWorkletProcessor {
       return Math.max(-32768, Math.min(32767, res)) // clamp
     })
 
+    // ref: https://stackoverflow.com/questions/14071463/how-can-i-merge-typedarrays-in-javascript
+    this.audioBuffer = Int16Array.from([...this.audioBuffer, ...data])
+
     if (this.audioBuffer.length >= 3200) {
       this.port.postMessage({
         eventType: "data",
         audioBuffer: this.audioBuffer,
       })
       this.audioBuffer = []
-    } else {
-      // ref: https://stackoverflow.com/questions/14071463/how-can-i-merge-typedarrays-in-javascript
-      this.audioBuffer = Int16Array.from([...this.audioBuffer, ...data])
     }
   }
 
