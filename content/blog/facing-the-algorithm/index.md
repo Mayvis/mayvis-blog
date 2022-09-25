@@ -66,7 +66,9 @@ const params = {
 }
 
 // 可以撰寫一下如何使用 getResult 來取得結果
-function getResult() {}
+function getResult() {
+  //
+}
 
 // 有興趣的各位可以試試該如何實踐該項功能，也可以趁機學習一下 Proxy 物件
 const handler = {
@@ -78,7 +80,7 @@ const handler = {
   }
 }
 const proxy = new Proxy(params, handler)
-proxy.keyword = 'hello' // 修改 keyword 的值，觸發 proxy
+proxy.keyword = 'hello' // 修改 keyword 的值，觸發 proxy set 機制
 
 // 可以使用 computed properties 產出下方的 array 而 search 只是去變更你是要第幾個而已
 // 這樣的好處是，你可以在輸入文字的當下就進行處理，後續只要添加上一筆，下一筆的功能就可以了，不用再去處理資料
@@ -232,8 +234,8 @@ async function selectText(start, end) {
 
 我自己在撰寫該專案時，其實是使用 Vue，它有很棒的 computed properties 功能及其 cache 的機制，來增進效能，並不會直接使用到 Proxy 物件，但我想也可以作為參考，因為其實 Vue3 底層其實就是運用 Proxy 物件，而 Vue2 是使用 Object.defineProperty 的功能來進行實作，React 的話可能要親自實作 computed properties 的機制，可以參考 Robin Wieruch 的 [文章](https://www.robinwieruch.de/react-computed-properties/)，我記得 Kent C. Dodds 也有寫過一篇，但我找不到了，如果有人知道可以到 github 發 issue 告訴我，謝謝。
 
-如果有興趣可以試著再把第一種解法的上一步寫出來，我只做了下一步的功能，這就留給讀者各位啦，對不起我太懶😉。
+如果有興趣可以試著再把第一種解法的上一步寫出來，我只做了下一步的功能，這就留給讀者各位啦，對不起我太懶😉，關鍵點應該是倒著 loop 回來。
 
 _解決問題的方式有很多種，我的不見得是最佳解，也許有更好的解法，或許是使用正則表達式，或許是某個特殊的演算法，可以增進些許效能...等，希望讀者會有所收穫。_
 
-話說 virtual scroller 這技術，據說好像是某些公司面試的考題，或許有機會也來寫一篇相關的文章🧐。
+最後，話說 virtual scroller 這技術，據說好像是某些公司面試的考題，或許有機會也來寫一篇相關的文章🧐。
