@@ -44,10 +44,10 @@ function search() {
 }
 
 // 觸發的當下才進行運算
-search() // { pos: 0, text: 'hello world' }
-search() // { pos: 12, text: 'time to say hello' }
-search() // { pos: 0, text: 'hello world hello' }
-search() // { pos: 12, text: 'hello world hello' }
+search() // { index: 0, pos: 0, text: 'hello world' },
+search() // { index: 3, pos: 12, text: 'time to say hello' }
+search() // { index: 4, pos: 0, text: 'hello world hello' }
+search() // { index: 4, pos: 12, text: 'hello world hello' } 
 ```
 
 第二種思路是，程式結構會是這樣的：
@@ -125,7 +125,7 @@ function search() {
 
         return { pos: res, text: arr[i].text, index: i }
       } else {
-        // if can't find text, then we change the index and position for next iteration
+        // if can't find the words, then we change the index and position for next iteration
         params.index = i
         params.pos = 0
       }
