@@ -19,7 +19,7 @@ tags: ["javascript", "frontend"]
 
 ### Mental models
 
-我目前解決該問題的想法有兩種，一種是點擊下一步的當下計算結果，第二種是在你輸入搜尋文字的當下，就會將資料進行處理，就看你喜歡哪種模式了。
+我目前解決該問題的想法有兩種，一種是點擊下一步的當下計算結果，第二種是在你輸入搜尋文字的當下，就會將資料處理好，而你只要執行上一步及下一步的動作就好，兩種我認為都還不錯，就看你喜歡哪種模式了。
 
 第一種的思路，程式結構會是這樣的：
 
@@ -214,6 +214,8 @@ console.log(result)
 
 最後再寫一個如何在 array 進行上一步下一步的功能，便可以將功能實作完成。
 
+_題外話：由於 Proxy 是監測 params.keyword 的修改，如果你修改的事件是註冊在 input 的事件上，那會額外計算很多次，畢竟其實你只是想要最終輸入的值，過程中，若沒進行處理，是滿浪費效能的，這邊可以使用 debounce 的方式在進行優化。_
+
 ### Selection the text
 
 首先由於你已經知道如何找到該文字，那麼接下來就是如何用 JavaScript 選取該文字，目前查找到最好的教學是這個 [連結](https://javascript.info/selection-range)，可以參考一下。一般情況，你必須使用 `Selection` 及 `Range` 來達成。但因為我們是選取 input 內的字詞，可以直接使用 `setSelectionRange` 來達成，_這邊需要注意假使 virtual scroller 由於回收機制，尚未將資料渲染出來，你可能會抓取不到 dom，可以用 `promise` 搭配 `setTimeout` 來解決該問題。_
@@ -234,7 +236,7 @@ async function selectText(start, end) {
 
 我自己在撰寫該專案時，其實是使用 Vue，它有很棒的 computed properties 功能及其 cache 的機制，來增進效能，並不會直接使用到 Proxy 物件，但我想也可以作為參考，因為其實 Vue3 底層其實就是運用 Proxy 物件，而 Vue2 是使用 Object.defineProperty 的功能來進行實作，React 的話可能要親自實作 computed properties 的機制，可以參考 Robin Wieruch 的 [文章](https://www.robinwieruch.de/react-computed-properties/)，我記得 Kent C. Dodds 也有寫過一篇，但我找不到了，如果有人知道可以到 github 發 issue 告訴我，謝謝。
 
-如果有興趣可以試著再把第一種解法的上一步寫出來，我只做了下一步的功能，這就留給讀者各位啦，對不起我太懶😉，關鍵點應該是倒著 loop 回來。
+如果有興趣可以試著再把第一種解法的上一步寫出來，我只做了下一步的功能，這就留給讀者各位啦，對不起我太懶😉，關鍵點應該是倒著 loop 回來，搭配 `str.lastIndexOf`。
 
 _解決問題的方式有很多種，我的不見得是最佳解，也許有更好的解法，或許是使用正則表達式，或許是某個特殊的演算法，可以增進些許效能...等，希望讀者會有所收穫。_
 
