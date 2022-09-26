@@ -1,5 +1,5 @@
 ---
-title: Facing the algorithm
+title: Search text and select algorithm
 date: "2022-09-25T12:00:00.000Z"
 description: 當工程師也幾年了，在過程中，碰到越來越多複雜程式問題，也越來越常遇到無法透過第三方套件來進行實踐，畢竟功能較為獨特，大部分都必須一步一腳印地把功能刻出來，像是該如何實踐網頁的上一步，下一步(redo, undo)動作，如何搜尋文字並將其標註起來，文字編輯器(contenteditable)...等，今天文章想來講一下，搜尋文字並將其框選起來的功能。
 tags: ["javascript", "frontend"]
@@ -172,6 +172,7 @@ function getResult() {
     }
     const index = data?.text.indexOf(proxy.keyword, pos)
     if (index !== -1) {
+      // push into result array
       result.push({ index: count, pos: index, text: data.text })
       pos = index + proxy.keyword.length
     } else {
