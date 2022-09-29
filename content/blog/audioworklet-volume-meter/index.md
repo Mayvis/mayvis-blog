@@ -2,7 +2,7 @@
 title: AudioWorklet volume meter
 date: "2022-07-07T12:00:00.000Z"
 description: 延續上次語音辨識 32bits 轉 16bits 的 AI 的專案，這次我必須把麥克風音量測量功能也加到專案內，原因在於說假設客戶麥克風音源是錯誤的，我們也可以提供一個可視化的方式讓對方知道你現在麥克風是靜音的一個狀態，沒有輸入到我們後台的語音辨識系統裡面，這次我們就透過 AudioWorklet 來實踐這項功能吧。
-tags: ["javascript"]
+tags: ["javascript", "frontend"]
 ---
 
 ### Preface
