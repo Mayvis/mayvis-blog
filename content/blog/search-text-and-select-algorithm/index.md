@@ -15,7 +15,7 @@ tags: ["javascript", "frontend"]
 <br>
 <br>
 
-好的，有得必有失，由於只渲染一部分，網頁內建的搜尋文字，就無法使用了😭，因為搜尋出來的結果不是真正的結果，這就是為何必須要實踐這個功能的原因，_題外話，專案我目前是一次性撈取所有的 json 檔案，如果使用情境是動態加載的，就必須搭配後端來獲取相關資料。_
+好的，有得必有失，由於只渲染一部分，網頁內建的搜尋文字，就無法使用了 😭，因為搜尋出來的結果不是真正的結果，這就是為何必須要實踐這個功能的原因，_題外話，專案我目前是一次性撈取所有的 json 檔案，如果使用情境是動態加載的，就必須搭配後端來獲取相關資料。_
 
 ### Mental models
 
@@ -25,17 +25,17 @@ tags: ["javascript", "frontend"]
 
 ```javascript
 const arr = [
-  { id: 1, text: 'hello world' },
-  { id: 2, text: 'beautiful day' },
-  { id: 3, text: 'nice view' },
-  { id: 4, text: 'time to say hello' },
-  { id: 5, text: 'hello world hello' }
+  { id: 1, text: "hello world" },
+  { id: 2, text: "beautiful day" },
+  { id: 3, text: "nice view" },
+  { id: 4, text: "time to say hello" },
+  { id: 5, text: "hello world hello" },
 ]
 
 const params = {
-  keyword: 'hello',
+  keyword: "hello",
   index: 0,
-  pos: 0
+  pos: 0,
 }
 
 // 有興趣的各位可以試試該如何實踐該項功能
@@ -47,22 +47,22 @@ function search() {
 search() // { index: 0, pos: 0, text: 'hello world' },
 search() // { index: 3, pos: 12, text: 'time to say hello' }
 search() // { index: 4, pos: 0, text: 'hello world hello' }
-search() // { index: 4, pos: 12, text: 'hello world hello' } 
+search() // { index: 4, pos: 12, text: 'hello world hello' }
 ```
 
 第二種思路是，程式結構會是這樣的：
 
 ```javascript
 const arr = [
-  { id: 1, text: 'hello world' },
-  { id: 2, text: 'beautiful day' },
-  { id: 3, text: 'nice view' },
-  { id: 4, text: 'time to say hello' },
-  { id: 5, text: 'hello world hello' }
+  { id: 1, text: "hello world" },
+  { id: 2, text: "beautiful day" },
+  { id: 3, text: "nice view" },
+  { id: 4, text: "time to say hello" },
+  { id: 5, text: "hello world hello" },
 ]
 
 const params = {
-  keyword: '',
+  keyword: "",
 }
 
 // 可以撰寫一下如何使用 getResult 來取得結果
@@ -77,10 +77,12 @@ const handler = {
   },
   set(target, key, value) {
     //
-  }
+  },
 }
+
+const result = []
 const proxy = new Proxy(params, handler)
-proxy.keyword = 'hello' // 修改 keyword 的值，觸發 proxy set 機制
+proxy.keyword = "hello" // 修改 keyword 的值，觸發 proxy set 機制
 
 // 可以使用 computed properties 產出下方的 array 而 search 只是去變更你是要第幾個而已
 // 這樣的好處是，你可以在輸入文字的當下就進行處理，後續只要添加上一筆，下一筆的功能就可以了，不用再去處理資料
@@ -89,7 +91,7 @@ console.log(result)
 //   { index: 0, pos: 0, text: 'hello world' },
 //   { index: 3, pos: 12, text: 'time to say hello' },
 //   { index: 4, pos: 0, text: 'hello world hello' },
-//   { index: 4, pos: 12, text: 'hello world hello' } 
+//   { index: 4, pos: 12, text: 'hello world hello' }
 // ]
 ```
 
@@ -137,14 +139,14 @@ function search() {
 search() // { index: 0, pos: 0, text: 'hello world' },
 search() // { index: 3, pos: 12, text: 'time to say hello' }
 search() // { index: 4, pos: 0, text: 'hello world hello' }
-search() // { index: 4, pos: 12, text: 'hello world hello' } 
+search() // { index: 4, pos: 12, text: 'hello world hello' }
 ```
 
 ### Second solution
 
 第二種情形步驟是要去監控 params.keyword 的修改，接著先產出含有 keyword 的陣列，程式碼如下：
 
-```javascript{15-34,38-50}
+```javascript{15-35,39-51}
 const arr = [
   { id: 1, text: 'hello world' },
   { id: 2, text: 'beautiful day' },
@@ -199,17 +201,17 @@ const handler = {
 }
 
 const result = []
+
 // Proxy 監控的對象必須為物件
 const proxy = new Proxy(params, handler)
-
 proxy.keyword = 'hello'
 
 console.log(result)
-// [ 
+// [
 //   { index: 0, pos: 0, text: 'hello world' },
 //   { index: 3, pos: 12, text: 'time to say hello' },
 //   { index: 4, pos: 0, text: 'hello world hello' },
-//   { index: 4, pos: 12, text: 'hello world hello' } 
+//   { index: 4, pos: 12, text: 'hello world hello' }
 // ]
 ```
 
@@ -223,12 +225,14 @@ _題外話：由於 Proxy 是監測 params.keyword 的修改，如果你修改�
 
 ```javascript
 async function selectText(start, end) {
-  await new Promise((resolve) => {
-    resolve(setTimeout(() => {
-      const dom = document.querySelector(`#input-${id}`)
-      dom.setSelectionRange(start, end)
-      dom.focus()
-    }, 400))
+  await new Promise(resolve => {
+    resolve(
+      setTimeout(() => {
+        const dom = document.querySelector(`#input-${id}`)
+        dom.setSelectionRange(start, end)
+        dom.focus()
+      }, 400)
+    )
   })
 }
 ```
@@ -237,8 +241,8 @@ async function selectText(start, end) {
 
 我自己在撰寫該專案時，其實是使用 Vue，它有很棒的 computed properties 功能及其 cache 的機制，來增進效能，並不會直接使用到 Proxy 物件，但我想也可以作為參考，因為其實 Vue3 底層其實就是運用 Proxy 物件，而 Vue2 是使用 Object.defineProperty 的功能來進行實作，React 的話可能要親自實作 computed properties 的機制，可以參考 Robin Wieruch 的 [文章](https://www.robinwieruch.de/react-computed-properties/)，我記得 Kent C. Dodds 也有寫過一篇，但我找不到了，如果有人知道可以到 github 發 issue 告訴我，謝謝。
 
-如果有興趣可以試著再把第一種解法的上一步寫出來，我只做了下一步的功能，這就留給讀者各位啦，對不起我太懶😉，關鍵點應該是倒著 loop 回來，搭配 `str.lastIndexOf`。
+如果有興趣可以試著再把第一種解法的上一步寫出來，我只做了下一步的功能，這就留給讀者各位啦，對不起我太懶 😉，關鍵點應該是倒著 loop 回來，搭配 `str.lastIndexOf`。
 
 _解決問題的方式有很多種，我的不見得是最佳解，也許有更好的解法，或許是使用正則表達式，或許是某個特殊的演算法，可以增進些許效能...等，希望讀者會有所收穫。_
 
-最後，話說 virtual scroller 這技術，據說好像是某些公司面試的考題，或許有機會也來寫一篇相關的文章🧐。
+最後，話說 virtual scroller 這技術，據說好像是某些公司面試的考題，或許有機會也來寫一篇相關的文章 🧐。
