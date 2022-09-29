@@ -131,6 +131,12 @@ body {
   background-color: var(--bg-color);
 }
 
+kbd {
+  border: 1px solid #f2abc3;
+  border-radius: 5px;
+  padding: 5px;
+}
+
 ::selection {
   background-color: var(--selection);
 }
