@@ -5,7 +5,7 @@ description: 我目前寫程式習慣使用 vim 搭配 vscode，除了寫 Java �
 tags: ["tool"]
 ---
 
-### Mental Model
+### Mental Models
 
 tmux 基本上就圍繞著三個觀念 `session`, `window`, `pane`。上下關係也是如同這個順序，它可以有多個 session，每個 session 可以有多個 window，每個 window 又可以有多個 pane。
 
@@ -13,9 +13,9 @@ tmux 基本上就圍繞著三個觀念 `session`, `window`, `pane`。上下關�
 
 ### Session
 
-> 基本上我在使用 tmux 時，只比較常使用到 pane 及 window，而 session 部分我比較看作是不同專案，所以比較不用去操作它。
+> 基本上我在使用 tmux 時，只比較常使用到 pane 及 window，而 session 部分我會比較看作是不同專案才建立新的，所以比較不用去操作它。
 
-可以使用 `tmux new -s <session name>` 來建立一個新的 session，可以使用 `tmux ls` 來查看目前有哪些 session，使用 `tmux attach -t <session name>` 來切換 session，離開 session 可以使用 <kbd>Ctrl + b</kbd> + <kbd>d</kbd>，較推薦，使用此方式不會刪掉該 session，如果你直接鍵盤輸入 `exit`，此方式會連同 session 一同刪除掉，所以較不推薦。
+可以使用 `tmux new -s <session name>` 來建立一個新的 session，可以使用 `tmux ls` 來查看目前有哪些 session，使用 `tmux attach -t <session name>` 來切換 session，離開 session 則可以使用 <kbd>Ctrl + b</kbd> + <kbd>d</kbd>，較推薦使用此方式，不會刪掉該 session，如果你直接鍵盤輸入 `exit`，此方式會連同 session 一同刪除掉，所以較不推薦。
 
 - <kbd>Ctrl + b</kbd> + <kbd>s</kbd>：視覺化列出目前所有 session
 - <kbd>Ctrl + b</kbd> + <kbd>$</kbd>：重新命名 session
@@ -52,4 +52,4 @@ tmux 基本上就圍繞著三個觀念 `session`, `window`, `pane`。上下關�
 
 ### Conclusion
 
-我自己是認為，上手一個工具，就跟打遊戲一樣，你要先知道觀念跟規則，接著習慣它就好了，以上就是我在使用 tmux 時，一些常用的指令，較進階的使用方式，可以去安裝 tmux 的相關套件配合使用，像是 _oh-my-tmux_ ...等。
+我自己是認為，上手一個工具，就跟打遊戲一樣，你要先知道觀念跟規則，接著習慣它就好了，以上就是我在使用 tmux 時，一些常用的指令，喜歡客製化，較進階的使用方式，可以去安裝相關套件配合使用，像是 _neovim、macvim、oh-my-tmux_...等，這邊就依據自己的需求去搭配使用。
