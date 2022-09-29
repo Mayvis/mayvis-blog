@@ -1,7 +1,7 @@
 ---
 title: Happy Hacking tmux
 date: "2022-09-29T12:00:00.000Z"
-description: 之前有提及過，我目前寫程式習慣使用 vim 搭配 vscode，除非寫 java 會使用到 intellij，坦白說這些都是很好用的工具，但是假如你今天僅僅是想在機器上，寫一些簡單的程式，並不需要額外其他的功能，那 tmux 搭配 vim 在 terminal 操作其實是滿常見的一種開發方式，儘管這種開發模式我已經不常使用了，又或著你今天是一個 AI 工程師，你需要駐存終端機上顯示的各項 training 資訊，但你又害怕手賤不小心關掉 terminal，tmux 有所謂 session 的功能相較於 iTerm2 之類的 terminal 能更勝任該角色...等，這篇文章就來介紹一下最基本 tmux。
+description: 我目前寫程式習慣使用 vim 搭配 vscode，除了寫 Java 會使用到 intellij，坦白說這些都是很好用的工具，但是假如你今天僅僅是想在機器上，寫一些簡單的程式，並不需要額外其他的功能，那 tmux 搭配 vim 在 terminal 操作其實是滿常見的一種開發方式，又或著你今天是一個 AI 工程師，你需要駐存終端機上顯示的各項 training 資訊，但你又害怕手賤不小心關掉 terminal，tmux 有所謂 session 的功能相較於 iTerm2 之類的 terminal 能更勝任該角色...等，這篇文章就來介紹一下最基本 tmux。
 tags: ["tool"]
 ---
 
