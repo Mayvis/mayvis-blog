@@ -17,11 +17,11 @@ tmux 基本上就圍繞著三個觀念 `session`, `window`, `pane`。上下關�
 
 可以使用 `tmux new -s <session name>` 來建立一個新的 session，可以使用 `tmux ls` 來查看目前有哪些 session，使用 `tmux attach -t <session name>` 來切換 session，離開 session 可以使用 <kbd>Ctrl + b</kbd> + <kbd>d</kbd>，較推薦，使用此方式不會刪掉該 session，如果你直接鍵盤輸入 `exit`，此方式會連同 session 一同刪除掉，所以較不推薦。
 
-- <kdb>Ctrl</kbd> + <kbd>b</kbd> + <kbd>s</kbd>：視覺化列出目前所有 session
-- <kdb>Ctrl</kbd> + <kbd>b</kbd> + <kbd>$</kbd>：重新命名 session
-- <kdb>Ctrl</kbd> + <kbd>b</kbd> + <kbd>d</kbd>：關閉 session
-- <kdb>Ctrl</kbd> + <kbd>b</kbd> + <kbd>(</kbd>：切換到上一個 session
-- <kdb>Ctrl</kbd> + <kbd>b</kbd> + <kbd>)</kbd>：切換到下一個 session
+- <kbd>Ctrl + b</kbd> + <kbd>s</kbd>：視覺化列出目前所有 session
+- <kbd>Ctrl + b</kbd> + <kbd>$</kbd>：重新命名 session
+- <kbd>Ctrl + b</kbd> + <kbd>d</kbd>：關閉 session
+- <kbd>Ctrl + b</kbd> + <kbd>(</kbd>：切換到上一個 session
+- <kbd>Ctrl + b</kbd> + <kbd>)</kbd>：切換到下一個 session
 
 ### Window and Pane
 
