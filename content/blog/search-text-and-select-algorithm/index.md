@@ -81,6 +81,8 @@ const handler = {
 }
 
 const result = []
+
+// Proxy 監控的對象必須為物件
 const proxy = new Proxy(params, handler)
 proxy.keyword = "hello" // 修改 keyword 的值，觸發 proxy set 機制
 
@@ -160,6 +162,7 @@ const params = {
 }
 
 // 順帶一提，你也可以使用遞迴的方式來實踐該功能，不一定要使用 while
+// 使用此方式的 time complexity O(n * m) n 為 arr 的長度，m 為 text 的長度(平均)
 function getResult() {
   if (arr.length === 0) return []
 
@@ -226,13 +229,12 @@ _題外話：由於 Proxy 是監測 params.keyword 的修改，如果你修改�
 ```javascript
 async function selectText(start, end) {
   await new Promise(resolve => {
-    resolve(
-      setTimeout(() => {
-        const dom = document.querySelector(`#input-${id}`)
-        dom.setSelectionRange(start, end)
-        dom.focus()
-      }, 400)
-    )
+    setTimeout(() => {
+      const dom = document.querySelector(`#input-${id}`)
+      dom.setSelectionRange(start, end)
+      dom.focus()
+      resolve()
+    }, 400)
   })
 }
 ```
