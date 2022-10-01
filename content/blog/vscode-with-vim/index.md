@@ -20,7 +20,7 @@ tags: ["tool"]
 - 一開始的學習曲線偏高，可能要練就不看鍵盤也可以流暢打字的能力，會比較好上手。
 - 中英文切換我認為是 vim 的硬傷，但是使用久之後其實也還好。
 - 有所謂的模式切換 Normal mode, Visual mode, Edit mode，需要去適應，這是 vim 的核心，簡單來說，選擇就是 Visual mode， 更新就是 Edit mode，普通情況位移或著需要額外的功能就是在 Normal mode 底下做事...等。
-- 有時候需頻繁按某些按鍵尤其 `esc`，畢竟要多按按鈕就是麻煩，要移動就是必須切到 Normal mode 或 Visual mode...等。
+- 有時候需頻繁按某些按鍵尤其 <kbd>esc</kbd>，畢竟要多按按鈕就是麻煩，要移動就是必須切到 Normal mode 或 Visual mode...等。
 - 自己使用下來，不太適合與 pug (jade) 進行使用，相較於 html，原因是沒有被 tag surround，所以我自己除接案之外都是使用 html 居多，外加現在 IDE 不論是套件的 autocomplete tag 或內建的都很方便，此外我本身除了 vue 也會寫 react 的 jsx 所以還是比較習慣有 tag。
 
   ```html
@@ -32,7 +32,7 @@ tags: ["tool"]
   .hello Hello // <=== not surrounding by tag
   ```
 
-- 自己使用下來，不太適合與 sass 進行使用，相較於 scss、css，原因也是因為沒有 tag surround，但是可以用 `V` 整行的 Visual mode 去做處理，比起 pug 問題少很多，畢竟 css 就是一行一行的，雖然我自己除接案之外還是偏好使用 scss 居多。
+- 自己使用下來，不太適合與 sass 進行使用，相較於 scss、css，原因也是因為沒有 tag surround，但是可以用 <kbd>V</kbd> 整行的 Visual mode 去做處理，比起 pug 問題少很多，畢竟 css 就是一行一行的，雖然我自己除接案之外還是偏好使用 scss 居多。
 
   ```scss
   .hello {
@@ -66,92 +66,92 @@ tags: ["tool"]
 
 **位移**
 
-左下上右 位移分別是 `h` `j` `k` `l`
+左下上右 位移分別是 <kbd>h</kbd> <kbd>j</kbd> <kbd>k</kbd> <kbd>l</kbd>
 
-較高階使用方式，可以將 line number 調整成 relative line number，接著使用 `20j` 便可以向下跳距離你原先 20 行，相反向上跳就是 `20k`，
+較高階使用方式，可以將 line number 調整成 relative line number，接著使用 <kbd>20j</kbd> 便可以向下跳距離你原先 20 行，相反向上跳就是 <kbd>20k</kbd>，
 
-如何以單字的方式來進行跳耀，對於 vim 的使用者來說會是 `w` ，如果是做英文網站，**這非常好用！！！**
+如何以單字的方式來進行跳耀，對於 vim 的使用者來說會是 <kbd>w</kbd> ，如果是做英文網站，**這非常好用！！！**
 
-如何以單字的方式**向後**來進行跳耀，對於 vim 的使用者來說會是 `b`
+如何以單字的方式**向後**來進行跳耀，對於 vim 的使用者來說會是 <kbd>b</kbd>
 
-如何快速跳到第一行，對於 vim 的使用者來說會是 `gg`
+如何快速跳到第一行，對於 vim 的使用者來說會是 <kbd>gg</kbd>
 
-如何快速跳到最後一行，對於 vim 的使用者來說會是 `G` (shift+g)
+如何快速跳到最後一行，對於 vim 的使用者來說會是 <kbd>G</kbd> (shift+g)
 
-當畫面出現滾輪，你想將你程式碼的位置位移到畫面的中央，對於 vim 的使用者來說會是 `zz`
+當畫面出現滾輪，你想將你程式碼的位置位移到畫面的中央，對於 vim 的使用者來說會是 <kbd>zz</kbd>
 
-如何快速跳到該行最後一個字，對於 vim 的使用者來說會是 `$` (shift+4)
+如何快速跳到該行最後一個字，對於 vim 的使用者來說會是 <kbd>$</kbd> (shift+4)
 
-如何快速跳到該行第一個字，對於 vim 的使用者來說會是 `0`
+如何快速跳到該行第一個字，對於 vim 的使用者來說會是 <kbd>0</kbd>
 
 ---
 
 **介面**
 
-如何快速的新增視窗(pane)在右邊 `:vsp` (vertical split pane 的縮寫)
+如何快速的新增視窗(pane)在右邊 <kbd>:vsp</kbd> (vertical split pane 的縮寫)
 
-如何快速的新增視窗(pane)在下方 `:sp` (split pane 的縮寫)
+如何快速的新增視窗(pane)在下方 <kbd>:sp</kbd> (split pane 的縮寫)
 
-如何在不同的 pane 之間進行跳耀？可以使用 `ctrl+w ctrl+w`，如果是向左可以使用 `ctrl+w ctrl+h`，向右可以使用 `ctrl+w ctrl+l`，依此類推
+如何在不同的 pane 之間進行跳耀？可以使用 <kbd>ctrl+w</kbd> <kbd>ctrl+w</kbd>，如果是向左可以使用 <kbd>ctrl+w</kbd> <kbd>ctrl+h</kbd>，向右可以使用 <kbd>ctrl+w</kbd> <kbd>ctrl+l</kbd>，依此類推
 
 ---
 
 **模式**
 
-如何回歸 Normal mode，對於 vim 的使用者來說會是 `esc` (左上角 esc，沒錯就是 esc 那顆按鈕)
+如何回歸 Normal mode，對於 vim 的使用者來說會是 <kbd>esc</kbd> (左上角 esc，沒錯就是 esc 那顆按鈕)
 
-如何切換至 Visual mode，對於 vim 的使用者來說會是 `v`，變可以使用 `h` `j` `k` `l` 來拖拉想選取的位置
+如何切換至 Visual mode，對於 vim 的使用者來說會是 <kbd>v</kbd>，變可以使用 <kbd>h</kbd> <kbd>j</kbd> <kbd>k</kbd> <kbd>l</kbd> 來拖拉想選取的位置
 
-如何切換至 Visual mode 並選擇整行，對於 vim 的使用來說會是 `V` (shift+v)
+如何切換至 Visual mode 並選擇整行，對於 vim 的使用來說會是 <kbd>V</kbd> (shift+v)
 
-如何切換至 Edit mode，對於 vim 的使用者來說會是 `i`
+如何切換至 Edit mode，對於 vim 的使用者來說會是 <kbd>i</kbd>
 
 ---
 
 **快捷鍵**
 
-如何快速將 div 內的文字刪除或取代掉呢？ 對於 vim 的使用者來說答案會是 `cit` (change in tag 的縮寫) 會直接進入 Edit mode
-或著 `dit` (delete in tag 的縮寫) 會維持在 Visual mode
+如何快速將 div 內的文字刪除或取代掉呢？ 對於 vim 的使用者來說答案會是 <kbd>cit</kbd> (change in tag 的縮寫) 會直接進入 Edit mode
+或著 <kbd>dit</kbd> (delete in tag 的縮寫) 會維持在 Visual mode
 
 ```html
 <div>hello world</div>
 ```
 
-如何快速將 a tag 換成 button 呢？ 對於 vim 的使用者來說會是 `cst<` (change surround tag 的縮寫，vscode 需再額外添加 `<` 符號)
+如何快速將 a tag 換成 button 呢？ 對於 vim 的使用者來說會是 <kbd>cst<</kbd> (change surrounding tag 的縮寫)
 
 ```html
 <a>Link</a>
 ```
 
-如何修改單個字？對於 vim 的使用者來說會是 `s`
+如何修改單個字？對於 vim 的使用者來說會是 <kbd>s</kbd>
 
-如何快速刪掉整行，對於 vim 的使用者來說會是 `dd`
+如何快速刪掉整行，對於 vim 的使用者來說會是 <kbd>dd</kbd>
 
-如果想刪除多行，可以使用 `number+dd`，舉例：`2dd`
+如果想刪除多行，可以使用 <kbd>number</kbd> + <kbd>dd</kbd>，舉例：<kbd>2dd</kbd>
 
-如何複製文字呢？先按 `v` 切入 visual mode，用 `h` `j` `k` `l` 位移選取想要複製的文字，接著 `y` (yank 的縮寫)，按 `p` 貼上(paste 縮寫)
+如何複製文字呢？先按 <kbd>v</kbd> 切入 visual mode，用 <kbd>h</kbd> <kbd>j</kbd> <kbd>k</kbd> <kbd>l</kbd> 位移選取想要複製的文字，接著 <kbd>y</kbd> (yank 的縮寫)，按 <kbd>p</kbd> 貼上(paste 縮寫)
 
-如何複製"單字"呢？先按 `v` 切入 visual mode，用 `w` 位移選取想要複製的文字，接著 `y` (yank 的縮寫)，按 `p` 貼上(paste 縮寫)
+如何複製"單字"呢？先按 <kbd>v</kbd> 切入 visual mode，用 <kbd>w</kbd> 位移選取想要複製的文字，接著 <kbd>y</kbd> (yank 的縮寫)，按 <kbd>p</kbd> 貼上(paste 縮寫)
 
-如何快速複製"整行"，對於 vim 的使用者來說會是 `yyp`
+如何快速複製"整行"，對於 vim 的使用者來說會是 <kbd>yyp</kbd>
 
-如何重複上一步驟，對於 vim 的使用者來說會是 `.`
+如何重複上一步驟，對於 vim 的使用者來說會是 <kbd>.</kbd>
 
-如何回復上一步驟，對於 vim 的使用者來說會是 `u` (undo)
+如何回復上一步驟，對於 vim 的使用者來說會是 <kbd>u</kbd> (undo)
 
-如何搜尋某個單子 `/` 後面接單字，舉例來說我要搜尋 className，那我就會 `/className` 去做搜尋，搜尋到後按 enter，接著便可以按 `n` (next occurance 的縮寫) 去找尋你要搜尋的究竟是哪個 className
+如何搜尋某個單子 <kbd>/</kbd> 後面接單字，舉例來說我要搜尋 className，那我就會 <kbd>/className</kbd> 去做搜尋，搜尋到後按 enter，接著便可以按 <kbd>n</kbd> (next occurance 的縮寫) 去找尋你要搜尋的究竟是哪個 className，大寫的 <kbd>N</kbd> 則是反向搜尋。
 
-如何插入字到該行最後的位置，並轉換到 Insert mode？對於 vim 的使用者來說會是 `A`
+如何插入字到該行最後的位置，並轉換到 Insert mode？對於 vim 的使用者來說會是 <kbd>A</kbd>
 
-如何註解程式碼，如果是使用類似 VSCode 可以進入 visual mode 直接使用 `cmd+/` 去註解，如果是使用 vim 可以進入區塊 visual mode 快捷鍵是 `ctrl+v` 接著使用 `shift+i` 進入輸入模式，最後輸入 `//` 去註解，去註解則是使用 `ctrl+v` 選取好後用 `d` 去刪除註解
+如何註解程式碼，如果是使用類似 VSCode 可以進入 visual mode 直接使用 <kbd>cmd</kbd> + <kbd>/</kbd> 去註解，如果是使用 vim 可以進入區塊 visual mode 快捷鍵是 <kbd>ctrl</kbd> + <kbd>v</kbd> 接著使用 <kbd>shift</kbd> + <kbd>i</kbd> 進入輸入模式，最後輸入 <kbd>//</kbd> 去註解，去註解則是使用 <kbd>ctrl</kbd> + <kbd>v</kbd> 選取好後用 <kbd>d</kbd> 去刪除註解
 
 ---
 
 **Vscode**
 
-`cmd+shift+e` 可切到資料夾的樹狀區，便可以使用 `j` `k` 進行位移，並選擇你要開啟哪個檔案。
+<kbd>cmd</kbd> + <kbd>shift</kbd> + <kbd>e</kbd> 可切到資料夾的樹狀區，便可以使用 <kbd>j</kbd> <kbd>k</kbd> 進行位移，並選擇你要開啟哪個檔案。
 
-先用 `v` 切入 visual mode，接著使用 `S+<` (surrounding tag) 並輸入想環繞的 tag 名稱，假設我輸入 div，便可以將 `<h1>hello</h1>` 變成 `<div><h1>hello</h1></div>`
+先用 <kbd>v</kbd> 切入 visual mode，接著使用 <kbd>S+<</kbd> (surrounding tag) 並輸入想環繞的 tag 名稱，假設我輸入 div，便可以將 `<h1>hello</h1>` 變成 `<div><h1>hello</h1></div>`
 
 ---
 
