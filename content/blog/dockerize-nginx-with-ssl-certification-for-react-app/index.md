@@ -109,14 +109,18 @@ services:
       - 9090:443
 ```
 
-最後創建 Dockerfile 檔案，並依據自己的需求跟規劃來進行建制，像是這專案使用 pnpm 以往我都使用 yarn 居多，所以流程多少有些不同，又或著是你可以使用 docker step 的方式，先創建一個 node 的 image 將 react 專案 build 好後，再 COPY 複製到 nginx 的 image 內，並最終創建一個 container，那下方是一個簡單的範例，就不過度複雜了，只使用一個 image 搞定。
+最後創建 Dockerfile 檔案，並依據自己的需求跟規劃來進行建制，像是這專案是使用 pnpm，但以往我都使用 yarn 居多，所以流程多少有些不同，又或著是你可以使用 docker stage 的方式，先創建一個 node 的 image 將 react 專案 build 好後，再 COPY 複製到 nginx 的 image 內，並最終創建一個 container，且更為乾淨，那下方是兩個簡單的範例。
+
+#### Single stage 範例
 
 ```Dockerfile
 # using nginx:alpine image
 FROM nginx:1.23.1-alpine
 
+RUN mkdir -p /usr/src/app
+
 # setting working directory
-WORKDIR /usr/share/app
+WORKDIR /usr/src/app
 
 # pass args into Dockerfile env variable
 ARG VITE_APP_URL
@@ -131,20 +135,62 @@ RUN npm i -g pnpm && pnpm i --frozen-lockfile
 COPY . .
 RUN pnpm run build
 
+# update nginx html
 RUN rm -r /usr/share/nginx/html
-RUN cp -a dist/. /usr/share/nginx/html
+COPY /usr/src/app/dist /usr/share/nginx/html
 
-# Remove the default nginx.conf
+# remove the default nginx.conf
 RUN rm /etc/nginx/conf.d/default.conf
 
-# Replace with our own nginx.conf
+# replace with our own nginx.conf
 COPY nginx.conf /etc/nginx/conf.d/
 
-# Copy the SSL certificate and key to nginx
+# copy the SSL certificate key to nginx
 COPY cert.pem /etc/nginx/cert.pem
 COPY key.pem /etc/nginx/key.pem
 
-# Export port 80 and 443
+# export port 80 and 443
+EXPOSE 80 443
+```
+
+#### Multiple stage 範例
+
+```Dockerfile
+# stage 1
+FROM node:16.2.0-alpine as builder
+
+RUN mkdir -p /usr/src/app
+
+# setting working directory
+WORKDIR /usr/src/app
+
+# pass args into Dockerfile env variable
+ARG VITE_APP_URL
+ENV VITE_APP_URL=$VITE_APP_URL
+
+COPY package*.json pnpm-lock.yaml .npmrc .
+RUN npm i -g pnpm && pnpm i --frozen-lockfile
+COPY . .
+RUN PUBLIC_URL=/ pnpm build
+
+# stage 2
+FROM nginx:1.23.1-alpine
+
+# update nginx html
+RUN rm -rf /usr/share/nginx/html
+COPY --from=builder /usr/src/app/dist /usr/share/nginx/html
+
+# remove the default nginx.conf
+RUN rm -rf /etc/nginx/conf.d/default.conf
+
+# replace with our own nginx.conf
+COPY nginx.conf /etc/nginx/conf.d/
+
+# copy the SSL certificate key to nginx
+COPY cert.pem /etc/nginx/cert.pem
+COPY key.pem /etc/nginx/key.pem
+
+# export port 80 and 443
 EXPOSE 80 443
 ```
 
