@@ -128,9 +128,7 @@ ENV VITE_APP_URL=$VITE_APP_URL
 
 # install dependencies
 RUN apk update && apk add --update nodejs npm
-COPY package*.json .
-COPY pnpm-lock.yaml .
-COPY .npmrc .
+COPY package*.json pnpm-lock.yaml .npmrc .
 RUN npm i -g pnpm && pnpm i --frozen-lockfile
 COPY . .
 RUN pnpm run build
@@ -168,6 +166,7 @@ WORKDIR /usr/src/app
 ARG VITE_APP_URL
 ENV VITE_APP_URL=$VITE_APP_URL
 
+# copy package.json and pnpm-lock.yaml and install dependencies
 COPY package*.json pnpm-lock.yaml .npmrc .
 RUN npm i -g pnpm && pnpm i --frozen-lockfile
 COPY . .
