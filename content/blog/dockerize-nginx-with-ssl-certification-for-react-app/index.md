@@ -128,6 +128,9 @@ ENV VITE_APP_URL=$VITE_APP_URL
 
 # install dependencies
 RUN apk update && apk add --update nodejs npm
+
+# if you facing "When using COPY with more than one source file, the destination must be a directory and end with a /"
+# COPY package*.json pnpm-lock.yaml .npmrc ./ <== add slash in the end
 COPY package*.json pnpm-lock.yaml .npmrc .
 RUN npm i -g pnpm && pnpm i --frozen-lockfile
 COPY . .
@@ -168,6 +171,8 @@ ENV VITE_APP_URL=$VITE_APP_URL
 
 # copy package.json and pnpm-lock.yaml and install dependencies
 COPY package*.json pnpm-lock.yaml .npmrc .
+# if you facing "When using COPY with more than one source file, the destination must be a directory and end with a /"
+# COPY package*.json pnpm-lock.yaml .npmrc ./ <== add slash in the end
 RUN npm i -g pnpm && pnpm i --frozen-lockfile
 COPY . .
 RUN PUBLIC_URL=/ pnpm build
