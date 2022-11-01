@@ -113,6 +113,8 @@ services:
 
 #### Single stage 範例
 
+其實在測試時，我是先使用 Single stage 的方式來建制的，原因是他相較於 multiple stage 快很多😅，畢竟我只是要測試看看是否能跑起來及跑起來的結果對不對而已，來來回回等 multiple stage 建置好也須花費不少時間，所以滿推薦在 dev 時使用此方式。
+
 ```Dockerfile
 # using nginx:alpine image
 FROM nginx:1.23.1-alpine
@@ -155,6 +157,8 @@ EXPOSE 80 443
 ```
 
 #### Multiple stage 範例
+
+相對於 single stage，此範例環境較為乾淨，但也較為耗時一點點，畢竟就多了一個階段，但如果你是在 prod 環境，我相信大部分的情況你會選擇此方式。當然也有特殊情況，舉例來說你的服務需一個一個安裝到相當多的機器內時，這時你就無法避免的須考量到空中編程(Over-the-air programming，縮寫 OTA)的情境，一台安裝1分鐘那1000台就是1000分鐘，若能縮減成一台30秒也就是500分鐘，是不是相對減少很多的時間，這邊就看你公司產品的走向來去決定。
 
 ```Dockerfile
 # stage 1
