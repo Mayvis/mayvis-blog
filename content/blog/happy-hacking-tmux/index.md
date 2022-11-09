@@ -47,6 +47,7 @@ tmux 基本上就圍繞著三個觀念 `session`, `window`, `pane`。上下關�
 - <kbd>Ctrl + b</kbd> + <kbd>"</kbd>：垂直分割 pane
 - <kbd>Ctrl + b</kbd> + <kbd>%</kbd>：水平分割 pane
 - <kbd>Ctrl + b</kbd> + <kbd>q</kbd>：顯示 pane 編號
+- <kbd>Ctrl + b</kbd> + <kbd>x</kbd>：關閉目前的 pane
 - <kbd>Ctrl + b</kbd> + <kbd>o</kbd>：切換到下一個 pane
 - <kbd>Ctrl + b</kbd> + <kbd>方向鍵</kbd>：切換到指定的 pane
 
