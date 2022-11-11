@@ -165,17 +165,59 @@ async function bootstrap() {
 bootstrap()
 ```
 
+這邊會介紹一下何謂 DTO (Data Transfer Object)，在 NestJs 中，我們可以透過 DTO 來驗證前端所提供的參數是否符合正確格式，並且將資料轉換成我們想要的格式。還可以搭配 swagger 來生成 API 文件。
+
 ```typescript
+// create-user.dto.ts
 // dto - Data Transfer Object
 // simply think dto is the instance for what data interface should look like 🔥
+// validate name column, can combine with swagger ✅
+import { IsAlphanumeric, IsNotEmpty, MaxLength } from "class-validator"
+
+export class CreateUserDto {
+  @ApiProperty() // help swagger to create API document 📚
+  @IsString()
+  @IsNotEmpty()
+  @MaxLength(64)
+  name: string
+
+  @IsString()
+  @IsNotEmpty()
+  email: string
+
+  @IsString()
+  @IsNotEmpty()
+  password: string
+}
+```
+
+```typescript
 // update-user.dto.ts file
 import { IsAlphanumeric, MaxLength } from "class-validator"
 
-export class UpdateUserDto {
-  // validate name column, can combine with swagger ✅
-  @IsAlphanumeric()
-  @MaxLength(64)
-  name: string
+// you can customize the column you want to update
+export class UpdateUserDto partial<CreateUserDto> {}
+```
+
+另一種使用情境是，你或許會有客製化返回資料結果的需求，像是 pagination，你可以這樣做。
+
+```typescript
+import { IsAlphanumeric, IsNotEmpty, MaxLength } from "class-validator"
+import { User } from '../entities/user.entity'
+
+export class PaginationUserDto {
+  @ApiProperty()
+  @IsNumber()
+  @IsNotEmpty()
+  page: number
+
+  @ApiProperty()
+  @IsNumber()
+  @IsNotEmpty()
+  limit: number
+
+  @ApiProperty({ type: () => User, isArray: true, default: [] })
+  results: User[]
 }
 ```
 
@@ -337,5 +379,6 @@ export class User {
 3. ORM 的部分可以根據專案大小來做使用，個人覺得這點相對 Laravel 是有優勢的，程式碼不會太過臃腫。
 4. TDD 是你的好朋友，可以讓你比較不容易犯錯。
 5. [Marius Espejo](https://www.youtube.com/channel/UCDpd-qEwAI9wglx4tsEBAtw) 英文如果不錯，可以去看看，會有所收穫。
+6. 實作時可以參考 [WANGO.IO部落格](https://wanago.io/2020/05/11/nestjs-api-controllers-routing-module/) 的文章。
 
 那我們就下一篇再見啦！！
