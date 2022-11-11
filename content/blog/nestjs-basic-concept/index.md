@@ -193,8 +193,6 @@ export class CreateUserDto {
 
 ```typescript
 // update-user.dto.ts file
-import { IsAlphanumeric, MaxLength } from "class-validator"
-
 // you can customize the column you want to update
 export class UpdateUserDto partial<CreateUserDto> {}
 ```
@@ -216,6 +214,8 @@ export class PaginationUserDto {
   @IsNotEmpty()
   limit: number
 
+  // use "Lazy Evaluation Function" to avoid circular dependency issue 🔥
+  // type: User -> type: () => User
   @ApiProperty({ type: () => User, isArray: true, default: [] })
   results: User[]
 }
@@ -237,7 +237,7 @@ import { User } from "./entities/user.entity"
 
 @Injectable()
 export class UsersService {
-  private users: any = [
+  private users: Record<string, any>[] = [
     { id: 0, name: "Liang" },
     { id: 1, name: "Mayvis" },
     { id: 2, name: "Dana" },
