@@ -7,8 +7,7 @@ tags: ["framework", "backend"]
 
 ### Preface
 
-_本文章，很多範例都是參考此 [Marius Espejo](https://www.youtube.com/channel/UCDpd-qEwAI9wglx4tsEBAtw) 頻道所述及 [官網](https://nestjs.com/)
-的介紹。_
+_本文章，很多範例都是參考此 [Marius Espejo](https://www.youtube.com/channel/UCDpd-qEwAI9wglx4tsEBAtw) 頻道所述及 [官網](https://nestjs.com/)，至於我實際在實作，會參考個 [WANGO.IO部落格](https://wanago.io/2020/05/11/nestjs-api-controllers-routing-module/)。_
 
 比爾・蓋茲曾說過：「我讓懶人做困難的工作，因為懶人能夠找到最簡單的方法完成任務。」；在工程師的世界裡，不會因為你打的程式碼特別長，大家就特別佩服你，我認為好的工程師喜歡將事情簡單化，就從每個工程師都在用的 git 講起，試想當你想 commit git message 時，每次都必須使用下方這個指令：
 
