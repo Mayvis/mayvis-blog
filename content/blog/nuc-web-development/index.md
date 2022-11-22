@@ -88,6 +88,14 @@ docker tag project-name remote-project-name
 docker push remote-project-name
 ```
 
+### Additional information
+
+題外話，假如你的專案相較於 OTA ，你們需要有較高的安全係數，需要經過弱點分析，像是金融產業、公司伺服器...等，有可能需要使用像是 trivy 這類的弱點偵測工具，這邊可以將 node 的 image 換成官方的來解決該問題，如果有涉及 python，則建議使用 conda 來進行安裝，這邊就不多加贅述了，有興趣的可以自行去研究。
+
+下圖是用 trivy 測試完的結果，可以看一下結果。
+
+<img src='../../../src/assets/nuc-trivy-result.png' alt='image'>
+
 ### Conclusion
 
 其實一開始以為不會太困難的專案，但在實際開發時還是有許多眉眉角角，像是原先我 Docker 產出來的檔案因為沒使用 alpine 版本，所以檔案大小在 2G 左右，之後慢慢調整現在大概 200mb 左右的檔案大小，alpine 無法使用的套件，也轉而撰寫程式或使用其他套件來替代，程式撰寫時產生的其他問題，因為硬體裝置的關係所以需要使用 SSH 到遠端，並在本地端開發...等，我認為這就是程式好玩及令人著迷的地方。

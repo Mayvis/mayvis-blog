@@ -175,7 +175,7 @@ bootstrap()
 import { IsAlphanumeric, IsNotEmpty, MaxLength } from "class-validator"
 
 export class CreateUserDto {
-  @ApiProperty() // help swagger to create API document 📚
+  @ApiProperty()
   @IsString()
   @IsNotEmpty()
   @MaxLength(64)
