@@ -228,7 +228,7 @@ describe("ASR", () => {
 });
 ```
 
-附上兩張測試結果的圖片，錯誤的是我 WORD 設為 3，所以測試是失敗的。
+附上兩張測試結果的圖片，測試失敗的是我 WORD 設為 3，所以測試是失敗的，通過測試的則是我講 WORD 設為 5 的情況。
 
 <img src='../../../src/assets/ASR-test-fail.png' alt='image'>
 <br>
