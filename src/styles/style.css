@@ -82,6 +82,7 @@
   --p5-js-tag: rgba(233, 35, 83, 0.4);
   --ai-tag: rgba(194, 123, 160, 0.4);
   --concept-tag: rgba(237, 111, 45, 0.4);
+  --vite-tag: rgba(171, 67, 245, 0.4);
 }
 
 .dark-theme {
@@ -107,6 +108,7 @@
   --p5-js-tag: rgba(233, 35, 83, 1);
   --ai-tag: rgba(194, 123, 160, 1);
   --concept-tag: rgba(237, 111, 45, 1);
+  --vite-tag: rgba(171, 67, 245, 1);
 }
 
 /* HTML elements */
