@@ -5,6 +5,10 @@ description: 過完年後，公司有新的系統需要我進行開發，以往�
 tags: ["vite", "vue"]
 ---
 
+### Preface
+
+雖然是個小問題，但是也花了我一點時間跟後端去 debug，所以我想把過程記錄下來，也許有人會遇到類似的問題，也許可以幫助到他們。
+
 ### Brainstorm
 
 所以要如何解決這問題呢？(圖有點小，請見諒)
@@ -91,6 +95,18 @@ export default defineConfig({
     }
   }
 })
+```
+
+接著運行 `npm run build`，你就可以成功看到這種結構了：
+
+```
+.
+├── assets/
+│   └── js/
+│   └── images/
+│   └── css/
+├── favicon.ico
+└── index.html
 ```
 
 ### Conclusion
