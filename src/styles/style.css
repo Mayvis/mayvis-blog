@@ -401,6 +401,10 @@ a:focus {
   background-color: var(--vue-tag);
 }
 
+.vite-tag {
+  background-color: var(--vite-tag);
+}
+
 .development-tag {
   background-color: var(--development-tag);
 }
