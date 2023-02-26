@@ -40,13 +40,6 @@ const BlogPostTemplate = ({ data, location }) => {
               ))}
             </ul>
           </div>
-          <p style={{ fontSize: "16px", marginBottom: "0px" }}>
-            若有任何問題或有錯誤都可以至我的{" "}
-            <a href="https://github.com/Mayvis/mayvis-blog" _blank="true">
-              Blog Github
-            </a>{" "}
-            發 issue 給我。
-          </p>
         </header>
         <section
           dangerouslySetInnerHTML={{ __html: post.html }}

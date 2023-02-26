@@ -163,8 +163,9 @@ declare global {
     async playPauseAudio() {
       if (!this.#audio) return
 
+      this.initialAudio();
+
       if (this.#audioCtx?.state === "suspended") {
-        this.initialAudio();
         await this.#audioCtx.resume(); 
       }
 
@@ -216,6 +217,86 @@ declare global {
 
 <img src='../../../src/assets/audio-player-web-component-2.png' alt='image'>
 <br>
+
+### Build simple react audio player component
+
+接著我就來很快的寫一下 React 的版本。
+
+```tsx
+// components/AudioPlayer.tsx
+import React from 'react'
+
+type Props = {
+  musicPath: string
+}
+
+const AudioPlayer: React.FC<Props> = ({ musicPath }) => {
+  const audioRef = React.useRef<HTMLAudioElement | null>(null)
+  const audioCtxRef = React.useRef<AudioContext>()
+  const [btnText, setBtnText] = React.useState('play')
+
+  const handleControl = async () => {
+    if (!audioRef.current) return
+
+    initialAudio()
+    await handlePlayPause()
+  }
+
+  const initialAudio = () => {
+    if (!audioRef.current) return
+    if (audioCtxRef.current) return // 避免 audioContext 重複初始化
+
+    audioCtxRef.current = new AudioContext();
+    const gainNode = audioCtxRef.current.createGain();
+    const track = audioCtxRef.current.createMediaElementSource(audioRef.current);
+
+    track
+      .connect(gainNode)
+      .connect(audioCtxRef.current.destination);
+  }
+
+  const handlePlayPause = async () => {
+    if (!audioRef.current) return
+    if (!audioCtxRef.current) return
+
+    if (audioCtxRef.current.state === 'suspended') {
+      await audioCtxRef.current.resume()
+    }
+
+    if (audioRef.current.paused) {
+      audioRef.current.play()
+      setBtnText('pause')
+    } else {
+      audioRef.current.pause()
+      setBtnText('play')
+    }
+
+  }
+
+  const handleEnded = () => {
+    if (!audioRef.current) return
+
+    audioRef.current.currentTime = 0
+    setBtnText('play')
+  }
+
+  return (
+    <>
+      <button onClick={handleControl}>{btnText}</button>
+      <audio ref={audioRef} src={musicPath} onEnded={handleEnded}></audio>
+    </>
+  )
+}
+
+export default AudioPlayer
+```
+
+成果圖如下：
+
+<img src='../../../src/assets/audio-player-web-component-3.png' alt='image'>
+<br>
+
+可能大家一眼就發現問題所在了，樣式被修改了，因為全域樣式的關係，這也間接了體現了 Web Component 的封閉性優勢，儘管封閉性在某些方面也可以是缺點，但我認為利是遠大於弊的。
 
 ### Conclusion
 
