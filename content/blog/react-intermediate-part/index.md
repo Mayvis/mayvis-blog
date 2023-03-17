@@ -1,29 +1,41 @@
 ---
 title: React Intermediate Part
-date: "2022-01-19T12:00:00.000Z"
+date: "2022-03-15T12:00:00.000Z"
 description: 此篇文章是之前自己紀錄並收錄在自己的 Notion 筆記內，一些關於 React 較困難部分的東西，初衷是希望自己能更快速的進入專案狀態，畢竟也有段時間沒使用 React 來開發前端了，所以比較偏向自己複習及學習用，內容大多使用英文撰寫及敘述。
 tags: ["react", "frontend"]
 ---
 
 ### Preface
 
-由於平時自己比較常使用 Vue 來做前端開發，React 現在我也已經比較少在做使用，除非是在處理自己現在的這個部落格，不然大多數是客戶或主管有要求要使用才會使用，那這篇內容是我之前在 FrontendMaster 複習及學習 React 時紀錄的筆記，有點定時花錢強迫自己學習的概念 😅，最終我把內容整理並移到自己的部落格內。
+此篇是2022/01/19，所寫的文章，但我 update 了一下，所以移到 2023/03/16 這個日期，
+
+由於平時自己比較常使用 Vue 來做前端開發，~~React 現在我也已經比較少在做使用，除非是在處理自己現在的這個部落，不然大多數是客戶或主管有要求要使用才會使用~~，現在應該是偶爾做使用，那這篇內容是我之前在 FrontendMaster 複習及學習 React 時紀錄的筆記，有點定時花錢強迫自己學習的概念 😅，最終我把內容整理並移到自己的部落格內，不過現在也偶爾加入自己的東西，總之就記錄一下。
 
 ### useState
 
-```JSX
+```jsx
 import { useState } from "react";
+
+function expensiveInitialState() {
+  // do something
+  return 0;
+}
 
 const Component = () => {
   const [isGreen, setIsGreen] = useState(true);
+  // 也可以使用 function 的方式來初始化 state
+  const [someState, setSomeState] = useState(() => expensiveInitialState())
+  const [count, setCount] = useState(0);
 
   return (
     <div>
       <div>{someState}</div>
       <button
-        onClick={(e) => setSomeState(!someState)}
+        onClick={() => setSomeState(!someState)}
         style={{ color: isGreen ? 'limegreen' : 'crimson'}}
       >Click</button>
+      <div>{count}</div> 
+      <button onClick={() => setCount((prevCount) => prevCount + 1)}>Click</button>
     </div>
   )
 }
@@ -33,7 +45,11 @@ export default Component;
 
 ### useEffect
 
-```JSX
+useEffect 這項功用主要在 side effects 上，像是抓取資料，設定及取消計時器，直接更新 DOM 等，在 `componentDidMount`, `componentDidUpdate`, `componentWillUnmount` 這些生命週期內操作的行為。
+
+在使用 dependency array 去做 diff 時，很多人都會把 `setState` 也放入，這究竟是錯還是對？坦白說，答案是沒錯的，但其實可以省略，__因為 react 會保證每次的 `setState` 都是相同的，也就等同於沒作用，所以你不用再額外進行添加__。但是為何很多 React 高手還是有將其加入呢？因為如果有裝 eslint 的話，沒將 `setState` 加入的話是會有警告的，所以如果你不想要看到警告的話就加入就好，警告是 __react-hooks/exhaustive-deps__。
+
+```jsx
 import { useEffect } from "react";
 
 const Component = () => {
@@ -43,7 +59,7 @@ const Component = () => {
     const timer = setTimeout(() => setTime(new Date()), 1000);
 
     return () => clearTimeout(timer);
-  }, [time])
+  }, [time, setTime])
 
   return <div>{time.toLocaleTimeString()}</div>
 }
@@ -53,7 +69,7 @@ export default Component;
 
 ### useContext
 
-```JSX
+```jsx
 import { useState, useContext, createContext } from "react";
 
 const UserContext = createContext([
@@ -120,7 +136,9 @@ export default LevelOne;
 
 ### useRef
 
-```JSX
+useRef 用法很多，像是他可以依附在 DOM 上，也可以用來儲存變數。
+
+```jsx
 import { useState, useRef } from "react";
 
 const RefComponent = () => {
@@ -151,7 +169,7 @@ export default RefComponent;
 
 ### useReducer
 
-```JSX
+```jsx
 import { useReducer } from "react";
 
 const limitRGB = (num) => (num < 0 ? 0 : num > 255 ? 255 : num);
@@ -161,7 +179,7 @@ const step = 50;
 const reducer = (state, action) => {
   switch(action.type) {
     case "INCREMENT_R":
-      return Object.assign({}, state, { r: limitRGB(state.r + step) });
+      return Object.assign({}, state, { r: limitRGB(state.r + step) }); // 也可以使用 spread operator
     case "DECREMENT_R":
       return Object.assign({}, state, { r: limitRGB(state.r - step) });
     case "INCREMENT_G":
@@ -203,15 +221,52 @@ const ReducerComponent = () => {
 }
 ```
 
+### React.memo
+
+當某個元件裡的狀態發生改變時，react會重新渲染該組件，如果有子組件，儘管它與該組件狀態無關，但是它也會被重新渲染，而這時候就可以使用 React.memo 來避免不必要的重新渲染。
+
+React.memo 會比較前後兩次的 props，如果沒有改變，就不會重新渲染。預設是使用 shallow comparison，也就是所謂的淺比較，印象中，使用的方式是 `Object.is(value1, value2)`；此外，比較方式也可以透過第二個參數來自訂，假使你想使用 deep comparison (深比較)，可以使用 lodash 的 isEqual，算是滿常見的做法，如下：
+
+```js
+Object.is([1, 2], [1, 2]) // false
+_.isEqual([1, 2], [1, 2]) // true
+```
+
+> 但是比較時還有個問題，由於 React 只要重新渲染，組件內的 function 就會被重新定義，而這時便可以使用 `React.useCallback` 緩存 function 來解決該問題。
+
+**請盡量避免心制負擔：**
+
+1. 只渲染一次，之後都不會更新的組件，不要使用 `React.memo`
+2. props 每次都會改變的組件，不要使用 `React.memo`
+3. 組件如果簡單，不要使用 `React.memo`，並不會提升多少效能
+4. 請盡量使用 React Profiler devtool 來檢測效能，判斷是否要使用 `React.memo`，畢竟**緩存也會有成本**
+
+_Tips: 可以寫一個簡單的 hook 去看渲染的次數_
+
+```jsx
+import { useRef } from 'react';
+
+const useRenderCount = () => {
+  const renderCount = useRef(0);
+
+  console.log('render count: ', renderCount.current++);
+};
+
+export default useRenderCount;
+```
+
 ### useMemo
 
 Performance optimization: handle very expensive computed.
 
 🔥🔥 Only use this when you actually already have a problem. 🔥🔥
 
-```JSX
+```jsx
 import { useState, useMemo } from "react";
 
+// 因為遞迴的關係，當 num 越大，計算量就會越大，如果我們將前一個計算的結果存起來，就可以避免重複計算
+// 而 React.useMemo 就是用來做這件事情的，它會接收兩個參數，第一個是 callback，第二個是依賴的值，當依賴的值改變時，才會重新計算 callback 的結果
+// React.useCallback 也是一樣的道理，只是它是用來緩存 function 的
 // fibonacci -> 1 1 2 3 5 8
 const fibonacci = (n) => {
   if (n <= 1) return 1;
@@ -249,7 +304,7 @@ The useCallback hook is used when you have a component in which the child is rer
 
 Pass an inline callback and an array of dependencies, useCallback will return a **memorized version of the callback** that only changes if one of the dependencies has changed. This is useful when passing callbacks to optimized child components that replay on reference equality to prevent unnecessary renders.
 
-```Javascript
+```javascript
 const memorizedCallback = useCallback(() => {
   doSomething(a, b)
 }, [a, b])
@@ -259,7 +314,7 @@ Think useCallback like this way.
 
 We have two different Fibonacci's that are functionally the same function, but are actually two different instances of the same function.
 
-```Javascript
+```javascript
 function a() {}
 function b() {}
 
@@ -268,7 +323,7 @@ console.log(a === b) // false -> in real world
 
 `useCallback` is like to make `a === b` to be true.
 
-```Javascript
+```javascript
 function a() {}
 function b() {}
 
@@ -277,9 +332,9 @@ console.log(a === b) // true
 
 `memo` is like to check the props, if props stay the same, then it's not going to re-render.
 
-Tip: `useCallback(fn, deps)` equals `useMemo(() => fn, deps)`.
+> Tip: `useCallback(fn, deps)` equals `useMemo(() => fn, deps)`.
 
-```JSX
+```jsx
 import { useState, useEffect, useCallback, memo } from "react";
 
 const ExpensiveComputationComponent = memo(({ compute, count}) => {
@@ -324,9 +379,15 @@ export default CallbackComponent;
 
 ### useLayoutEffect
 
+> React Team: We recommend starting with useEffect first and only trying useLayoutEffect if that causes a problem.
+
 Sometimes you need that function to immediately run right after. Can be think like to be a synchronously useEffect.
 
-```JSX
+可以把順序想像成如下：
+- useEffect (Component > State Changes > Component Renders > Rendered Component is Printed on Screen > useEffect runs)
+- useLayoutEffect (Component > State Changes > Component Renders > useLayoutEffect runs > Rendered Component is Printed on Screen)
+
+```jsx
 import { useState, useLayoutEffect, useRef } from "react";
 
 const LayoutEffectComponent = () => {
@@ -365,7 +426,7 @@ Create function on the child component in ElaborateInput by using `useImperative
 
 Should use this hook with `forwardRef`.
 
-```JSX
+```jsx
 import { useState, useRef, useImperativeHandle, forwardRef } from "react";
 
 const ElaborateInput = forwardRef(
@@ -453,7 +514,7 @@ const ImperativeHandleComponent = () => {
 
 ### useDebugValue
 
-```JSX
+```jsx
 import { useState, useEffect, useDebugValue } from "react";
 
 const useIsRaining = () => {
@@ -486,7 +547,7 @@ export default DebugValueComponent;
 
 Cut your bundle size.
 
-```JSX
+```jsx
 import { lazy, Suspense } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
@@ -515,7 +576,7 @@ const App = () => {
 
 ### Server side rendering
 
-```JSX
+```jsx
 // ClientApp.js - only have in browser
 import { hydrate } from "react-dom"
 import { BrowserRouter } from "react-router-dom";
@@ -531,7 +592,7 @@ hydrate(
 )
 ```
 
-```JSX
+```jsx
 // App.js
 import { StrictMode } from "react-dom";
 import { Switch, Route } from "react-router-dom";
@@ -555,7 +616,7 @@ const App = () => {
 export default App;
 ```
 
-```JSX
+```jsx
 // package.json
 {
   "script": {
@@ -581,7 +642,7 @@ export default App;
 }
 ```
 
-```Javascript
+```jsx
 import express from "express";
 import { renderToString, renderToNodeStream } from "react-dom/server";
 import { StaticRouter } from "react-router-dom";
@@ -719,7 +780,7 @@ Below is my personal typescript eslint setup. (Initializing project by using vit
 
 Below is the simple redux setup and example.
 
-```Javascript
+```javascript
 // store/index.js
 import { createStore } from "react-redux";
 import reducer from "../reducer";
@@ -733,7 +794,7 @@ const store = createStore(
 export default store;
 ```
 
-```Javascript
+```javascript
 // reducer/index.js
 import { combineReducers } from "redux";
 import location from "./location";
@@ -745,7 +806,7 @@ export default combineReducers({
 });
 ```
 
-```Javascript
+```javascript
 // reducer/location.js
 export default function location(state="Seattle, WA" , action) { switch(action.type) {
     case "CHANGE_LOCATION":
@@ -756,14 +817,14 @@ export default function location(state="Seattle, WA" , action) { switch(action.t
 }
 ```
 
-```Javascript
+```javascript
 // action/changeAnimal.js
 export default function changeAnimal(animal) {
   return { type: "CHANGE_ANIMAL", payload: animal }
 }
 ```
 
-```JSX
+```jsx
 import { Provider } from "react-redux";
 import store from "./store";
 
@@ -776,7 +837,7 @@ const App = () => {
 }
 ```
 
-```JSX
+```jsx
 import { useSelector, useDispatch } from "react-redux";
 import changeLocation from "./action/changeLocation";
 
@@ -809,7 +870,7 @@ Microsoft engineer Brian Holt said: I think 100% test coverage is a fable fairy 
 
 Below is the simple react jest test.
 
-```Javascript
+```javascript
 // __test__/Pet.test.js
 import { expect, test } from "@/jest/globals";
 import { StaticRouter } from "react-router-dom";
@@ -843,7 +904,7 @@ test("displays a non-default, correct thumbnail", async () => {
 
 Testing custom hook. **Hooks always exist in components, so you can't test them outside of component**. So if you want to test react custom hook, One way is to render null fake component. The other way is to install an library called `@testing-library/react-hooks`.
 
-```Javascript
+```javascript
 // render null component
 import { expect, test } from "@jest/globals";
 import { render } from "@testing-library/react";
@@ -871,7 +932,7 @@ test("gives an empty array with no animal", async () => {
 });
 ```
 
-```Javascript
+```javascript
 // using @testing-library/react-hooks
 import { expect, test } from "@jest/globals";
 import { renderHook } from "@testing-library/react-hooks";
@@ -898,7 +959,7 @@ Mocking the API for optimizing the test performance by installing the library ca
 }
 ```
 
-```Javascript
+```javascript
 // setupJest.js
 import { enableFetchMocks } from "jest-fetch-mock";
 
@@ -945,7 +1006,7 @@ test("gives back breeds with an animal", async () => {
 
 Snapshot the react component by using `react-test-renderer`.
 
-```Javascript
+```javascript
 import { expect, test } from "@jest/globals";
 import { create } from "react-test-renderer";
 import Results from "../Results";
