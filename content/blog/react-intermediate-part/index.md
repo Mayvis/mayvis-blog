@@ -234,7 +234,7 @@ _.isEqual([1, 2], [1, 2]) // true
 
 > 但是比較時還有個問題，由於 React 只要重新渲染，組件內的 function 就會被重新定義，而這時便可以使用 `React.useCallback` 緩存 function 來解決該問題。
 
-**請盡量避免心制負擔：**
+**請盡量避免心智負擔：**
 
 1. 只渲染一次，之後都不會更新的組件，不要使用 `React.memo`
 2. props 每次都會改變的組件，不要使用 `React.memo`
@@ -385,7 +385,7 @@ export default CallbackComponent;
 2. Your components will re-run Effects an extra time to find bugs caused by missing Effect cleanup.
 3. Your components will be checked for usage of deprecated APIs.
 
-一的行為流程大致上是 mounted -> unmounted -> re-mounted
+一的行為流程大致上是 useEffect 會幫你 mounted -> unmounted -> re-mounted
 
 至於解釋我個人認為從第二點的方式講解比較簡單易懂，由於點擊按鈕的行為 count 數值變動，間接觸發了 side effect，但由於你初始時，未在 unmounted 階段時將事件清除，也就等同於多註冊了一次 keypress 事件。
 
