@@ -31,6 +31,7 @@
     "Jetbrain",
     "Jetbrains",
     "keyout",
+    "keypress",
     "labelledby",
     "Laracasts",
     "laravel",
@@ -69,7 +70,8 @@
     "webkitdirectory",
     "Wieruch",
     "WORKDIR",
-    "worklet"
+    "worklet",
+    "youtuber"
   ],
   "eslint.enable": false,
   "liveServer.settings.port": 5501
