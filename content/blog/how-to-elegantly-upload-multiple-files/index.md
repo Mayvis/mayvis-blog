@@ -133,6 +133,47 @@ async function handleFileChange() {
 }
 ```
 
+### Disadvantage by using Promise.all and Promise.allSettled
+
+上述我們使用了 `Promise.all` 及 `Promise.allSettled` 來上傳多檔，也是作者我建議使用的方式，但是使用這兩個方式也是有缺點的，假使我們上傳檔案的大小是如下：
+
+```
+music1.mp4 (25MB)
+music2.mp4 (25MB)
+music3.mp4 (100GB) <-- upload slow
+music4.mp4 (25MB) <-- 而這個檔案其實是有問題的，ex: error format music file
+music5.mp4 (25MB)
+```
+
+缺點就是必須要等到 batch 達到我們指定的數量，才會回傳結果，也就是說要等待 100GB 的檔案上傳完成，僅管 25MB 的檔案上傳有問題且已經報錯了，這情況其實是比較不樂觀的，而這時其實就可以回歸原點使用 `uploadFile.then().catch()` 的方式來進行處理，儘管使用此方法比較複雜，但好處是假使你在 batch 區間執行時已經發現錯誤，並想要 cancel 掉後續 API 的執行，甚至可以搭配 `AbortController` 來進行處理，因為比較複雜，下方僅是示意的程式碼及圖片，後續就交給讀者自己去實作了。
+
+```ts
+async function handleFileChange() {
+  let result = []
+  const batch = 3
+
+  for (let i = 0; i < 6; i++) {
+    new Promise((resolve) => {
+      setTimeout(() => {
+        resolve({
+          index: i,
+          date: new Date()
+        }, i * 1000)
+      })
+    }).then((res) => {
+      result.push(res)
+      if (result.length % batch === 0) {
+        result = []
+      }
+    }).catch((error) => {
+      //
+    })
+  }
+}
+```
+<img src='../../../src/assets/how-to-elegantly-upload-multiple-files.png' alt='image'>
+<br>
+
 ### Conclusion
 
 在做公司內部的一些網站時，總會遇到這些奇奇怪怪的事情，像是有需求是要上傳超過 1000 個檔案之類的奇耙操作，總結一下，上傳檔案的重點其實就是，你對 `Promise` 這個物件，是否有更深一層的了解，希望對讀者能有所收穫。
