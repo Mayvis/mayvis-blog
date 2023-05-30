@@ -83,6 +83,7 @@
   --ai-tag: rgba(194, 123, 160, 0.4);
   --concept-tag: rgba(237, 111, 45, 0.4);
   --vite-tag: rgba(171, 67, 245, 0.4);
+  --webAssembly-tag: rgba(161, 109, 248, 0.4);
 }
 
 .dark-theme {
@@ -109,6 +110,7 @@
   --ai-tag: rgba(194, 123, 160, 1);
   --concept-tag: rgba(237, 111, 45, 1);
   --vite-tag: rgba(171, 67, 245, 1);
+  --webAssembly-tag: rgba(161, 109, 248, 1);
 }
 
 /* HTML elements */
@@ -427,6 +429,10 @@ a:focus {
 
 .concept-tag {
   background-color: var(--concept-tag);
+}
+
+.webAssembly-tag {
+  background-color: var(--webAssembly-tag);
 }
 
 .header-link-home {
