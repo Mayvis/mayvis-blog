@@ -1,6 +1,6 @@
 ---
 title: WebAssembly in read world, to get video or audio duration
-date: "2023-05-31T12:00:00.000Z"
+date: "2023-05-30T12:00:00.000Z"
 description: 最近做公司專案時，遇到需要使用 wasm ffmpeg, ffprobe 的情況，那我自己認為這種情況會越來越多，所以我想來探討一下 wasm 的使用情境，及如何使用 wasm，外加其實我最近也在花時間學習 rust 這語言。
 tags: ["webAssembly", "frontend"]
 ---
@@ -22,7 +22,7 @@ tags: ["webAssembly", "frontend"]
       console.log(video.duration)
     })
   
-    // if browser can't support this video, it will throw error
+    // if browser can't support this video or audio, it will throw an error
     video.addEventListener('error', (e) => {
       console.log(`code: ${e.target.error.code}`)
       console.log(`message: ${e.target.error.message}`)
@@ -31,7 +31,7 @@ tags: ["webAssembly", "frontend"]
 </script>
 ```
 
-正常情況下我們可以使用 `loadedmetadata` 事件去抓取影音檔的時間，但如果該檔案是瀏覽器無法支援的，錯誤就會透過 `error` 事件顯示出來，錯誤如下：
+正常情況下我們可以使用 `loadedmetadata` 事件去抓取影音檔的時間，但如果該檔案是瀏覽器無法支援的，錯誤就會透過 `error` 事件顯示出來，錯誤範例如下：
 
 ```bash
 code: 4
@@ -42,11 +42,11 @@ message: "DEMUXER_ERROR_NO_SUPPORTED_STREAMS: FFmpegDemuxer: no supported stream
 
 所以前端無法使用原生的方式進行影音檔長度驗證，無可奈何之下，前端只能跟後端提說，必須要將檔案上傳到伺服器進行驗證，畢竟後端可以使用 `fs`...等的方式去解析檔案，聽起來還滿合情合理的齁？但是當檔案大小是好幾 GB 時，這個操作是正確的嗎？也就是客戶上傳等了好幾分鐘，最後伺服器回給客戶講說檔案長度太長，這樣的使用者體驗是不是很差呢？
 
-試想如果能讓前端可以直接讀取檔案內容，並且可以取得檔案長度，這樣的話，就可以在客戶上傳前，先驗證檔案長度，如果檔案長度太長，也可以在前端就直接拒絕上傳並告知客戶，不用等待伺服器回應，這樣的體驗是不是很好呢？
+試想如果能讓前端可以直接讀取檔案內容，並且可以取得檔案長度，重點因為 wasm 的優勢，執行速度相當的快，這樣的話，就可以在客戶上傳前，先驗證檔案長度，如果檔案長度太長，也可以在前端就直接拒絕上傳並告知客戶，不用等待伺服器回應，這樣的體驗是不是很好呢？
 
 ## It's showtime
 
-WebAssembly 的優勢就顯現出來了，我們可以使用[ffprobe-wasm 套件](https://www.npmjs.com/package/ffprobe-wasm?activeTab=dependents)，下方是 react 範例：
+wasm 的優勢就顯現出來了，我們可以使用 [ffprobe-wasm 套件](https://www.npmjs.com/package/ffprobe-wasm?activeTab=dependents)，下方是 react 範例：
 
 ```tsx
 // pnpm create vite react-wasm --template react-ts
@@ -138,4 +138,4 @@ export default defineConfig({
 
 ## Conclusion
 
-我自己認為 wasm 會越來越頻繁並使用在網頁建置上面，以往需要到後端做處理的事情，一部分會慢慢的被前端取代掉，我自己現在也慢慢的在學習 rust yew，相關方面的知識，期許自己持續進步嚕。
+我自己認為 wasm 會越來越頻繁並使用在網頁建置上面，以往需要到後端做處理的事情，一部分會慢慢的被前端取代掉，伺服器的負擔也可以有所降低，是工程師樂見的，我自己目前也在慢慢學習 rust yew 相關方面的知識，期許自己持續進步嚕。
