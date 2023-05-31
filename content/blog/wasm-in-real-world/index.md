@@ -136,6 +136,8 @@ export default defineConfig({
 })
 ```
 
+> 補充一下，由於 crossOriginOpenerPolicy 要設置成功，必須要是 localhost 或著 https 才行，但是有些公司內部只走 http 會導致問題，這邊要注意一下。
+
 ## Conclusion
 
 我自己認為 wasm 會越來越頻繁並使用在網頁建置上面，以往需要到後端做處理的事情，一部分會慢慢的被前端取代掉，伺服器的負擔也可以有所降低，是工程師樂見的，我自己目前也在慢慢學習 rust yew 相關方面的知識，期許自己持續進步嚕。
