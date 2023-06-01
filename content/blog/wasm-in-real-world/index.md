@@ -112,7 +112,7 @@ export default App
 
 由於該套件需使用到 `SharedArrayBuffer`，需添加額外的 config，可以參考 [MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/SharedArrayBuffer)。
 
-基本上，就是要設定 ``"crossOriginEmbedderPolicy": "require-corp"`` 跟 ``"crossOriginOpenerPolicy": "same-origin"``，設定好後，就可以使用了。
+基本上，就是要設定 ``"crossOriginEmbedderPolicy": "require-corp"`` 跟 ``"crossOriginOpenerPolicy": "same-origin"``，設定好後，就可以在本地端開發時使用了。
 
 ```ts
 // vite.config.ts
@@ -136,7 +136,63 @@ export default defineConfig({
 })
 ```
 
+下方提供 vue-cli 設定 header 的方式，使用 webpack 基本上也是一樣的操作，可以參考一下：
+
+```js
+// vue.config.js
+'use strict';
+
+module.exports = {
+  configureWebpack: {
+    resolve: {
+      alias: {
+        "@": resolve("src"),
+      },
+    },
+  },
+  devServer: {
+    // ref: https://github.com/ffmpegwasm/ffmpeg.wasm#installation to fix SharedArrayBuffer error
+    headers: {
+      "Cross-Origin-Embedder-Policy": "require-corp",
+      "Cross-Origin-Opener-Policy": "same-origin",
+    },
+  },
+};
+```
+
 > 補充一下，由於 crossOriginOpenerPolicy 要設置成功，必須要是 localhost 或著 https 才行，但是有些公司內部只走 http 會導致問題，這邊要注意一下。
+
+如果後台是用 nodejs express 的話，可以直接安裝套件 [helmet](https://www.npmjs.com/package/helmet)，來加入上述 SharedArrayBuffer 所需要的 header。
+
+```ts
+import express from 'express'
+import helmet from 'helmet'
+
+const app = express()
+
+// use helmet middleware
+app.use(helmet({
+  // crossOriginOpenerPolicy: false, // disable crossOriginOpenerPolicy
+}))
+
+// if not using helmet, you can use below code
+app.use(function(req, res, next) {
+  res.header("Cross-Origin-Embedder-Policy", "require-corp");
+  res.header("Cross-Origin-Opener-Policy", "same-origin");
+
+  next();
+});
+```
+
+如果是 nginx 的話，範例如下：
+
+```conf
+# nginx.conf
+location / {
+  add_header 'Cross-Origin-Embedder-Policy' 'require-corp';
+  add_header 'Cross-Origin-Opener-Policy' 'same-origin';
+}
+```
 
 ## Conclusion
 
