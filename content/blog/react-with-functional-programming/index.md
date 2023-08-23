@@ -1,5 +1,5 @@
 ---
-title: React functional programming
+title: React with functional programming
 date: "2023-08-23T12:00:00.000Z"
 description: 因為一些原因，最近再將公司已經用 Vue 寫好的專案及工具，改用 React 重寫，React 跟 Vue 在更新上有比較大差異，這就是為什麼我會寫這篇文章的原因，闡述一些自己的想法。
 tags: ["react", "frontend"]
