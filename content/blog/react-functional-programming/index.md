@@ -7,7 +7,7 @@ tags: ["react", "frontend"]
 
 ### Vue vs React
 
-我會使用 array of object 這個範例來闡述我的想法。
+本篇文章，我會使用 array of object 來闡述我的想法，畢竟這也是從 API 撈多筆資料回來最常見的格式。
 
 ```js
 const blackpink = [{ id: 1, name: 'Rosé' }, { id: 2, name: 'Jisoo' }, { id: 3, name: 'Jennie' }]
