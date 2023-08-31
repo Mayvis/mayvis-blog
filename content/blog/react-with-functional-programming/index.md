@@ -26,7 +26,7 @@ setSingers((prevSingers) => [...prevSingers, { id: 4, name: 'Lisa' }])
 
 以下是我認為 functional programming 在 React 中比較被受重視的根本原因，基本上寫習慣後，他能夠在淺移默化中，幫助我們避免一些在撰寫 React 時會犯的錯誤。
 
-1. 透過 immutable 的方式，避免不必要的錯誤，也是最重要的
+1. 透過 immutable 的方式，避免不必要的錯誤，**也是最重要的**
 2. 在 function 命名上，我認為可以拆分的更加清晰，易讀
 3. 寫起來有高級感，畢竟在 Vue push 能搞定的事情， React 要寫個 spread operator...等
 4. 複用性高，配合 TypeScript，你可以寫出很多很有趣的 helper function
@@ -122,7 +122,7 @@ const handleAddMember = () => {
 對於比較複雜的元件，在撰寫時，概念會有點類似這樣：（自己個人經驗，會比較清晰）
 
 ```txt
-View(controller) -> hook(service) -> atom(logic helper)
+View -> hook -> logic helper or utility function
 ```
 
 可以參考一下下方的調整：
