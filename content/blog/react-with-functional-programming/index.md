@@ -308,6 +308,61 @@ const Component: FC = () => {
 }
 ```
 
+除了 helper function 之外，也可以使用 HOC 的方式。
+
+```tsx
+import React from 'react'
+
+interface UserInfoProps {
+  name: string
+  age: number
+  email: string
+}
+
+const UserInfo: React.FC<UserInfoProps> = ({ name, age, email }) => (
+  <ul>
+    <li>{name}</li>
+    <li>{age}</li>
+    <li>{email}</li>
+  </ul>
+)
+
+export default UserInfo
+```
+
+```tsx
+import React from 'react'
+
+interface WithUpperCaseNameProps {
+  name: string
+}
+
+const withUpperCaseName = <P extends WithUpperCaseProps>(WrappedComponent: ComponentType<P>) => {
+  return (props: P) => {
+    const { name, ...rest } = props
+    const upperCaseName = name.toUpperCase()
+
+    return <WrappedComponent {...rest} name={upperCaseName} />
+  }
+}
+
+export default withUpperCaseName
+```
+
+```tsx
+import React from 'react'
+import UserInfo from './UserInfo'
+import withUpperCaseName from './withUpperCaseName'
+
+const UserInfoWithUpperCaseName = withUpperCaseName(UserInfo)
+
+const App: React.FC = () => {
+  return (
+    <UserInfoWithUpperCaseName name="John" age={18} email='qoo@qoo.com' />
+  )
+}
+```
+
 ### Conclusion
 
 這篇文章主要是想分享一下，我在撰寫 React 時，會如何去思考，以及如何去撰寫，搭配 functional programming，當然，這些都是我自己的想法，如果有更好的方式，歡迎跟我分享，我也會持續更新這篇文章，謝謝大家的閱讀。
