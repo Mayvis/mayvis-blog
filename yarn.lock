@@ -5662,6 +5662,13 @@ gatsby-recipes@^0.25.0:
     xstate "^4.9.1"
     yoga-layout-prebuilt "^1.9.6"
 
+gatsby-remark-audio@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/gatsby-remark-audio/-/gatsby-remark-audio-1.0.2.tgz#298a05ddad1e697112a403c943801cc2c6947515"
+  integrity sha512-AJ7wYagKjVhLYqdN17eYeDct9BbglmIfQIhXRh5fIHpL8PLHqBhiiQ91yax5y2y7niW7MJdPcFOqcP3Bl9uECw==
+  dependencies:
+    unist-util-visit "^1.4.0"
+
 gatsby-remark-copy-linked-files@^4.6.0:
   version "4.11.0"
   resolved "https://registry.yarnpkg.com/gatsby-remark-copy-linked-files/-/gatsby-remark-copy-linked-files-4.11.0.tgz#3596b218d4c025931989a4629ec005443cb42dd1"
@@ -11830,7 +11837,7 @@ unist-util-visit-parents@^5.1.1:
     "@types/unist" "^2.0.0"
     unist-util-is "^5.0.0"
 
-unist-util-visit@^1.1.0:
+unist-util-visit@^1.1.0, unist-util-visit@^1.4.0:
   version "1.4.1"
   resolved "https://registry.yarnpkg.com/unist-util-visit/-/unist-util-visit-1.4.1.tgz#4724aaa8486e6ee6e26d7ff3c8685960d560b1e3"
   integrity sha512-AvGNk7Bb//EmJZyhtRUnNMEpId/AZ5Ph/KUpTI09WHQuDZHKovQ1oEv3mfmKpWKtoMzyMC4GLBm1Zy5k12fjIw==
