@@ -74,7 +74,7 @@ registerProcessor('convert-processor', ConvertProcessor)
 export {}
 ```
 
-因為該專案使用 react，所以我簡單寫了一個 hook 來進行處理。
+因為該專案使用 react，所以我簡單寫了一個 hook 來進行處理，主要 focus 在 `handleStream` 這個 function，這邊是將 audio buffer 透過 websocket 傳到後台。
 
 ```ts
 import { useEffect, useRef, useState, RefObject, useCallback } from 'react'
@@ -207,7 +207,7 @@ export default useBrowserMedia
 
 ### Backend
 
-程式開始執行後，`websocket.send(e.data.audioBuffer.buffer)` 會將 buffer 透過 websocket 送往後台，並由後台做處理聲音的部分，這邊我檢查了前台的程式碼，是沒有太大問題的，算是滿標配的寫法，那原因應該就是出在後台的部分，下方是後台最終能正常儲存聲音的程式碼。
+程式開始執行後，`websocket.send(e.data.audioBuffer.buffer)` 會將 buffer 透過 websocket 送往後台，並由後台做處理聲音的部分，這邊我檢查了前台的程式碼，是沒有太大問題，算是滿標配的寫法，那原因應該就是出在後台的部分，下方是後台最終能正常儲存聲音的程式碼。
 
 ```ts
 let fileName: string
@@ -294,7 +294,7 @@ const createWavHeader = (dataSize: number) => {
 }
 ```
 
-🚀最後發現那個 dadada 起怪的原因是因為我將 `browserAudioBuffer` 定義為 Buffer 的型別，而不是 ArrayBuffer 的型別，間接導致 wav header 在計算時出現錯誤，要使用 byteLength，而不是 length。
+🚀最後發現那個 dadada 奇怪的原因是因為我將 `browserAudioBuffer` 定義為 Buffer 的型別，而不是 ArrayBuffer 的型別，間接導致 wav header 在計算時出現錯誤，要使用 byteLength，而不是 length。
 
 ### Conclusion
 
