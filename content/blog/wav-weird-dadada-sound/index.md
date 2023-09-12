@@ -324,4 +324,6 @@ const createWavHeader = (dataSize: number) => {
 
 我也重新複習了一次 ArrayBuffer (int16array, uint8array...etc，儲存 binary data 的容器，可以透過視圖進行操作) 及 Buffer (用於操作 ArrayBuffer 的視圖 DataView) 之間的差別。
 
-更細節的部分可以參考這篇阮一峰寫的[文章](http://javascript.ruanyifeng.com/stdlib/arraybuffer.html)，我覺得寫得相當的好。
+網路上對於前端處理聲音的文章不多，實際遇到情況時，大多也是上網查找，像是這個奇怪的聲音，網路上是完全查不到的，亦或著是不知道要怎下關鍵字去搜尋這問題，所以想說記錄一下，也許能幫助到有遇到類似問題的人。
+
+ArrayBuffer 及 Buffer 更細節的部分可以參考這篇阮一峰寫的[文章](http://javascript.ruanyifeng.com/stdlib/arraybuffer.html)，我覺得寫得相當的好。
