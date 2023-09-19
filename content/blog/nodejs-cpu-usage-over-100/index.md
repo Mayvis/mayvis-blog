@@ -65,10 +65,13 @@ for (let offset = 0; offset < totalSize; offset += chunkSize) {
 
   // Copy the chunk into the big buffer at the specified offset
   chunk.copy(bigBuffer, offset);
+
+  // Write the chunk into the big buffer at the specified offset
+  // chunk.write(bigBuffer, offset);
 }
 ```
 
-其實我個人滿推薦第三方套件來處理 Buffer，相當不錯的一個套件是 [bl](https://www.npmjs.com/package/bl)，它可以幫你處理 buffer 上的問題，底層是使用 array 來貯存 Buffer，相比於上面的方法，更為簡潔：
+其實我個人滿推薦第三方套件來處理 Buffer，相當不錯的一個套件是 [bl](https://www.npmjs.com/package/bl)，它可以幫你處理 buffer 上的問題，底層是使用 array 來貯存 Buffer，相比於上面的方法，我認為更為簡潔：
 
 ```typescript
 import { BufferList } from "bl";
@@ -86,7 +89,7 @@ bl.slice(0, 100); // 可以直接使用 slice 來取得 buffer
 
 第三種情況則是，使用的套件有問題，這種情況就必須等待你使用的套件維護者有在持續維護該套件了，發 PR，或是你可以自己 fork 出來，自己維護，這種情況就相對比較麻煩了。
 
-當然還有其他情況，像是其實你有運行 callback，但是你沒有讓 callback return 之類的，導致程式一直往下執行...等。
+當然還有其他情況，像是其實你有運行 callback，但是你忘記讓 callback return 之類的，導致程式一直往下執行，亦或著其他服務因為某些原因掛掉，你程式又有 await 該服務，服務會 hang 住，此時如果程式又一直接收的話，event 就會囤起來，最終導致 cpu 使用率過高...等的使用情境，這些都是需要特別注意的地方。
 
 ### How to detect the problem
 
