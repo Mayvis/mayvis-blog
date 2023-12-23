@@ -15,9 +15,9 @@ Debounce 就是防手抖的意思，你可以想像你在短時間內抖了很�
 
 > 那為何這兩樣東西很重要，最主要的點，在於它可以有效緩解伺服器 io 的問題，且使用者體驗也不會有所降低。
 
-### knowledge
+### Knowledge
 
-在進入程式碼撰寫的部分前，有些 js 基礎你可能要先知道。
+在進入程式碼撰寫的部分前，有些 js 的基礎你可能要先知道。
 
 js 有 `fn.apply`，`fn.call` 及 `fn.bind`，簡而言之就是你希望這個 function 能**立即執行**，請使用 `fn.apply` 及 `fn.call`，而 `fn.bind` 則是可以後續你 call 時再執行。
 
@@ -153,3 +153,5 @@ throttledExampleFunction("Function")
 ### Conclusion
 
 此篇，記錄一下自己對 Debounce 及 Throttle 的理解，加深印象，外加有時候寫這個也滿好玩的，畢竟現在基本上也不用自己造輪子，引用下 vueuse，lodash，react-use，可以簡化很多東西。
+
+可能等工作跟自己的事情忙完，下一篇有點想寫 Chrome Extension manifest v3 的一點東西，期許自己能把文章生出來吧。
