@@ -54,6 +54,7 @@ const result = add.call(obj, 5, 7)
 
 <video style='width: 100%;' autoplay loop muted playsinline>
   <source src='../../../src/assets/debounce.webm' type='video/webm' />
+  <source src='../../../src/assets/debounce.mp4' type='video/mp4' />
 </video>
 
 <p style='text-align: center; margin-top: 8px; font-style: italic; font-size: 12px;'><span>Video from: </span><a href='https://www.webdong.dev/post/learn-debounce-and-throttle'>https://www.webdong.dev/post/learn-debounce-and-throttle</a></p>
@@ -95,6 +96,7 @@ const debouncedExampleFunction = debounce(exampleFunction, 500)
 
 <video style='width: 100%;' autoplay loop muted playsinline>
   <source src='../../../src/assets/throttle.webm' type='video/webm' />
+  <source src='../../../src/assets/throttle.mp4' type='video/mp4' />
 </video>
 
 <p style='text-align: center; margin-top: 8px; font-style: italic; font-size: 12px;'><span>Video from: </span><a href='https://www.webdong.dev/post/learn-debounce-and-throttle'>https://www.webdong.dev/post/learn-debounce-and-throttle</a></p>
