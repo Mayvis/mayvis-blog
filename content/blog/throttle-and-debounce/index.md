@@ -2,7 +2,7 @@
 title: Throttle and Debounce
 date: "2023-12-13T12:00:00.000Z"
 description: 有點久沒有更新我的程式 blog 了，最近專案比較多，稍微有點忙，最近在寫 Chrome Extension 公司的套件，也踩到了一些坑，前端真的越來越廣，meta 最近也推出滿不錯的 css-in-js 的工具 stylex，也可以觀察及研究一下看是不是能取代 tailwind，那今天其實想寫些比較簡單的概念，同時也是前端工程師幾乎都會使用到來優化程式進程的方案，算是加深印象？🧐
-tags: ["javascript"]
+tags: ["typescript"]
 ---
 
 ### Confuse
