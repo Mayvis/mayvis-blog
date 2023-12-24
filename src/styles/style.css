@@ -425,6 +425,10 @@ a:focus {
   background-color: var(--javascript-tag);
 }
 
+.typescript-tag {
+  background-color: var(--typescript-tag);
+}
+
 .p5\.js-tag {
   background-color: var(--p5-js-tag);
 }
