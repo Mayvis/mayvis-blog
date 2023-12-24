@@ -70,6 +70,10 @@ const circle: Shape = new Circle(5, "Circle")
 
 儘管沒有上述範例的使用方式，type 的優點在於他的彈性及更多元的寫法，有像是 Mapped Types，Conditional Types...等，這邊我就不一一舉例，可以去看上面提供的 cheat sheet。
 
+### Utility
+
+這邊同時也提供一下 Utility 的 [官方網址](https://www.typescriptlang.org/docs/handbook/utility-types.html)。ex: Omit, Pick, Awaited...etc
+
 ### Conclusion
 
 可以參考一下 [LogRocket Blog](https://blog.logrocket.com/types-vs-interfaces-typescript/) 寫的這篇文章，我個人認為寫的滿好的，cheat sheet 則是開發時可以偷看。
