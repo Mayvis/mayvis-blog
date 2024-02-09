@@ -19,9 +19,15 @@ Debounce 就是防手抖的意思，你可以想像你在短時間內抖了很�
 
 在進入程式碼撰寫的部分前，有些 js 的基礎你可能要先知道。
 
-js 有 `fn.apply`，`fn.call` 及 `fn.bind`，簡而言之就是你希望這個 function 能**立即執行**，請使用 `fn.apply` 及 `fn.call`，而 `fn.bind` 則是可以後續你 call 時再執行。
+js 有 `fn.apply`，`fn.call` 及 `fn.bind`，簡而言之就是你希望這個 function 能**立即執行**，請使用 `fn.apply` 及 `fn.call`，而 `fn.bind` 則是可以後續你 call 時再執行。這點如果讀者如果有 React class component 的經驗應該會比較熟悉，每次註冊完事件都要 bind this，讓他跟這個 React.Component 有掛勾，不然 this 值會是 `undefined`，畢竟沒法寫 arrow function。
 
-那 `fn.apply` 跟 `fn.call` 的差別又是什麼呢？差別在於 `fn.apply` 的第二個參數是 array-like object 而 `fn.call` 是 arg1, arg2…, argN 的寫法。
+可以參考一下 Dan 在 react conf 上的演講，他就親自示範忘記加 `fn.bind` 的情況 🤣。
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/dpw9EHDh2bM?si=-o_coBZt5kmdot_k&amp;start=1186" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
+<br>
+
+那 `fn.apply` 跟 `fn.call` 的差別又是什麼呢？ 差別在於 `fn.apply` 的第二個參數是 **array-like object** 而 `fn.call` 是 arg1, arg2…, argN 的寫法，所以主要取決在你的參數是如何。
 
 ```ts
 // fn.apply
