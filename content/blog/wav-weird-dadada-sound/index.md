@@ -29,16 +29,16 @@ class ConvertProcessor extends AudioWorkletProcessor {
     super()
     this.#audioBuffer = new Int16Array(0)
 
-    this.port.onmessage = (e) => {
+    this.port.onmessage = e => {
       if (e.data.eventType === "ping") {
-        this.port.postMessage({ eventType: "bits", bits: this.#bits });
-        this.#bits = 0;
+        this.port.postMessage({ eventType: "bits", bits: this.#bits })
+        this.#bits = 0
       }
-    };
+    }
   }
 
   calculateBits(data) {
-    this.#bits += (data.BYTES_PER_ELEMENT * data.length * 8) / 1000;
+    this.#bits += (data.BYTES_PER_ELEMENT * data.length * 8) / 1000
   }
 
   convertFloat32ToInt16(inputs: Float32Array[][]) {
@@ -49,7 +49,7 @@ class ConvertProcessor extends AudioWorkletProcessor {
       return Math.max(-32768, Math.min(32767, res)) // clamp
     })
 
-    this.calculateBits(data);
+    this.calculateBits(data)
 
     const combinedBuffer = new Int16Array(
       this.#audioBuffer.length + data.length
@@ -63,7 +63,7 @@ class ConvertProcessor extends AudioWorkletProcessor {
   sendBuffer() {
     if (this.#audioBuffer.length >= 3200) {
       this.port.postMessage({
-        eventType: 'data',
+        eventType: "data",
         audioBuffer: this.#audioBuffer,
       })
       this.#audioBuffer = new Int16Array(0) // reset audio buffer
@@ -72,7 +72,7 @@ class ConvertProcessor extends AudioWorkletProcessor {
 
   process(inputs: Float32Array[][]) {
     if (inputs[0].length === 0) {
-      console.error('From Convert Processor Worklet, input is null')
+      console.error("From Convert Processor Worklet, input is null")
       return false
     }
 
@@ -83,7 +83,7 @@ class ConvertProcessor extends AudioWorkletProcessor {
   }
 }
 
-registerProcessor('convert-processor', ConvertProcessor)
+registerProcessor("convert-processor", ConvertProcessor)
 
 export {}
 ```
@@ -91,9 +91,9 @@ export {}
 因為該專案使用 react，所以我簡單寫了一個 hook 來進行處理，主要 focus 在 `handleStream` 這個 function，這邊是將 audio buffer 透過 websocket 傳到後台。
 
 ```ts
-import { useEffect, useRef, useState, RefObject, useCallback } from 'react'
+import { useEffect, useRef, useState, RefObject, useCallback } from "react"
 // 此部分由於我是使用 vite 開發，引用上請參考 https://vitejs.dev/guide/features.html#web-workers
-import ConvertProcessor from '../worker/ConvertProcessor?worker&url'
+import ConvertProcessor from "../worker/ConvertProcessor?worker&url"
 
 const SAMPLE_RATE = 16000
 const CHANNEL = 1
@@ -138,21 +138,21 @@ const useBrowserMedia = (
 
     const processNode = new AudioWorkletNode(
       audioContextRef.current,
-      'convert-processor',
+      "convert-processor",
       {
         channelCount: CHANNEL,
       }
     )
 
     processNode.port.onmessage = e => {
-      if (e.data.eventType === 'data') {
+      if (e.data.eventType === "data") {
         // sending audio buffer to backend
         websocket.send(e.data.audioBuffer.buffer)
       }
 
-       if (e.data.eventType === "bits") {
+      if (e.data.eventType === "bits") {
         // 檢測 bits 數量是否正確
-        someFn({ status: "bits", bits: Math.floor(e.data.bits) });
+        someFn({ status: "bits", bits: Math.floor(e.data.bits) })
       }
     }
 
@@ -194,7 +194,7 @@ const useBrowserMedia = (
       const devices = await navigator.mediaDevices.enumerateDevices()
 
       const audioInputDevices = devices.filter(
-        device => device.kind === 'audioinput'
+        device => device.kind === "audioinput"
       )
 
       if (audioInputDevices.length === 0) return
@@ -235,7 +235,7 @@ let fileName: string
 let WAV_HEADER: Buffer
 
 function startRecordFromBrowser(
-  browserAudioBuffer: ArrayBuffer,
+  browserAudioBuffer: ArrayBuffer, // 原先我在這邊定義錯誤寫成 Buffer
   asrWS: WebSocket,
   wss: Server<typeof WebSocket, typeof IncomingMessage>,
   delayTime: number,
@@ -246,21 +246,21 @@ function startRecordFromBrowser(
     fileName = createFileName(DIRECTORY)
 
     // register file stream in init
-    fileStream = fs.createWriteStream(fileName, { encoding: 'binary' })
-    fileStream.on('ready', function () {
-      console.warn('Ready to write browser record audio to file.')
+    fileStream = fs.createWriteStream(fileName, { encoding: "binary" })
+    fileStream.on("ready", function () {
+      console.warn("Ready to write browser record audio to file.")
     })
-    fileStream.on('error', function (err) {
+    fileStream.on("error", function (err) {
       console.warn(
-        'An error occurred while writing browser record audio to file: ',
+        "An error occurred while writing browser record audio to file: ",
         err
       )
     })
-    fileStream.on('finish', function () {
-      console.warn('Finished writing browser record audio to file.')
+    fileStream.on("finish", function () {
+      console.warn("Finished writing browser record audio to file.")
     })
 
-    // 錯誤造成的主因
+    // 上面定義錯誤，間接導致創建 wav header 時的錯誤
     WAV_HEADER = createWavHeader(browserAudioBuffer.byteLength)
   }
 
@@ -272,7 +272,7 @@ function startRecordFromBrowser(
   if (asrWS.readyState === WebSocket.OPEN) {
     asrWS.send(browserAudioBuffer)
   } else {
-    console.warn('ASR WebSocket is not open, record close process.')
+    console.warn("ASR WebSocket is not open, record close process.")
     fileStream?.end()
     sendCloseWebsocket(wss)
   }
@@ -286,13 +286,13 @@ const createWavHeader = (dataSize: number) => {
   const header = Buffer.alloc(44)
 
   // Chunk ID "RIFF"
-  header.write('RIFF', 0)
+  header.write("RIFF", 0)
   // File size (36 + data size)
   header.writeUInt32LE(36 + dataSize, 4)
   // Format "WAVE"
-  header.write('WAVE', 8)
+  header.write("WAVE", 8)
   // Sub-chunk 1 ID "fmt "
-  header.write('fmt ', 12)
+  header.write("fmt ", 12)
   // Sub-chunk 1 size (16 for PCM)
   header.writeUInt32LE(16, 16)
   // Audio format (PCM)
@@ -308,7 +308,7 @@ const createWavHeader = (dataSize: number) => {
   // Bits per sample (e.g., 16 bits)
   header.writeUInt16LE(16, 34)
   // Sub-chunk 2 ID "data"
-  header.write('data', 36)
+  header.write("data", 36)
   // Sub-chunk 2 size (data size)
   header.writeUInt32LE(dataSize, 40)
 
