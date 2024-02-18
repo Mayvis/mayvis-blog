@@ -1,5 +1,5 @@
 ---
-title: AWS Elastic Beanstalk Strapi Deploy
+title: AWS Elastic Beanstalk Strapi Deploy With Docker
 date: "2024-02-18T12:00:00.000Z"
 description: 此篇主要是介紹如何將 Strapi 部署到 AWS Elastic Beanstalk 上面的流程，快速地打造 Strapi 的後台，影片是我之前錄的，主要是我想自己留存，也希望能教導公司後續的工程師如何去實作這部分有所幫助。
 tags: ["aws"]
