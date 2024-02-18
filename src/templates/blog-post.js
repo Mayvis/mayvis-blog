@@ -41,6 +41,17 @@ const BlogPostTemplate = ({ data, location }) => {
             </ul>
           </div>
         </header>
+        <div>
+          有任何問題，我能幫上忙的話都能到{" "}
+          <a
+            href="https://github.com/Mayvis/mayvis-blog"
+            target="_blank"
+            rel="noreferrer"
+          >
+            github
+          </a>{" "}
+          發 issue 問我。
+        </div>
         <section
           dangerouslySetInnerHTML={{ __html: post.html }}
           itemProp="articleBody"
