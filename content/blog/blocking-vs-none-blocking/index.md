@@ -1,7 +1,7 @@
 ---
-title: Blocking vs Non Blocking
+title: Blocking vs Non-Blocking
 date: "2024-02-29T12:00:00.000Z"
-description: 這篇主要是想記錄一下自己對 blocking (阻塞) 及 none blocking (非阻塞) 的一些知識，畢竟如果忘掉，還可以快速的回來瞧一下不是挺棒的嗎？
+description: 這篇主要是想記錄一下自己對 blocking (阻塞) 及 non-blocking (非阻塞) 的一些知識，畢竟如果忘掉，還可以快速的回來瞧一下不是挺棒的嗎？
 tags: ["concept", "javascript"]
 ---
 
