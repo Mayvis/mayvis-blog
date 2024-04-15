@@ -9,7 +9,7 @@ tags: ["vue", "react", "frontend"]
 
 首先，為何要將主核心網站從 Vue 換成 React 呢？關於這點，再於我們公司案子越來越多，所接觸的客戶也越來越多，自然而然會牽扯到一些政治上面的問題，儘管 Vue 已經將程式碼開源，且政府也有[行政院公文](https://drive.google.com/file/d/1btV2EYbtTqtOsN_yFT2r3Z4HuztTYa-l/view?fbclid=IwAR36ipk1PiYbJ2ZjIA9d3JN1ysPBckiTMX-NUkVXZtSYMUwql9aA6K_7uyE_aem_AaiZZgrIbaxOBPxGe1NVAobpzl-17ij5oSAIvjJLNinTeObqRuoejJgeovph9hAuv-o6iQ37B4gQCr8aYKIMZj5S)說解除列管，但公司站在保險一點的角度，還是得減少政治敏感度的問題，所以沒辦法就只能做修改。
 
-下面是我個人的看法，有好有壞，基本上我兩個都滿喜歡的。
+下面是我個人的看法，有好有壞，基本上我兩個都滿喜歡的，也都有做使用。
 
 ### Choose UI library
 
@@ -17,17 +17,17 @@ tags: ["vue", "react", "frontend"]
 
 換到 React 後，又陷入另一個困境，其實我個人目前用下來，最好寫的其實是 Antd 組件庫，但是這組件庫是大陸的，所以無法使用，MUI 我直接跳過了，樣式太美系，MUI Joy UI 是可以考慮的一個選項，但考量到樣式客製化很麻煩，Mantine 也是樣式很麻煩他必須另外寫 CSS 去改樣式，Chakra UI 跟 shadcn/ui 這兩個是我的首選，選 Chakra UI 配合 styled component 其實在開發後台的體驗是非常好的，我個人也比較偏愛 styled component，但 Chakra 缺點就是他元件偏少，像是 Date Picker，Date Time Picker...等，沒錯，我覺得 React 最為人詬病的就是除了 Antd，其他的元件庫都會缺些東西，你必須額外去安裝像是 react-hook-form，zod，react-table...等。
 
-我這邊最終選定是 shadcn/ui 搭配 Tailwind CSS，體驗一把 className 地獄。
+React 推 Headless UI 的設計理念一陣子了，相比於 Vue 需要自己處理的事情會更多，但同時也代表這些東西掌握在自己手上，我這邊最終選定是 shadcn/ui 搭配 Tailwind CSS，體驗一把 className 地獄。
 
 ### Choose State Management
 
-在 Vue2 中，你可以搭配官方選定的 Vuex，Vue3 則可以搭配 Inject 及 Pinia，來做貯存。
+在 Vue2 中，你可以搭配官方選定的 Vuex，Vue3 則可以搭配 Inject 及 Pinia，來做貯存，這也是官方推薦的。
 
 在 React 中，你的選擇就多了 Redux(with RTK)，Zustand，Mobx，Recoil 及 React 原生 Provider...等，我個人認為，這部分學習曲線比較高，假如你想要在 Redux 使用 async 你還必須去裝 thunkAPI...等，我這邊是選擇使用 Redux，他是 Dan Abramov 基於 Flux 架構開發的狀態管理系統，主要架構在這四點 Dispatcher、Action、Store、View，簡單解釋就是，Dispatch 會派發 Action，接著會依據這個 Action 的 type 及其 payload 來做相對應的 Store 狀態更新，這邊我們會稱為 Reducer，結束後更新視圖。
 
 至於為何不使用 Zustand，在於當商業模式越趨複雜的話，比較嚴謹的架構，在網站建構時會是我的首選，但也不排除後期頁面邏輯越趨複雜，局部管理，之後會使用 Zustand。
 
-題外話，我個人滿佩服 React 社群在這部分的貢獻，可以依據自己要的方案去做選擇，大部分也都有圖例，可以快速地去瞭解該方案是否對於現行的網站更合適。
+我個人滿佩服 React 社群在這部分的貢獻，可以依據自己要的方案去做選擇，大部分也都有圖例，可以快速地去瞭解該方案是否對於現行的網站更合適。
 
 ### TypeScript Support
 
@@ -35,7 +35,7 @@ tags: ["vue", "react", "frontend"]
 
 ### Building Tool
 
-公司的網站有一部分是工具，在撰寫網頁型工具時，時常會有些較複雜的功能需要去做實踐，有時甚至還必須使用到演算法，坦白說我個人比較喜愛 Vue，寫起來 Vue 會比較直觀，下限會比較低，而 React 有時可能要寫的比較抽象會比較好，需要對 JavaScript 有更深一層理解的人來寫會比較合適，下限會比較高，這部分有改過菜鳥寫的 React 程式碼的工程師大概就會知道，基本上有機會會砍掉 1/3 甚至 1/2 以上的程式碼，在優化時，腦子也會時常跳出這 useEffect 是用來幹嘛的？基本上，原則是能不用則不用，一定要用就希望一定要加註解，提高易讀性，我個人，也會習慣性寫個 useRenderCount 之類的 hook 去看一下為什麼這邊多渲染了幾次，看是否需要加，useMemo，memo，useCallback 之類的，除此之外，React 的 bug 在有些情況會相對比較難找出來，我個人有遇過 React.StrictMode 有加沒事，反而拔掉後有事的 bug。
+公司的網站有一部分是工具，在撰寫網頁型工具時，時常會有些較複雜的功能需要去做實踐，有時甚至還必須使用到演算法，坦白說我個人比較喜愛 Vue，寫起來 Vue 會比較直觀，下限會比較低，而 React 有時可能要寫的比較抽象會比較好，需要對 JavaScript 有更深一層理解的人來寫會比較合適，下限會比較高，這部分有改過菜鳥寫的 React 程式碼的工程師大概就會知道，基本上有機會會砍掉 1/3 甚至 1/2 以上的程式碼，在優化時，腦子也會時常跳出這 useEffect 是用來幹嘛的？基本上，原則是能不用則不用，一定要用就希望一定要加註解，提高易讀性，我個人，也會習慣性寫個 useRenderCount 之類的 hook 去看一下為什麼這邊多渲染了幾次，看是否需要加，useMemo，memo，useCallback 之類的，除此之外，React 的 bug 在有些情況會相對比較難找出來，我個人有遇過 StrictMode 有加沒事，反而拔掉後有事之類的 bug。
 
 在開發前端工具且使用 React 我會比較推薦有個有經驗的指導者來審程式碼會比較好，主要是可以發現一些在開發上的盲點，旁觀者清，至於能力夠好的工程師就挑你習慣的就好，坦白說，沒差。
 
@@ -83,10 +83,16 @@ const Foo: FC<FooProps> = ({ id }) => {
 }
 ```
 
-雖然效能提升不了多少，但整潔度我認為是有的...之類的，這部分可以看團對想走哪種方式來做規範，主要會以易讀為主。
+雖然效能提升不了多少，但整潔度我認為是有的...之類的，這部分可以看團隊想走哪種方式來做規範，主要會以易讀為主。
+
+### Ask question
+
+我相信在實作時，或多或少都會有實踐上的問題，現在相較於以前方便太多，問題可以直接丟給 ChatGPT 去做詢問，但坦白說你們公司若走得比較前面的話，隨便舉個例子，像是有做 Chrome 套件，如果有接觸這塊的話，應該會知道 Manifest v2 已經要準備汰換了，v3 是最新的，你問 ChatGPT v3 的問題，會出現鬼打牆的情況，畢竟 ChatGPT 在我寫這篇文章時只到 2022 年而已，如果你在 React 或 Vue 也有類似的問題出現，你就必須去詢問社群的人。
+
+個人經驗是 Vue 的社群會比較友善，而且回覆速度會比較快，React 社群的確很龐大，但是不知道為什麼我覺得沒有那麼友善，且回覆時間通常比較長，有時也都是比較制式化的回覆，再來是 React 比較多已經沒有在運維的 library，又或著很多可能還在使用 class component，這也間接代表說你的問題可能會更多，同時你也需要學習 class component，不能只會 hook。
 
 ### Conclusion
 
 基本上，我個人其實覺得兩個寫起來差不多，大專案用 React，小專案用 Vue 這說詞，我覺得有點偏頗，我比較相信這種說法，一個好的工程師，請依據自己的需求去做使用才是正解，舉個例子：像是你今天有頁面要渲染大量資料且無法使用 Virtual Scroller 技術，我會建議你選 Vue，Vue 在渲染這塊的效率是比較高的，如果今天你有需求要做動畫，尤其是接案，活動類的，我也會推薦你用 Vue，原生的還是比較香...等。
 
-React 在運營的成本上也會提升不少，除了開發運維的時間成本會拉長，人力成本也是需要考量的，大多數 React 工程師價碼較高，相較於 Vue，如果公司工程部門的體制很完善，且工程師也都是有經驗或經過篩選的，我覺得使用 React 是一個不錯的選擇，他在某些方面可以把東西寫得很精緻，會有越寫越舒服的既視感，又或著是公司今天有做 APP 跨平台的考量，React Native 也會香很多，新版本 [React 19](https://react.dev/blog/2024/02/15/react-labs-what-we-have-been-working-on-february-2024) 也提升了很多，以往需要自己調控的東西，變成 React 在 Compile 階段時幫你做到，讓前端開發者又減少了更多心智負擔。
+React 在運營的成本上也會提升不少，除了開發運維的時間成本會拉長，人力成本也是需要考量的，大多數 React 工程師價碼較高，相較於 Vue，但如果公司工程部門的體制很完善，且工程師也都是有經驗或經過篩選的，我覺得使用 React 是一個不錯的選擇，他在某些方面可以把東西寫得很精緻，會有越寫越舒服的既視感，又或著是公司今天有做 APP 跨平台的考量，React Native 也會香很多，新版本 [React 19](https://react.dev/blog/2024/02/15/react-labs-what-we-have-been-working-on-february-2024) 也提升了很多，以往需要自己調控的東西，變成 React 在 Compile 階段時幫你做到，讓前端開發者又減少了更多心智負擔。
