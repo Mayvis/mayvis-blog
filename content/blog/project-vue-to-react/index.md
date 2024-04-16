@@ -31,11 +31,11 @@ React 推 Headless UI 的設計理念一陣子了，需要自己處理的事情�
 
 ### TypeScript Support
 
-基本上我個人目前是將專案都盡量用 TypeScript 做撰寫，其實這部分我認為 Vue 跟 React 體驗都是不錯的，但在體感上 React 略勝一籌，畢竟就是在寫 JavaScript，不是模板的開發模式，除此之外，Vue 有個致命缺點就是，TypeScript 在運行時，vscode 卡頓頻繁程度相比於 React 是多很多的，這部分也可能是我 2019 mbp 不給力，尚未將我的 mbp 換成 arm 架構的，還在用 intel，使用 16GB 記憶體也會略顯不夠，外加我個人還要處理 docker，下次換電腦可能會直上 32GB 記憶體吧。
+基本上我個人目前是將專案都盡量用 TypeScript 做撰寫，其實這部分我認為 Vue 跟 React 都是不錯的，但在體感上，個人覺得 React 略勝一點點，畢竟體感上真的是在寫 JavaScript，Vue 的模板的開發模式其實也是滿清晰的，所以這也就單純我個人喜好。我自己使用下來 Vue3 用 TypeScript 在撰寫時有個致命缺點就是，vscode 卡頓頻繁程度相比於 React 是多很多的，這部分也可能是我 2019 mbp 不給力，尚未將我的 mbp 換成 arm 架構的，還在用 intel，使用 16GB 記憶體也會略顯不夠，外加我個人還要處理 docker，下次換電腦可能會直上 32GB 記憶體吧。
 
 ### Building frontend Tool
 
-公司的網站有一部分是工具，在撰寫網頁型工具時，時常會有些較複雜的功能需要去做實踐，有時甚至還必須使用到演算法，坦白說我個人比較喜愛 Vue，寫起來 Vue 會比較直觀，下限會比較低，而 React 有時可能要寫的比較抽象會比較好，需要對 JavaScript 有更深一層理解的人來寫會比較合適，下限會比較高，這部分有改過菜鳥寫的 React 程式碼的工程師大概就會知道，基本上有機會會砍掉 1/3 甚至 1/2 以上的程式碼，在優化時，腦子也會時常跳出這 useEffect 是用來幹嘛的？基本上，原則是能不用則不用，一定要用就希望一定要加註解，提高易讀性，React 官方有一篇文章[You Might Not Need an Effect](https://react.dev/learn/you-might-not-need-an-effect)可以詳讀，我個人，也會習慣性寫個 useRenderCount 之類的 hook 去看一下為什麼這邊多渲染了幾次，看是否需要加，useMemo，memo，useCallback 之類的，除此之外，React 的 bug 在有些情況會相對比較難找出來，像是 StrictMode 有加沒事，反而拔掉後有事之類的 bug，當初發生問題的程式碼大致如下：
+公司的網站有一部分是工具，在撰寫網頁型工具時，時常會有些較複雜的功能需要去做實踐，有時甚至還必須使用到演算法，坦白說我個人比較喜愛 Vue，寫起來會比較直觀，下限會比較低，而 React 有時可能要寫的比較抽象會比較好，需要對 JavaScript 有更深一層理解的人來寫會比較合適，下限會比較高，這部分有改過菜鳥寫的 React 程式碼的工程師大概就會知道，基本上有機會會砍掉 1/3 甚至 1/2 以上的程式碼，在優化時，腦子也會時常跳出這 useEffect 是用來幹嘛的？基本上，原則是能不用則不用，一定要用就希望一定要加註解，提高易讀性，React 官方有一篇文章[You Might Not Need an Effect](https://react.dev/learn/you-might-not-need-an-effect)可以詳讀，我個人，也會習慣性寫個 useRenderCount 之類的 hook 去看一下為什麼這邊多渲染了幾次，看是否需要加，useMemo，memo，useCallback 之類的，除此之外，React 的 bug 在有些情況會相對比較難找出來，像是 StrictMode 有加沒事，反而拔掉後有事之類的 bug，當初發生問題的程式碼大致如下：
 
 ```tsx
 import { FC } from "react"
