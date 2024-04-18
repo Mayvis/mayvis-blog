@@ -17,7 +17,7 @@ tags: ["vue", "react", "frontend"]
 
 換到 React 後，會面臨組件庫的困境，其實我個人目前用下來，最好寫的其實是 Antd 組件庫，但是這組件庫是大陸的，所以無法使用，MUI 我直接跳過了，樣式太美系，MUI Joy UI 是可以考慮的一個選項，但考量到樣式客製化很麻煩，Mantine 也是樣式很麻煩他必須另外寫 CSS 去改樣式，Chakra UI 跟 shadcn/ui 這兩個是我的首選，選 Chakra UI 配合 styled component 其實在開發後台的體驗是非常好的，我個人也比較偏愛 styled component，但 Chakra 缺點就是他元件偏少，像是 Date Picker，Date Time Picker...等，沒錯，我覺得 React 最為人詬病的就是除了 Antd，其他的元件庫都會缺些東西，這得要去習慣，你必須額外去安裝像是 react-hook-form，zod，react-table...等。
 
-React 推 Headless UI 的設計理念一陣子了，需要自己處理的事情會更多，但同時也代表這些東西掌握在自己手上，我這邊最終選定是 shadcn/ui 搭配 Tailwind CSS，體驗一把 className 地獄。
+React 推 Headless UI 的設計理念一陣子了，只有基礎樣式及功能，需要自己處理的事情會更多，但同時也代表這些東西掌握在自己手上，我這邊最終選定是 shadcn/ui 搭配 Tailwind CSS，體驗一把 className 地獄。
 
 ### Choose State Management
 
