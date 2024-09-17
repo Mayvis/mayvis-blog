@@ -37,14 +37,6 @@ React 推 Headless UI 的設計理念一陣子了，只有基礎樣式及功能�
 
 這部分也是很多工程師會拿來討論的，React 體感寫起來基本上就是在寫 js，但是 Vue 是使用 template，你必須要去記像是 `v-for` `v-if` 等，template 的相關用法，所以自然而然，網路上有一部分人說 template 這種寫法不直觀，但我個人認為有點小偏頗，template 就是前端必須去接觸的一個技能，而這部分也是滿成熟的，你用 Angular 也是使用 template 的寫法，你今天想做全端使用 php laravel，他的 blade 機制基本上也是 template，甚至是你用 nodejs 後台寄信，handlebars 這種 lib 也都是 template...等，太多情境會使用到，所以我覺得算是網頁工程師必須學習的技能之一。
 
-### Fiber vs Template
-
-由於聊到了 template，那我更深入一點寫一下特性，如果讀者有去了解一下 React 的源碼，他其實是有做一些 trade off 的，最經典的例子就是 `setState(1)` 兩次，他會重新渲染兩次，儘管兩個值相等，直到第三次觸發也是 `setState(1)`，這次他才不會觸發重新渲染，坦白說，這邊會讓使用者感到非常困惑，這部分的操作在 React 叫做 eagerState，我本人也有在 React 的 issue 上加入討論 [link](https://github.com/facebook/react/issues/28779)，我非常建議可以稍微去看一下那些工程師做的解釋。
-
-template 模式在開發上，處理像是狀態的 diff 上，會有明顯巨大的優勢，而 React 由於是使用 Fiber，他必須跑過渲染過才能知道是否有變動，亦或著 useEffect 處理 side effect 會比較不直觀...等，但目前也僅有這個方案，根究底就是使用 Fiber 跟 template 開發上的差異。
-
-但如果讀者更了解 Fiber 的特性，你在開發 React 時會更得心應手，甚至會更加理解 functional programming 的優點。
-
 ### Building frontend Tool
 
 公司的網站有一部分是工具，在撰寫網頁型工具時，時常會有些較複雜的功能需要去做實踐，有時甚至還必須使用到演算法，坦白說我個人比較喜愛 Vue，寫起來會比較直觀，下限會比較低，而 React 有時可能要寫的比較抽象會比較好，需要對 JavaScript 有更深一層理解的人來寫會比較合適，下限會比較高，這部分有改過菜鳥寫的 React 程式碼的工程師大概就會知道，基本上有機會會砍掉 1/3 甚至 1/2 以上的程式碼，在優化時，腦子也會時常跳出這 useEffect 是用來幹嘛的？基本上，原則是能不用則不用，一定要用就希望一定要加註解，提高易讀性，React 官方有一篇文章 [You Might Not Need an Effect](https://react.dev/learn/you-might-not-need-an-effect) 可以詳讀，我個人，也會習慣性寫個 useRenderCount 之類的 hook 去看一下為什麼這邊多渲染了幾次，看是否需要加，useMemo，memo，useCallback 之類的，除此之外，React 的 bug 在有些情況會相對比較難找出來，像是 StrictMode 有加沒事，反而拔掉後有事之類的 bug，當初發生問題的程式碼大致如下：
@@ -192,11 +184,19 @@ const Foo: FC<FooProps> = ({ id }) => {
 
 雖然效能提升不了多少，但整潔度我認為是有的，又或著 HOC 命名開頭都是 with 像是 withUserConfig...之類的，這部分可以看團隊想走哪種方式來做規範，主要會以統一性及易讀性為主。
 
+### React Weired Part
+
+如果讀者有去了解一下 React 的源碼，他其實是有做一些 trade off 的，最經典的例子就是 `setState(1)` 兩次，他會重新渲染兩次，儘管兩個值相等，直到第三次觸發也是 `setState(1)`，這次他才不會觸發重新渲染，坦白說，這邊會讓開發者感到非常困惑，為何同值你還要重新渲染？
+
+這部分的操作在 React 叫做 eagerState，我本人也有在 React 的 issue 上加入討論 [link](https://github.com/facebook/react/issues/28779)，我非常建議可以稍微去看一下那些工程師做的解釋，不過這部分其實也是屬於比較少見及發生的情況，畢竟你為何要更新同樣的值？如果相同為何不 return 掉？
+
+總而言之，這奇怪的情況在 Vue 及 Angular 是沒有的，根本原因在於 React 跟前面所提及的二者是不同的開發體系跟方式，React 在架構上是使用 Fiber，讀者可以去了解一下。
+
 ### Ask question
 
 我相信在實作時，或多或少都會有實踐上的問題，現在相較於以前方便太多，問題可以直接丟給 ChatGPT 去做詢問，但坦白說你們公司若走得比較前面的話，隨便舉個例子，像是有做 Chrome 套件，如果有接觸這塊的話，應該會知道 Manifest v2 已經要準備汰換了，v3 是最新的，你問 ChatGPT v3 的問題，會出現鬼打牆的情況，畢竟 ChatGPT 在我寫這篇文章時只到 2022 年而已，如果你在 React 或 Vue 也有類似的問題出現，你就必須去詢問社群的人。
 
-個人經驗是 Vue 的社群會比較友善，而且回覆速度會比較快，React 社群的確很龐大，但是不知道為什麼我覺得沒有那麼友善，且回覆時間通常比較長，有時會拿到比較制式化的回覆，再來是 React 比較多已經沒有在運維的 library，又或著很多可能還在使用 class component，這也間接代表說你的問題可能會更多，同時你也需要學習 class component，不能只會 hook，至於 Vue2 Vue3 兩個基本可以看作另一套，但 Vue2 已經於 2023 年底 EOL，印象中可以付費讓核心成員協助你，但大致上還是會希望你直接使用 Vue3。
+個人經驗是 Vue 的社群會比較友善，而且回覆速度會比較快，React 社群的確很龐大，但是不知道為什麼我覺得沒有那麼友善，且回覆時間通常比較長，有時會拿到比較制式化的回覆，再來是 React 比較多已經沒有在運維的 library，又或著很多可能還在使用 class component 或著 @flow (可以把它想成是 React 版本的 TypeScript)，這也間接代表說你的問題可能會更多，同時你也有可能會需要學習上述二者，至於 Vue2 Vue3 兩個基本可以看作另一套，但 Vue2 已經於 2023 年底 EOL，印象中可以付費讓核心成員協助你，但大致上還是會希望你直接使用 Vue3。
 
 ### Conclusion
 
