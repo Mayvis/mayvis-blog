@@ -1,13 +1,14 @@
 ---
 title: Zustand 101
 date: "2024-10-30T12:00:00.000Z"
-description: 距離上次寫文章，又過了一陣子，主要是公司最近一兩個月實在是滿忙的，一坐起來，不是去廁所就是下班，這次想說來寫一下 zustand，一個管理狀態的 lib，現在在 React 群裡，是真心滿夯的，畢竟就真的很簡單可以做使用，相較於 react-redux。
+description: 距離上次寫文章，又過了一陣子，主要是公司最近一兩個月實在是滿忙的，一坐起來，不是去廁所的路上就是下班，這次想說來寫一下 zustand，一個管理狀態的 lib，現在在 React 群裡，是真心滿夯的，畢竟就真的很簡單可以做使用，相較於 react-redux。
 tags: ["react"]
 ---
 
 ### Preface
 
-React 相較於 Vue，在集合管理狀態這邊，他有更多的選項，Vue3 目前官方僅推薦 pinia，vuex 則是可以使用在 Vue2 上，React 則多了 react-redux、recoil、zustand、mobx...等，每個都有每個的特色，可以依據自己的需求去選擇。
+React 相較於 Vue，在集合管理狀態這邊，他有更多的選項，Vue3 目前官方僅推薦 pinia，vuex 則是可以使用在 Vue2 上，React 則多了 react-redux、recoil、zustand、mobx...等，每個都
+有每個的特色，可以依據自己的需求去選擇。
 
 這篇文章會著重在 zustand 上，如果是中小型專案，沒有需要太複雜的狀態管理，zustand 目前我認為是最容易運維的。
 
@@ -96,7 +97,7 @@ export const useUserStore = create<UserState>(set => ({
 
 ### Using with devtool
 
-Zustand 是可以直接使用 react-redux 的瀏覽器套件，但需要額外再 create 內在包一層，enabled 是當專案在 prod 時，是否啟用的開關，這邊我是設定在 dev 底下才可以使用。
+zustand 是可以直接使用 react-redux 的瀏覽器套件，但需要額外再 create 內在包一層。
 
 ```ts
 import { devtools } from "zustand/middleware"
@@ -218,10 +219,10 @@ const store = [
 ]
 ```
 
-且你恰好知道 immutable 這技術，這時你就可以做使用，由於 structure sharing (共享結構) 的特性，可以增加效能，做到部分更新，也能減少 side effect 副作用的發生，當然大部分的情境下你是使用不到的。
+且你恰好知道 immutable.js 這技術，這時你就可以做使用，由於 structure sharing (結構共享) 的特性，可以增加效能，做到部分更新。
 
 ```ts
-// 需安裝 immer 套件
+// zustand 可使用 immer 來達到 immutable 的效果，需安裝 immer 套件
 import { immer } from "zustand/middleware/immer"
 
 export const useUserStore = create<UserState>()(
@@ -241,12 +242,25 @@ export const useUserStore = create<UserState>()(
 )
 ```
 
-我在網路上有找到一個共享結構的示意圖：
+在 javascript 內，Object 及 Array，儲存的都是記憶體的位置 (reference)，不是真正的值，所以當你要對 Array 進行修改時，你在 react 基本上都會使用 spread operator 或著 map 去
+淺拷貝這個 Array，如果資料結過比較深跟複雜，你則需要使用深拷貝，一旦要更新，就必須整個複製一份，這是相當消耗效能的，所以 Facebook 的工程師就提出了，immutable.js 這概念，他會
+一層一層往上找，只對父層的支點做拷貝，流程可以參考如下，我在網路上找到的結構共享的示意圖：
 
 <img src='../../../src/assets/zustand-101.gif' alt='immutable'>
 <br />
 
 參考：[https://zhenhua-lee.github.io/react/Immutable.html](https://zhenhua-lee.github.io/react/Immutable.html)
+
+有興趣的讀者可以實際去上手玩玩看
+
+```ts
+const map1 = Immutable.Map({ a: 1, b: 2, c: 3 })
+const map2 = map1.set("b", 50) // 由於 immutable 的特性，所以會返回一個全新的物件，並不會影響到先前的物件
+map1.get("b") // 2
+map2.get("b") // 50
+```
+
+這篇文章也有介紹 [immutable.js vs immer](https://blog.logrocket.com/immer-and-immutable-js-how-do-they-compare/)
 
 ### Advance Usage
 
@@ -276,7 +290,7 @@ const Component = () => {
 }
 ```
 
-亦或著，你想在 react 外部做使用
+亦或著，你想在 react 外部做使用，
 
 ```ts
 import { useUserStore } from "@/store/user"
@@ -307,8 +321,6 @@ const Component = () => {
   )
 ```
 
-甚至是你也可以客製化 zustand 的中間層，去玩一些你想玩的東西。
-
 ### Conclusion
 
-上面是我個人對 zustand 的理解。
+上面是我個人對 zustand 的理解，寫成筆記記錄一下，方便自己回顧，有些新的功能如果我有做到使用，我也會在補齊上去，javascript 的水真的很深啊。
