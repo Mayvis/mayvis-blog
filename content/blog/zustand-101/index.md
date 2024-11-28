@@ -7,8 +7,7 @@ tags: ["react"]
 
 ### Preface
 
-React 相較於 Vue，在集合管理狀態這邊，他有更多的選項，Vue3 目前官方僅推薦 pinia，vuex 則是可以使用在 Vue2 上，React 則多了 react-redux、recoil、zustand、mobx...等，每個都
-有每個的特色，可以依據自己的需求去選擇。
+React 相較於 Vue，在集合管理狀態這邊，他有更多的選項，Vue3 目前官方僅推薦 pinia，vuex 則是可以使用在 Vue2 上，React 則多了 react-redux、recoil、zustand、mobx...等，每個都有每個的特色，可以依據自己的需求去選擇。
 
 這篇文章會著重在 zustand 上，如果是中小型專案，沒有需要太複雜的狀態管理，zustand 目前我認為是最容易運維的。
 
