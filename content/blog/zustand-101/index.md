@@ -248,7 +248,7 @@ export const useUserStore = create<UserState>()(
 <img src='../../../src/assets/zustand-101.gif' alt='immutable'>
 <br />
 
-參考：[https://zhenhua-lee.github.io/react/Immutable.html](https://zhenhua-lee.github.io/react/Immutable.html)
+參考：[官網](https://immutable-js.com/)
 
 有興趣的讀者可以實際去上手玩玩看
 
