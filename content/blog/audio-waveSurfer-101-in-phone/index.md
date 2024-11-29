@@ -1,5 +1,5 @@
 ---
-title: Audio waveSurfer 101
+title: Audio waveSurfer 101 in phone
 date: "2024-11-28T12:00:00.000Z"
 description: 相信有在前端處理過聲音想看振幅應該都有使用過 waveSurfer.js，他算是目前畫聲音振幅最全面的套件，但是該套件目前在手機上的效能其實老實說不太好，假設你要使用手機進行錄音的話，這陣子有在處理類似的案子，那這篇是我的一些經驗。
 tags: ["javascript", "react"]
@@ -9,7 +9,7 @@ tags: ["javascript", "react"]
 
 先講結論，其實最終我是捨棄掉 waveSurfer 的，改使用 canvas 自己畫。
 
-那這篇主要是使用 iphone XR 手機來進行測試，目前手機網頁在渲染方面會有點劣勢，尤其是像使用 requestAnimationFrame 這種，以畫面幀數來進行渲染，儘管越高可以有越絲滑的效果，但是我個人觀測，由於某些原因 waveSurfer.js 看起來似乎沒法正常的 gc，所以假設我錄的音檔越長，所停掉整個 process 的時間也就越長。
+那這篇主要是使用 2018 年的 iphone XR 手機來進行測試，目前手機網頁在渲染方面會有點劣勢，尤其是像使用 requestAnimationFrame 這種，以畫面幀數來進行渲染，儘管越高可以有越絲滑的效果，但是我個人觀測，由於某些原因 waveSurfer.js 看起來似乎沒法正常的 gc，所以假設我錄的音檔越長，所停掉整個 process 的時間也就越長。
 
 這邊可以參考一下影片，可以看到當我執行下去後，他需要等待相當久的時間才會有做動，使用者體驗相當的差，那我會透過幾種方式去做調整
 
@@ -20,7 +20,9 @@ tags: ["javascript", "react"]
 
 ### Switch RequestAnimationFrame to SetTimeout
 
-下面是程式範例，首先我最早是使用 requestAnimationFrame，手機 cpu 會消耗大約 30% 左右，其實不是很理想，如何開啟 Safari 監控可參考這篇 [文章](https://memorysd2013.github.io/2022/03/09/check-mobile-devtool-on-pc/)，接著開啟開發者工具，時間列去錄製畫面運算及使用率，如果使用 requestAnimationFrame 你會發現截圖會異常密集，這邊會建議如果您還是想用 waveSurfer.js 的話，使用 setTimeout 100ms 或著 200ms 去遞迴更新會是比較好的方案 100ms 大約是一秒 10 幀，而 200ms 則是一秒 5 幀...依此類推。
+首先我最早是使用 requestAnimationFrame，手機 cpu 會消耗大約 30% 左右，其實不是很理想，如何開啟 Safari 監控可參考這篇 [文章](https://memorysd2013.github.io/2022/03/09/check-mobile-devtool-on-pc/)，接著開啟開發者工具，時間列去錄製畫面運算及使用率，如果使用 requestAnimationFrame 你會發現截圖會異常密集，這邊會建議如果您還是想用 waveSurfer.js 的話，使用 setTimeout 100ms 或著 200ms 去遞迴更新會是比較好的方案 100ms 大約是一秒 10 幀，而 200ms 則是一秒 5 幀...依此類推。
+
+下面是程式範例
 
 ```ts
 const useRecord = () => {
@@ -111,14 +113,17 @@ const useRecord = () => {
 }
 ```
 
-### Final
+### Observe
 
-雖然改成 setTimeout 去減少運算的確可以減少最後等待的時間，但是效果也不盡理想，目前猜測一種是 waveSurfer.js 存在著 gc issue 有某些東西沒有回收掉，錄越久等待的時間越長，另一種猜測則是手機效能真的是有點差，js 沒辦法在有限的時間內 gc 掉，gc 執行可以透過 safari 開發者工具 JavaScript 與事件那欄進行觀察，橘色的方塊代表 js 有進行部分回收...等，追根究底 iphone XR 也是 2018 年的產品，效能的確沒有很好。
+雖然改成 setTimeout 去減少運算的確可以減少最後等待的時間，但我調整成 200ms 也就是一秒 5 幀後，後續的下降幅度就沒有那麼大，錄製 10 分鐘的音檔，requestAnimation 需等待 2x 多秒而 100ms 跟 200ms 則需等待大約 12 至 15 秒，所以效果也不盡理想，錄越久等待的時間仍會拉長。
+
+感覺在手機中 js 沒辦法在有限的時間內 gc 掉，gc 執行可以透過 safari 開發者工具 JavaScript 與事件那欄進行觀察，橘色的方塊代表 js 有進行部分回收。
 
 <img src='../../../src/assets/audio-wavesurfer.jpeg' alt='waveSurfer' />
-<br />
 
-所以接著我又對程式碼進行修正，主要有兩點，首先我將 waveSurfer.js 整個移除，改成使用 canvas 進行繪製，第二點則是 AudioContext 要可以進行複用，簡單講就是我只將其閒置而已，要用時再復原就好，接著我也降低 audioContext 的 analyser，fftSize 傅立葉調整成 256，減少 canvas 渲染的數量。
+### Keep Going
+
+所以接著我又對程式碼進行修正，主要有兩點，首先我將 waveSurfer.js 整個移除，改成使用 canvas 進行繪製，第二點則是 AudioContext 要可以進行複用，簡單講就是停止錄音時，我只將其閒置，要用時再復原就好，接著我也降低 audioContext 的 analyser，fftSize 傅立葉調整成 256，減少 canvas 渲染的數量。
 
 ```ts
 audioContext.resume() // 複用
@@ -451,8 +456,10 @@ const useRecord = (drawWaveform: boolean = false) => {
 export default useRecord
 ```
 
-修改過後，點擊後結束錄音，就可以很快的結束處理中的畫面，達到預期的效果。
+修改過後，點擊結束錄音後，就可以很快的結束處理中的畫面，省去 10 幾秒的等待時間，達到預期的效果。
 
 ### Conclusion
 
-此篇主要是紀錄我在手機上處理音效渲染遇到的一些效能問題，那我是如何嘗試去解決的，畢竟手機的資源的確比較有限，也不大可能強迫客戶只使用效能好且最新版本的手機來使用公司的產品。
+此篇主要是紀錄我在手機上處理音效渲染遇到的一些效能問題，那我是如何嘗試去解決的，畢竟手機的資源的確比較有限，主管又想要有該功能，而站在公司的角度也不大可能強迫客戶只使用效能好且最新版本的手機來使用公司的產品。
+
+waveSurfer.js 仍是一個很好的繪製聲音振幅的套件，他提供許多套件可以做使用，但是當功能不需要如此複雜時，其實可以選擇不去使用；我自己是認為，可以在桌機版本使用該套件提供比較豐富的功能，接著在手機版如果遇到效能瓶頸時，跟設計師討論，簡化一些功能，透過程式的方式讓他只使用單純的 canvas 來進行繪製，或許是不錯的解決方案。
