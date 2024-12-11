@@ -85,6 +85,7 @@
   --concept-tag: rgba(237, 111, 45, 0.4);
   --vite-tag: rgba(171, 67, 245, 0.4);
   --webAssembly-tag: rgba(161, 109, 248, 0.4);
+  --chrome-extension-tag: rgba(142, 157, 158, 0.4);
 }
 
 .dark-theme {
@@ -113,6 +114,7 @@
   --concept-tag: rgba(237, 111, 45, 1);
   --vite-tag: rgba(171, 67, 245, 1);
   --webAssembly-tag: rgba(161, 109, 248, 1);
+  --chrome-extension-tag: rgba(142, 157, 158, 1);
 }
 
 /* HTML elements */
@@ -443,6 +445,10 @@ a:focus {
 
 .webAssembly-tag {
   background-color: var(--webAssembly-tag);
+}
+
+.chrome-extension-tag {
+  background-color: var(--chrome-extension-tag);
 }
 
 .header-link-home {
