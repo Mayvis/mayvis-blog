@@ -74,6 +74,8 @@ const Popup: FC = () => {
 }
 ```
 
+### Setup Chrome Types
+
 由於使用 typescript 需安裝 `pnpm install -D chrome-types`，並將 type 引入
 
 ```json{21}
@@ -216,7 +218,7 @@ export default defineConfig({
 
 掛載擴充套件成功後，每次運行 `pnpm run build`，reload 套件就可以看到新的樣式，相當的方便，如果要自動化，你也可以將 `pnpm run build` 加到你的 script 內，安裝 concurrently，達到 hmr 套件的效果，這部分我就沒有多加贅述，有興趣可以參考上方提供的模板去看他是怎麼達到這效果的，由於我的專案比較簡單並不需要這種功能。
 
-### Tailwindcss with Shadcn
+### Tailwindcss with Shadcn UI
 
 這部分比較屬於個人需求，由於我們公司的樣式大部分是使用 Shadcn UI，所以也要安裝 tailwindcss
 
@@ -340,4 +342,4 @@ export default tseslint.config(
 
 其實建置專案一開始會覺得很複雜，但是當你對每個套件及流程越來越熟悉後，使用起來其實會越來越簡單而且之後如果要改動，心智負擔也比較小。
 
-擴充套件 v3 版本提供許多新功能，讀者可以用 react 去建置自己想玩的一些套件在瀏覽器上，像是目前 ChatGPT 很夯，所以就一堆人跑去開發輔助 ChatGPT 的套件，像是可以整理歸類...等，滿值得試試玩玩的，這邊也提供官網的[教學](https://developer.chrome.com/docs/extensions/get-started#tutorials)，有興趣可以看看。
+擴充套件 v3 版本提供許多新功能，讀者可以用 react 去建置自己想玩的一些套件在瀏覽器上，像是目前 AI 很夯，所以就一堆人跑去開發輔助 ChatGPT 的套件，像是可以整理歸類...等，滿值得試試玩玩的，這邊也提供官網的 [教學](https://developer.chrome.com/docs/extensions/get-started#tutorials)，有興趣可以看看。
