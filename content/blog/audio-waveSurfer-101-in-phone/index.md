@@ -35,7 +35,8 @@ const useRecord = () => {
       audioContextRef.current = new AudioContext({ sampleRate: SAMPLE_RATE })
     }
 
-    await audioContextRef.current.resume()
+    if (audioContext.current?.state === "suspended")
+      await audioContextRef.current.resume()
 
     const mediaStream = await handleGetUserMediaPermission(
       false,
@@ -146,11 +147,12 @@ export interface Int16ArrayEvent {
   audioBuffer: Int16Array
 }
 
-export type NodeMessageType = Int16ArrayEvent
+export type NodeMessageType = VolumeEvent | Int16ArrayEvent
 
 const CHANNEL = 1
 const SAMPLE_RATE = 16000
 const TIMER_INTERVAL = 1000
+const CHECK_HAS_AUDIO_CHUNK_TIMEOUT = 5000
 
 const constraintsDefault: MediaStreamConstraints = {
   video: false,
@@ -183,7 +185,9 @@ const useRecord = (drawWaveform: boolean = false) => {
   const analyserRef = useRef<AnalyserNode | null>(null)
   const microphoneRef = useRef<MediaStreamAudioSourceNode | null>(null)
   const nodeRef = useRef<AudioWorkletNode | null>(null)
+  const checkHasAudioChunkTimeoutIdRef = useRef<number | null>(null)
   const [audioChunk, setAudioChunk] = useState<Int16Array[]>([])
+  const hasAudioChunk = useRef(false)
   const waveformAnimationIdRef = useRef<number | null>(null)
   const timerIntervalIdRef = useRef<ReturnType<typeof setInterval>>()
   const [recordTime, setRecordTime] = useState(0)
@@ -201,6 +205,12 @@ const useRecord = (drawWaveform: boolean = false) => {
 
   const stopRecordTimer = () => {
     if (timerIntervalIdRef.current) clearInterval(timerIntervalIdRef.current)
+  }
+
+  const stopCheckHasAudioChunkTimeout = () => {
+    if (checkHasAudioChunkTimeoutIdRef.current) {
+      clearTimeout(checkHasAudioChunkTimeoutIdRef.current)
+    }
   }
 
   const cleanupStream = useCallback(() => {
@@ -237,17 +247,28 @@ const useRecord = (drawWaveform: boolean = false) => {
   }, [])
 
   const handleCloseStream = useCallback(async () => {
+    stopCheckHasAudioChunkTimeout()
     stopRecordTimer()
     cleanupWaveform()
     cleanupAudioNode()
 
-    // this just suspend
     if (audioContextRef.current?.state === "running") {
       await audioContextRef.current.suspend()
     }
 
     cleanupStream()
   }, [cleanupStream, cleanupWaveform, cleanupAudioNode])
+
+  const startCheckHasAudioChunkTimeout = () => {
+    checkHasAudioChunkTimeoutIdRef.current = setTimeout(async () => {
+      if (!hasAudioChunk.current) {
+        toast.error("無法取得麥克風音訊，請重整頁面")
+        hasAudioChunk.current = false
+        setAudioChunk([]) // reset audio chunk when no audio chunk
+        await handleCloseStream()
+      }
+    }, CHECK_HAS_AUDIO_CHUNK_TIMEOUT)
+  }
 
   const handleRecord = async (currentAudioDevice: string | null) => {
     if (!currentAudioDevice) return
@@ -274,6 +295,13 @@ const useRecord = (drawWaveform: boolean = false) => {
     )
 
     if (mediaStream) {
+      if (checkHasAudioChunkTimeoutIdRef.current) {
+        clearTimeout(checkHasAudioChunkTimeoutIdRef.current)
+        checkHasAudioChunkTimeoutIdRef.current = null
+      }
+
+      hasAudioChunk.current = false
+
       setAudioChunk([]) // reset audio chunk when record
       setStream(mediaStream)
 
@@ -295,6 +323,7 @@ const useRecord = (drawWaveform: boolean = false) => {
           if (e.data.eventType === NodeEventType.INT16ARRAY) {
             const { audioBuffer } = e.data
             setAudioChunk(prev => [...prev, audioBuffer])
+            if (!hasAudioChunk.current) hasAudioChunk.current = true
           }
         }
 
@@ -358,6 +387,10 @@ const useRecord = (drawWaveform: boolean = false) => {
         .connect(analyserRef.current)
         .connect(nodeRef.current)
         .connect(audioContextRef.current.destination)
+
+      // 檢查 audioChunk 是否有起來，如果沒起來就告警，在做工具類型這些東西會很重要
+      // 你不會希望客戶或著使用者錄一錄結果根本沒錄到什麼東西，要重錄
+      startCheckHasAudioChunkTimeout()
     } else {
       toast.error("無法取得麥克風音訊，請重整頁面")
     }
@@ -402,7 +435,7 @@ const useRecord = (drawWaveform: boolean = false) => {
     }
   }, [])
 
-  // visibilitychange change
+  // close stream record when page close or visibility change
   useEffect(() => {
     const handleClose = async () => {
       await handleCloseStream()
@@ -450,6 +483,7 @@ const useRecord = (drawWaveform: boolean = false) => {
     setRecordTime,
     mediaPermission,
     audioContextRef,
+    hasAudioChunk,
   }
 }
 
