@@ -657,7 +657,6 @@ class Logger {
   printName(name = "there") {
     this.print(`Hello ${name}`)
   }
-
   print(text) {
     console.log(text)
   }
@@ -681,11 +680,9 @@ class Logger {
     // 這裡的 bind(this) 確保 printName 在解構賦值後，仍能正確存取 Logger 實例的 this，不會因為 this 綁定的問題導致錯誤
     this.printName = this.printName.bind(this)
   }
-
   printName(name = "there") {
     this.print(`Hello ${name}`)
   }
-
   print(text) {
     console.log(text)
   }
@@ -701,7 +698,6 @@ class Logger {
   printName(name = "there") {
     this.print(`Hello ${name}`)
   }
-
   print(text) {
     console.log(text)
   }
@@ -722,7 +718,6 @@ class Logger {
       this.print(`Hello ${name}`)
     }
   }
-
   print(text) {
     console.log(text)
   }
@@ -738,7 +733,6 @@ class Logger {
   printName(name = "there") {
     this.print(`Hello ${name}`)
   }
-
   print(text) {
     console.log(text)
   }
@@ -768,9 +762,9 @@ const { printName } = logger
 printName()
 ```
 
-下方簡單講一下為何使用 `proxy` 可以節省記憶體，原因在於當我創建複數個實例 `this.printName` `this.print` 都會重新再去 bind 一次，儘管可能 `this.print` 可能根本沒做使用。
+下方簡單講一下為何使用 `proxy` 可以節省記憶體，原因在於當我創建複數個實例 `this.printName` `this.print` 都會重新再去 bind 一次，儘管可能其中的方法可能根本沒做使用。
 
-而由於 `proxy` 是監控，只有當該方法第一次被存取時，才會執行 `bind`，減少不必要的函式產生，且這裡個 `WeakMap` 針對的是函式，而不是實例，因此即使建立多個 `Logger` 實例，他們仍可以共用 `printName`。
+而由於 `proxy` 是監控，只有當該方法第一次被存取時，才會執行 `bind`，減少不必要的函式產生，且這裡的 `WeakMap` 針對的是函式，而不是實例，因此即使建立多個 `Logger` 實例，他們仍可以共用 `printName` 的 `bind` 版本。
 
 ```js
 class Logger {
