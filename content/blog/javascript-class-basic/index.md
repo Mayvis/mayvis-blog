@@ -796,7 +796,7 @@ function Person(name) {
   if (new.target !== undefined) {
     this.name = name
   } else {
-    throw new Error("必须使用 new 命令生成實例")
+    throw new Error("必須使用 new 命令生成實例")
   }
 }
 
@@ -805,13 +805,13 @@ function Person(name) {
 //   if (new.target === Person) {
 //     this.name = name
 //   } else {
-//     throw new Error("必须使用 new 命令生成實例")
+//     throw new Error("必須使用 new 命令生成實例")
 //   }
 // }
 
 const person = new Person("Jennie") // good
 const newParson = Reflect.construct(Person, ["Jennie"]) // good
-const notAPerson = Person.call(person, "Jennie") // 必须使用 new 命令生成實例
+const notAPerson = Person.call(person, "Jennie") // 必須使用 new 命令生成實例
 ```
 
 在 `class` 內部調用，返回當前 Class
