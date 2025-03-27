@@ -1,7 +1,7 @@
 ---
 title: Checkmarx Potential Clickjacking on Legacy Browsers
 date: "2025-03-27T12:00:00.000Z"
-description: 今天來解決 checkmarx potential clickjacking 網站弱掃的 bug，順便解釋一下自己的看法。
+description: 今天來解決 Checkmarx potential clickjacking 網站源碼弱掃的 issue，順便解釋一下自己的看法。
 tags: ["checkmarx"]
 ---
 
