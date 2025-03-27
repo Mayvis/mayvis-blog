@@ -67,7 +67,7 @@ tags: ["checkmarx"]
 <img src='../../../src/assets/checkmarx-issue-3.png' alt='image'>
 <br>
 
-簡而言之，因為伺服 CSP 的關係，這部分也是因為 **弱掃所以你必須強制添加**，你不能使用 inline code
+簡而言之，因為伺服 CSP 的關係，這部分也是因為 **弱掃所以必須強制添加**，不能使用 inline code
 
 ```ts
 // 拿 express 並使用 helmet 來進行添加 CSP
@@ -98,6 +98,8 @@ app.use(
 所以要怎麼解決呢？既要能 inline code，且也要能 bypass CSP 的規則。
 
 其實 script 有一個 nonce (Number used once) 這東西，用於標示每次頁面載入時允許執行的程式碼，但這必須透過伺服器並搭配前端去設定。
+
+如果想更深一點的去了解可以參考 Will 保哥的 [文章](https://blog.miniasp.com/post/2023/12/22/Inline-script-and-CSP-settings-nonce-hash)
 
 我們來改寫 html
 
@@ -159,8 +161,15 @@ app.use(
  * Serve static file
  * ---------------------------------------
  */
-const staticMiddleware = express.static(join(__dirname, "..", "public"))
-app.use(staticMiddleware)
+app.use((req, res, next) => {
+  // prevent serving index.html automatically
+  if (req.path === '/' || req.path.endsWith('.html')) {
+    return next()
+  }
+
+  // pass the request to the next middleware function
+  express.static(join(__dirname, '..', 'public'))(req, res, next)
+})
 
 app.get("*", async (_req, res) => {
   try {
@@ -183,11 +192,9 @@ app.get("*", async (_req, res) => {
 
 ### Conclusion
 
-其實我覺得解決弱掃問題很吃經驗，你處理了某個弱點，但處理的方式又間接去影響了你解決其他弱點的情況。
+其實我覺得解決弱掃問題很吃經驗，你處理了某個弱點，但處理的方式又間接去影響了你解決其他弱點的情況；重點是，其實這種還算是比較簡單的 😅，有些情況更為複雜。
 
-重點是，這種還算是比較簡單的 😅，有些情況更為複雜。
-
-其實 Checkmarx 可以改變狀態，如果當這個弱點可被認定為沒有風險，工程師可以將其標注其為 Not Exploitable。
+最後 Checkmarx 是有提供可以改變狀態的選項，如果當這個弱點可被認定為沒有風險，工程師可以將其標注其為 Not Exploitable。
 
 <img src='../../../src/assets/checkmarx-issue-5.png' alt='image'>
 <br>
