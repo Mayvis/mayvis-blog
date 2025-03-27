@@ -11,20 +11,23 @@ tags: ["checkmarx"]
 
 首先我必須講 Checkmarx 源碼的弱掃是一個非常大的坑，很多其實是你解不掉的，舉個例子，各位使用 nodejs 開發伺服，應該或多或少都會使用 expressjs 這套 lib 吧。
 
-`express@4.21.2` 及其全家桶 `morgan@1.10.0` 這兩套，也是我在寫這篇文章當下的最新版本，這兩個 lib 在 Checkmarx 會有 SCA 的 low issue，原因是這兩個 lib 還在使用 `debug@2.6.9`。
+`express@4.21.2` 及其全家桶 `morgan@1.10.0` `compression@1.8.0`，也是我在寫這篇文章當下的最新版本，這三個 lib 在 Checkmarx 會有 SCA 的 low issue，原因是這三個 lib 還在使用 `debug@2.6.9`。
 
 這部分目前 express 的團隊沒打算更新，原因在這邊有敘述 [參考](https://github.com/expressjs/morgan/issues/294)。題外話，你在 package.json 使用 resolutions 或 overrides 是沒用的，Checkmarx 是針對 lib。
 
-<img src='../../../src/assets/checkmarx-issue-1.png' alt='image'>
+<img src='../../../src/assets/checkmarx-issue-express.png' alt='image'>
 <br>
 
-<img src='../../../src/assets/checkmarx-issue-2.png' alt='image'>
+<img src='../../../src/assets/checkmarx-issue-morgan.png' alt='image'>
+<br>
+
+<img src='../../../src/assets/checkmarx-issue-compression.png' alt='image'>
 <br>
 <br>
 
 所以解法有什麼呢？
 
-1. 最好的方式，當然是 PM 要能說服客戶，會建議是一開始就要談不能將 issue 清 0，且要有彈性空間，但這也取決於 PM 的能力，目前我們公司遇到的廠商都踩得很硬。
+1. 最好的方式，當然是 PM 要能說服客戶，會建議是一開始就要談不能將 issue 清 0，且要有彈性空間，但這也取決於 PM 的能力，坦白說目前我們公司遇到的廠商都踩得很硬。
 2. 乾脆不使用，但這不合邏輯，搞不好你開發很久了，就因為這個解不掉就不用太奇怪了。
 3. 所以最終你可能要自己 fork 下來更新。
 
@@ -64,7 +67,7 @@ tags: ["checkmarx"]
 
 掃描後 Checkmarx 沒有錯誤訊息了，一切都很美好，但是當你將前端伺服跑起來時，頁面整片白白的，console 會跳警告
 
-<img src='../../../src/assets/checkmarx-issue-3.png' alt='image'>
+<img src='../../../src/assets/checkmarx-issue-csp.png' alt='image'>
 <br>
 
 簡而言之，因為伺服 CSP 的關係，這部分也是因為 **弱掃所以必須強制添加**，不能使用 inline code
@@ -86,7 +89,7 @@ app.use(
 
 搞定，再扔進去掃描
 
-<img src='../../../src/assets/checkmarx-issue-4.png' alt='image'>
+<img src='../../../src/assets/checkmarx-issue-framebusting.png' alt='image'>
 <br>
 
 🤯
@@ -163,12 +166,12 @@ app.use(
  */
 app.use((req, res, next) => {
   // prevent serving index.html automatically
-  if (req.path === '/' || req.path.endsWith('.html')) {
+  if (req.path === "/" || req.path.endsWith(".html")) {
     return next()
   }
 
   // pass the request to the next middleware function
-  express.static(join(__dirname, '..', 'public'))(req, res, next)
+  express.static(join(__dirname, "..", "public"))(req, res, next)
 })
 
 app.get("*", async (_req, res) => {
@@ -196,7 +199,7 @@ app.get("*", async (_req, res) => {
 
 最後 Checkmarx 是有提供可以改變狀態的選項，如果當這個弱點可被認定為沒有風險，工程師可以將其標注其為 Not Exploitable。
 
-<img src='../../../src/assets/checkmarx-issue-5.png' alt='image'>
+<img src='../../../src/assets/checkmarx-issue-status.png' alt='image'>
 <br>
 
 但是客戶同不同意又是另一件事。😂
