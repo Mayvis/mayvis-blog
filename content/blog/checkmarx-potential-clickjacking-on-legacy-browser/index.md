@@ -15,13 +15,9 @@ tags: ["checkmarx"]
 
 這部分目前 express 的團隊沒打算更新，原因在這邊有敘述 [參考](https://github.com/expressjs/morgan/issues/294)。題外話，你在 package.json 使用 resolutions 或 overrides 是沒用的，Checkmarx 是針對 lib。
 
+附上其中一張，顯示版本不夠的圖。
+
 <img src='../../../src/assets/checkmarx-issue-express.png' alt='image'>
-<br>
-
-<img src='../../../src/assets/checkmarx-issue-morgan.png' alt='image'>
-<br>
-
-<img src='../../../src/assets/checkmarx-issue-compression.png' alt='image'>
 <br>
 <br>
 
