@@ -49,17 +49,14 @@ export const useUserStore = create<UserState>(set => ({
 ```
 
 ```tsx
-import { type FC } from 'react'
-import { useUserStore } from '@/store'
+import { useUserStore } from "@/store"
 
-const App: FC = () => {
+function App() {
   const { token, name, nickname, logout, login, getInfo } = useUserStore()
 
   // your login process...
 
-  return (
-    <div>...</div>
-  )
+  return <div>...</div>
 }
 
 export default App
@@ -273,13 +270,13 @@ const store = createStore(...)
 
 const StoreContext = createContext()
 
-const App = () => (
+function App() (
   <StoreContext.Provider value={store}>
     ...
   </StoreContext.Provider>
 )
 
-const Component = () => {
+function Component() {
   const store = useContext(StoreContext)
   const slice = useStore(store, selector)
 
@@ -306,7 +303,7 @@ const someFn = () => {
 ```tsx
 const useScratchStore = create(set => ({ scratches: 0, ... }))
 
-const Component = () => {
+function Component() {
   // 獲得初始狀態
   const scratchRef = useRef(useScratchStore.getState().scratches)
 
@@ -318,6 +315,7 @@ const Component = () => {
   return (
     <div>...</div>
   )
+}
 ```
 
 ### Conclusion
