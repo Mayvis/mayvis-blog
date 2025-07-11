@@ -225,6 +225,101 @@ p.resolve('Hello') // <-- 不會觸發 .then()
 
 所以 onlyResolvesLast 簡單講就是將先前的 promise 不停的 cancel，直到最後一個時間到有被成功執行。
 
+### Zod with react-hook-form onChange
+
+Zod 由於不知道是哪個欄位發生變化，所以當你在 react-hook-form mode 使用的是 onChange 時，每次都會觸發整個 schema 的驗證，假設你又有處理 async validation 的話，這樣會導致效能不佳，及不必要的驗證。
+
+像是下面的範例，其實我主要是要驗證 name 與 company 兩個欄位，但當我修改 description 時 checkPersonExists 也會跟著觸發。
+
+```tsx
+const formSchema = z.object({
+  name: z.string().min(1, 'Name is required'),
+  company: z.string().min(1, 'Company is required'),
+  description: z.string(),
+}).refine(awesomeDebouncePromise(async ({ name, company }) => {
+  // 假設這邊有 async validation
+  return !(await checkPersonExists({ name, company}))
+}, 1000), {
+  message: 'Name and Company must be valid',
+  path: ['name']
+})
+
+type FormSchema = z.infer<typeof formSchema>
+
+const form = useForm<FormSchema>({
+  resolver: zodResolver(formSchema),
+  mode: 'onChange', // 每次 onChange 都會觸發整個 schema 的驗證
+  defaultValues: defaultFormValues
+})
+```
+
+要如何改寫呢？一種是使用 `useWatch` 來監聽特定欄位的變化，然後在 `useEffect` 中進行驗證。
+
+```tsx
+import { useWatch } from 'react-hook-form'
+import { useEffect } from 'react'
+
+const form = useForm<FormSchema>({
+  resolver: zodResolver(formSchema),
+  mode: 'onChange',
+  defaultValues: defaultFormValues
+})
+
+// const name = form.watch('name')
+// const company = form.watch('company')
+const name = useWatch({ control: form.control, name: 'name' })
+const company = useWatch({ control: form.control, name: 'company' })
+
+useEffect(() => {
+  const validate = async () => {
+    const isValid = await checkPersonExists({ name, company })
+    if (!isValid) {
+      form.setError('name', { message: 'Name and Company must be valid' })
+    } else {
+      form.clearErrors('name')
+    }
+  }
+
+  if (name && company) {
+    validate()
+  }
+}, [name, company, form])
+```
+
+但我個人其實不偏好這種方式，因為這樣會導致邏輯分散，我也會盡量不去使用 `useEffect`，且需要手動管理錯誤狀態，我個人喜歡這樣去寫，將 formSchema 改為 function call 的方式，並管理前後的狀態，這樣可以更清楚地知道何時需要進行驗證，且也不會邏輯分散。
+
+使用時，記得加入 `useMemo` 來避免每次渲染都重新建立 schema。
+
+```tsx
+export const formSchema = () => {
+  // persist previous values to avoid unnecessary validation
+  let prevName = ''
+  let prevCompany = ''
+
+  return z.object({
+    name: z.string().min(1, 'Name is required'),
+    company: z.string().min(1, 'Company is required'),
+    description: z.string(),
+  }).refine(awesomeDebouncePromise(async ({ name, company }) => {
+    // 當 name 或 company 改變時，才進行驗證
+    if (name === prevName && company === prevCompany) {
+      return true
+    }
+
+    prevName = name
+    prevCompany = company
+
+    // 假設這邊有 async validation
+    return !(await checkPersonExists({ name, company }))
+  }, 1000), {
+    message: 'Name and Company must be valid',
+    path: ['name']
+  })
+}
+
+export type FormSchema = z.infer<ReturnType<typeof formSchema>>
+```
+
 ### zod 101
 
 Zod 支援驗證邏輯的抽離，重用與延伸...等
