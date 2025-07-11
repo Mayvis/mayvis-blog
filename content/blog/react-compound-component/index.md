@@ -7,7 +7,7 @@ tags: ["react"]
 
 ### Preface
 
-Compound Component (復合元件) 是一個程式設計概念，他也出現在滿多的 lib 中，在 react 中尤其是 headleass UI component，他算是舉足輕重的角色，去年因為公司主管的要求，我將公司的部分網站，轉往使用 react，經過一番 search 後，我們的元件庫是使用 shacn ui，這套也是使用 compound component，所以今天我就來解釋一下這是什麼樣的設計理念。
+Compound Component (復合元件) 是一個程式設計概念，他也出現在滿多的 lib 中，在 react 中尤其是 headleass UI component，他算是舉足輕重的角色，去年因為公司主管的要求，我將公司的部分網站，轉往使用 react，經過一番 search 後，我們的元件庫是使用 Shacn ui，這套也是使用 compound component，所以今天我就來解釋一下這是什麼樣的設計理念。
 
 ### Goal
 
@@ -161,9 +161,9 @@ Product.Comments = Comments
 export default Product
 ```
 
-按照 compund component 的設計思路，我自己個人傾向會將其定義成上面這樣，效果如下圖：
+按照 compound component 的設計思路，我自己個人傾向會將其定義成上面這樣，效果如下圖：
 
-<img src='../../../src/assets/compund-component.png' alt='compund component' />
+<img src='../../../src/assets/compund-component.png' alt='compound component' />
 <br />
 
 你可以依據自己的需求去引入相對應的元件，需要時再將其引入就好。
