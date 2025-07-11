@@ -238,7 +238,7 @@ const formSchema = z.object({
   description: z.string(),
 }).refine(awesomeDebouncePromise(async ({ name, company }) => {
   // 假設這邊有 async validation
-  return !(await checkPersonExists({ name, company}))
+  return !(await checkPersonExists({ name, company }))
 }, 1000), {
   message: 'Name and Company must be valid',
   path: ['name']
