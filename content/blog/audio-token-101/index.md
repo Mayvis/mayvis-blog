@@ -2,7 +2,7 @@
 title: Audio Token 101
 date: "2025-09-25T12:00:00.000Z"
 description: 相信有在做音頻相關的公司應該都會遇到這個問題，就是如果你的音檔需要驗證才能在網頁上播放，該怎麼處理這個驗證問題，這篇文章是寫我們在音檔驗證上遇到的問題以及解決方案，此篇主要是針對前端的解決方案。
-tags: ["javascript", "react"]
+tags: ["typescript", "react", "checkmarx", "service-worker"]
 ---
 
 ### Preface

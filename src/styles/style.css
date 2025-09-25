@@ -87,6 +87,7 @@
   --webAssembly-tag: rgba(161, 109, 248, 0.4);
   --chrome-extension-tag: rgba(142, 157, 158, 0.4);
   --checkmarx-tag: rgba(107, 53, 254, 0.4);
+  --service-worker-tag: rgba(238, 169, 65, 0.4);
 }
 
 .dark-theme {
@@ -117,6 +118,7 @@
   --webAssembly-tag: rgba(161, 109, 248, 1);
   --chrome-extension-tag: rgba(142, 157, 158, 1);
   --checkmarx-tag: rgba(107, 53, 254, 1);
+  --service-worker-tag: rgba(238, 169, 65, 1);
 }
 
 /* HTML elements */
@@ -455,6 +457,10 @@ a:focus {
 
 .checkmarx-tag {
   background-color: var(--checkmarx-tag);
+}
+
+.service-worker-tag {
+  background-color: var(--service-worker-tag);
 }
 
 .header-link-home {
