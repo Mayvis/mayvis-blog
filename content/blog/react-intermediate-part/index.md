@@ -67,6 +67,113 @@ const Component = () => {
 export default Component;
 ```
 
+### useEffectEvent
+
+下面的範例出自 [React 官方文件](https://react.dev/reference/react/useEffectEvent)，想必大家在使用 useEffect 一定會遇到以下的問題：
+
+```jsx
+// 不必要的依賴
+const [theme, setTheme] = useState(initialTheme);
+
+useEffect(() => {
+  const conn = connect(roomId);
+  conn.on('connected', () => showNotification(theme));
+  conn.connect();
+  return () => conn.disconnect();
+}, [roomId, theme]); // theme 改了也會重跑（其實不想😢）
+```
+
+當我們在 useEffect 裡面使用到外部的變數時，React 會要求我們把這些變數加入 dependency array 裡面，這樣做的目的是為了確保當這些變數改變時，useEffect 會重新執行，以確保我們使用到的是最新的值。但是有時候我們並不希望 useEffect 因為某些變數的改變而重新執行，像是上面的範例中，我們並不希望 theme 的改變會導致 useEffect 重新執行，因為這樣會導致連線被重新建立，這不是我們想要的行為。
+
+```jsx
+// Latest Ref Pattern 解法
+const [theme, setTheme] = useState(initialTheme);
+const themeRef = useRef(theme);
+
+// 讓 ref 保持最新的值
+useEffect(() => {
+  themeRef.current = theme;
+}, [theme]);
+
+useEffect(() => {
+  const conn = connect(roomId);
+  conn.on('connected', () => showNotification(themeRef.current));
+  conn.connect();
+  return () => conn.disconnect();
+}, [roomId]); // 只會在 roomId 改時重跑
+```
+
+在 react 19.2 官方釋出的這個 hook，可以解決上述的問題，他的實質作用我覺得用英文來講比較準確，是將 non-reactive logic inside effects 提出來，使用該變數不會導致 useEffect 重新執行。
+
+```jsx
+// non-reactive logic inside effects
+const onConnected = useEffectEvent(() => {
+  showNotification('Connected!', theme);
+});
+
+useEffect(() => {
+  const connection = createConnection(serverUrl, roomId);
+  connection.on('connected', () => {
+    onConnected(); // 將引用會導致重新執行的變數移到 useEffectEvent 裡面
+  });
+  connection.connect();
+  return () => connection.disconnect();
+}, [roomId]);
+```
+
+老實說，我不太確定這個 hook 是否是最佳解，因為老實說他在無形中又增加了一些心智負擔，但是當面臨產品實際的情況，相依參數的增加，的確可以減少許多程式碼，像是下面這個範例：
+
+```jsx
+// Latest Ref Pattern 寫法
+const [theme, setTheme] = useState(initialTheme);
+const [userId, setUserId] = useState(0);
+
+const themeRef = useRef(theme);
+const userIdRef = useRef(userId);
+
+// 手動同步 Ref
+useEffect(() => {
+  themeRef.current = theme;
+  userIdRef.current = userId;
+  //... 假設還有其他參數也要同步，會一路往下寫，依此類推，而使用 useEffectEvent 就不需要這樣做
+  // xxx.current = xxx;
+}, [theme, userId]);
+
+// 假設這是一個判斷是否需要強制重連的邏輯
+const isSpecialUser = userId === 1;
+
+useEffect(() => {
+  const conn = connect(roomId);
+  conn.on('connected', () => {
+    // 從 Ref 讀取最新值，避開閉包陷阱
+    showNotification(`User ${userIdRef.current} connected with ${themeRef.current} theme`);
+  });
+  conn.connect();
+  return () => conn.disconnect();
+}, [roomId, isSpecialUser]); // 只有 roomId 或身分轉變時才重連
+```
+
+```jsx
+// 新的寫法
+const [theme, setTheme] = useState(initialTheme);
+const [userId, setUserId] = useState(0);
+
+// 自動保持最新，不需手動寫 useRef 和同步用 useEffect
+const onConnected = useEffectEvent(() => {
+  showNotification(`User ${userId} connected with ${theme} theme`);
+});
+
+// 假設這是一個判斷是否需要強制重連的邏輯
+const isSpecialUser = userId === 1;
+
+useEffect(() => {
+  const conn = connect(roomId);
+  conn.on('connected', onConnected); // 永遠呼叫到最新的邏輯
+  conn.connect();
+  return () => conn.disconnect();
+}, [roomId, isSpecialUser]); // 清晰定義：只有這兩個變了才重連
+```
+
 ### useContext
 
 ```jsx
