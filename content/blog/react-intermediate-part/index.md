@@ -328,6 +328,67 @@ const ReducerComponent = () => {
 }
 ```
 
+### useSyncExternalStore
+
+這是於 react 18 新增的 hook，坦白說我目前沒有使用過，他最主要的目的是解決 React 18 迸發渲染 (Concurrent Rendering) 帶來的 tearing (數據撕裂) 的問題，詳情可以參考這份 [討論](https://github.com/reactwg/react-18/discussions/69)。
+
+#### Tearing
+
+引入迸發模式後，React 可以在同一時間渲染多個視圖，如果一個組件在更新時訂閱了多個數據 (ex: 一個外部、一個內部)，而外部數據在更新期間發生了變化，組間的內部狀態和外部狀態可能在不同的時間點更新，導致渲染出的視圖在同一幀內同時顯示新舊兩種狀態，這種現象稱為 tearing。
+
+#### Solution
+
+為了解決上訴問題，所以就需要一個能同步內部及外部狀態 (ex: zustand、redux) 的機制，而 `useSyncExternalStore` 就是用來解決這問題的 hook。
+
+```js
+// 外部 todoStore.js
+let nextId = 0;
+let todos = [{ id: nextId++, text: 'Todo #1' }];
+let listeners = [];
+
+export const todosStore = {
+  addTodo() {
+    todos = [...todos, { id: nextId++, text: 'Todo #' + nextId }]
+    emitChange();
+  },
+  subscribe(listener) {
+    listeners = [...listeners, listener];
+    return () => {
+      listeners = listeners.filter(l => l !== listener);
+    };
+  },
+  getSnapshot() {
+    return todos;
+  }
+};
+
+function emitChange() {
+  for (let listener of listeners) {
+    listener();
+  }
+}
+```
+
+```jsx
+import { useSyncExternalStore } from 'react';
+import { todosStore } from './todoStore.js';
+
+export default function TodosApp() {
+  const todos = useSyncExternalStore(todosStore.subscribe, todosStore.getSnapshot);
+  return (
+    <>
+      <button onClick={() => todosStore.addTodo()}>Add todo</button>
+      <hr />
+      <ul>
+        {todos.map(todo => (
+          <li key={todo.id}>{todo.text}</li>
+        ))}
+      </ul>
+    </>
+  );
+}
+```
+
 ### React.memo
 
 當某個元件裡的狀態發生改變時，react會重新渲染該組件，如果有子組件，儘管它與該組件狀態無關，但是它也會被重新渲染，而這時候就可以使用 React.memo 來避免不必要的重新渲染。
