@@ -91,6 +91,34 @@ export const useUserStore = create<UserState>(set => ({
 }))
 ```
 
+### useShallow
+
+在 Zustand 中，預設使用「嚴格相等比較」(old === new)。如果你在 useStore 中回傳一個新的物件或陣列，即使裡面的內容沒變，React 也會認為狀態更新了，進而觸發重新渲染。
+
+```tsx
+// 每次 Store 改變，這裡都會回傳一個全新的物件 {}
+// 即使 nuts 和 honey 沒變，組件也會重新渲染
+const { nuts, honey } = useBearStore((state) => ({
+  nuts: state.nuts,
+  honey: state.honey,
+}))
+```
+
+`useShallow` 會對選取出來的內容進行淺層比較 (Shallow Comparison)。它會檢查物件的第一層屬性是否相同，如果內容一致，就不會觸發重新渲染。 
+
+```tsx
+const { nuts, honey } = useBearStore(
+  useShallow((state) => ({
+    nuts: state.nuts,
+    honey: state.honey,
+  }))
+)
+```
+
+- 適用場景：當你的 Selector 回傳的是物件、陣列等非原始型別時。
+- 比較深度：僅進行「第一層」比較（淺比較），不適合處理深層嵌套物件的變化。
+- 效能優點：相較於舊版的 shallow 參數，useShallow 是官方推薦的新方式，能更有效地與 React Hooks 整合並減少 Bundle Size。
+
 ### Using with devtool
 
 zustand 是可以直接使用 react-redux 的瀏覽器套件，但需要額外再 create 內在包一層。
@@ -280,7 +308,7 @@ function Component() {
   const store = useContext(StoreContext)
   const slice = useStore(store, selector)
 
-  ruturn {
+  return {
     <div>...</div>
   }
 }
