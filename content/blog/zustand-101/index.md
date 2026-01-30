@@ -95,18 +95,23 @@ export const useUserStore = create<UserState>(set => ({
 
 在 Zustand 中，預設使用「嚴格相等比較」(old === new)。如果你在 useStore 中回傳一個新的物件或陣列，即使裡面的內容沒變，React 也會認為狀態更新了，進而觸發重新渲染。
 
-```tsx
+```ts
 // 每次 Store 改變，這裡都會回傳一個全新的物件 {}
 // 即使 nuts 和 honey 沒變，組件也會重新渲染
 const { nuts, honey } = useBearStore((state) => ({
   nuts: state.nuts,
   honey: state.honey,
 }))
+
+// 解決方法一：使用多個 useBearStore
+const nuts = useBearStore((state) => state.nuts)
+const honey = useBearStore((state) => state.honey)
 ```
 
 `useShallow` 會對選取出來的內容進行淺層比較 (Shallow Comparison)。它會檢查物件的第一層屬性是否相同，如果內容一致，就不會觸發重新渲染。 
 
-```tsx
+```ts
+// 使用 useShallow 進行淺比較 (優雅)
 const { nuts, honey } = useBearStore(
   useShallow((state) => ({
     nuts: state.nuts,
