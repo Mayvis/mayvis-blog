@@ -119,6 +119,55 @@ const { nuts, honey } = useBearStore(
 - 比較深度：僅進行「第一層」比較（淺比較），不適合處理深層嵌套物件的變化。
 - 效能優點：相較於舊版的 shallow 參數，useShallow 是官方推薦的新方式，能更有效地與 React Hooks 整合並減少 Bundle Size。
 
+### Persist middleware
+
+如果你希望把 store 的狀態儲存在 localstorage，或著 sessionStorage，這時就可以使用 persist middleware。
+
+```ts
+import { create } from "zustand"
+import { persist, createJSONStorage } from "zustand/middleware"
+
+interface AuthState {
+  user: string | null
+  login: (userData: string) => void
+  logout: () => void
+}
+
+const useAuthStore = create<AuthState>()(
+  persist(
+    (set) => ({
+      user: null,
+      login: (userData) => set({ user: userData }),
+      logout: () => set({ user: null }),
+    }),
+    {
+      name: 'auth-storage', // 這是儲存在 localStorage 的 Key 名稱
+      storage: createJSONStorage(() => localStorage), // 選擇儲存方式（預設即為 localStorage），react-native 可使用 AsyncStorage
+    }
+  )
+)
+```
+
+假如你不想整個 store 都做 persist，你也可以只針對部分欄位做 persist。
+
+```ts
+const useAuthStore = create<AuthState>()(
+  persist(
+    (set) => ({
+      user: null,
+      isPending: false,
+      login: (userData) => set({ user: userData }),
+      logout: () => set({ user: null }),
+    }),
+    {
+      name: 'auth-storage',
+      storage: createJSONStorage(() => localStorage),
+      partialize: (state) => ({ user: state.user }), // 只儲存 user 欄位，不儲存 isPending
+    }
+  )
+)
+```
+
 ### Using with devtool
 
 zustand 是可以直接使用 react-redux 的瀏覽器套件，但需要額外再 create 內在包一層。
