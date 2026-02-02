@@ -1,6 +1,6 @@
 ---
 title: React Hook Form with zod
-date: "2025-05-27T12:00:00.000Z"
+date: "2026-02-02T12:00:00.000Z"
 description: 相信使用 react，大部分的前端工程師都會使用到 react-hook-form 這套軟體，那這篇文章寫一些關於其的相關知識。本篇範例都是使用 shadcn ui，react-hook-form 及 zod。
 tags: ["react"]
 ---
@@ -224,6 +224,23 @@ p.resolve('Hello') // <-- 不會觸發 .then()
 ```
 
 所以 onlyResolvesLast 簡單講就是將先前的 promise 不停的 cancel，直到最後一個時間到有被成功執行。
+
+### react-hook-form useWatch vs form.watch
+
+在 react-hook-form 中，`form.watch` 跟 `useWatch` 兩者都是用來監聽表單欄位值的變化，但它們有一些不同之處：
+
+1. **form.watch**:
+   - 通常使用在表單根元件，也就是你呼叫 `useForm` 的那個 component。
+   - 它會在每次渲染時重新計算監聽的值，這可能會導致不必要的重新渲染，特別是當監聽多個欄位或整個表單時。
+   - 適合用於簡單的場景，小表單，或者你就是想在根元件中拿到很多值，ex: `watch` 看整包。
+   - 使用在 `useEffect` 要特別注意，因為每次 render 都會產生新的 reference，可能會導致無限 loop，尤其是搭配 `reset`。
+
+2. **useWatch**:
+   - 是一個獨立的 hook，可以在任何子元件中使用。
+   - 它只會在監聽的欄位值改變時觸發重新渲染，這使得它在性能上更有效率，特別是當你只需要監聽特定欄位時。
+   - 適合用於大型表單，想把重新渲染的範圍縮小，或需要在多個子元件中監聽欄位值的場景。
+
+建議，預設選 `useWatch`，除非你確定要在根元件中監聽整包的值。
 
 ### Zod with react-hook-form onChange
 
