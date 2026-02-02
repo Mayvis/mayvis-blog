@@ -1,6 +1,6 @@
 ---
 title: Zustand 101
-date: "2024-10-30T12:00:00.000Z"
+date: "2026-01-30T12:00:00.000Z"
 description: 距離上次寫文章，又過了一陣子，主要是公司最近一兩個月實在是滿忙的，一坐起來，不是去廁所的路上就是下班，這次想說來寫一下 zustand，一個管理狀態的 lib，現在在 React 群裡，是真心滿夯的，畢竟就真的很簡單可以做使用，相較於 react-redux。
 tags: ["react"]
 ---
@@ -62,7 +62,7 @@ function App() {
 export default App
 ```
 
-假設你的 store 也有儲存在 cookie，或著 localstorage，這邊可以這樣在做修改。
+假設你的 store 也有儲存在 cookie，或著 localstorage，這邊可以這樣在做修改。(你也可以使用 persist middleware，後面會介紹)
 
 ```ts
 import { getToken, setToken, removeToken } from "@/lib/auth"
@@ -90,6 +90,37 @@ export const useUserStore = create<UserState>(set => ({
   },
 }))
 ```
+
+### Persist middleware
+
+如果你希望把 store 的狀態儲存在 localstorage，或著 sessionStorage，這時就可以使用 persist middleware。
+
+```ts
+import { create } from "zustand"
+import { persist, createJSONStorage } from "zustand/middleware"
+
+interface AuthState {
+  user: string | null
+  login: (userData: string) => void
+  logout: () => void
+}
+
+const useAuthStore = create<AuthState>()(
+  persist(
+    (set) => ({
+      user: null,
+      login: (userData) => set({ user: userData }),
+      logout: () => set({ user: null }),
+    }),
+    {
+      name: 'auth-storage', // 這是儲存在 localStorage 的 Key 名稱
+      storage: createJSONStorage(() => localStorage), // 選擇儲存方式（預設即為 localStorage），react-native 可使用 AsyncStorage
+    }
+  )
+)
+```
+
+假如你不想整個 store 都做 persist，你也可以只針對部分欄位做 persist。
 
 ### useShallow
 
@@ -123,37 +154,6 @@ const { nuts, honey } = useBearStore(
 - 適用場景：當你的 Selector 回傳的是物件、陣列等非原始型別時。
 - 比較深度：僅進行「第一層」比較（淺比較），不適合處理深層嵌套物件的變化。
 - 效能優點：相較於舊版的 shallow 參數，useShallow 是官方推薦的新方式，能更有效地與 React Hooks 整合並減少 Bundle Size。
-
-### Persist middleware
-
-如果你希望把 store 的狀態儲存在 localstorage，或著 sessionStorage，這時就可以使用 persist middleware。
-
-```ts
-import { create } from "zustand"
-import { persist, createJSONStorage } from "zustand/middleware"
-
-interface AuthState {
-  user: string | null
-  login: (userData: string) => void
-  logout: () => void
-}
-
-const useAuthStore = create<AuthState>()(
-  persist(
-    (set) => ({
-      user: null,
-      login: (userData) => set({ user: userData }),
-      logout: () => set({ user: null }),
-    }),
-    {
-      name: 'auth-storage', // 這是儲存在 localStorage 的 Key 名稱
-      storage: createJSONStorage(() => localStorage), // 選擇儲存方式（預設即為 localStorage），react-native 可使用 AsyncStorage
-    }
-  )
-)
-```
-
-假如你不想整個 store 都做 persist，你也可以只針對部分欄位做 persist。
 
 ```ts
 const useAuthStore = create<AuthState>()(
