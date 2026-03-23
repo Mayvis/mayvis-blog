@@ -96,8 +96,9 @@ while (!taskQueue.isEmpty) {
 | `isEmpty` | 檢查是否為空   | **O(1)**   |
 | `size`    | 取得目前長度   | **O(1)**   |
 
+#### Shift
 
-
+在 JavaScript 中，陣列的 `shift` 方法會移除並回傳陣列的第一個元素。雖然 `shift` 的行為類似於 Queue 的 `dequeue` 操作，但它的時間複雜度是 **O(n)**，因為在移除第一個元素後，陣列中的所有其他元素都需要向前移動一個位置。因此，在需要頻繁進行隊列操作的情況下，使用 `shift` 可能會導致效能問題。
 
 ### Stack
 
